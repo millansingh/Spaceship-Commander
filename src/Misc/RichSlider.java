@@ -23,21 +23,21 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	private int value,min,max;
 	private SpaceshipGame parent;
 	
-	public RichSlider(SpaceshipGame s, int a, int b, int c)
+	public RichSlider(SpaceshipGame s, int min, int max, int val)
 	{
-		init(a,b,c);
-		if (b%10==0)
+		init(min,max,val);
+		if (max%10==0)
 		{
-			slider.setMajorTickSpacing(b/5);
-			slider.setMinorTickSpacing(b/10);
+			slider.setMajorTickSpacing(max/5);
+			slider.setMinorTickSpacing(max/10);
 		}
 		else
 		{
-			slider.setMajorTickSpacing(b/5);
-			slider.setMinorTickSpacing(b/25);
+			slider.setMajorTickSpacing(max/5);
+			slider.setMinorTickSpacing(max/25);
 		}
 		parent=s;
-		value=c;
+		value=val;
 	}
 	
 	public RichSlider(SpaceshipGame s, int a, int b, int c, int d, int e)

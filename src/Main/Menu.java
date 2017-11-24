@@ -54,8 +54,9 @@ public class Menu extends JFrame
 	GUIHandler GUI = new GUIHandler();
 	static Menu window;
 	SpaceshipGame game;
+	public static Game state;
 	
-	public Menu()
+	public Menu(Game g)
 	{
 		super("Menu");
 		
@@ -65,14 +66,8 @@ public class Menu extends JFrame
 		initGUI();
 		pShip1=cruisers[0];
 		pShip2=cruisers2[0];
-	}
-	
-	public static void main(String[] args)
-	{
-		window = new Menu();
-		window.setBounds(700, 300, 500, 400);
-		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		window.setVisible(true);
+		
+		state = g;
 	}
 	
 	public void initShips()

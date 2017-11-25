@@ -586,30 +586,12 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		JPanel weapCrewPanel = new JPanel();
-		Border border = BorderFactory.createTitledBorder("Crew Controls");
-		weapCrewPanel.setBorder(border);
-		weapCrewPanel.setLayout(new BoxLayout(weapCrewPanel,BoxLayout.Y_AXIS));
-		
-		JPanel weapCrewPanel1 = new JPanel(new FlowLayout());
-		JPanel weapCrewPanel2 = new JPanel(new FlowLayout());
-		
-		crewWeap = new JLabel("Crew assigned: " + s.Weapon.getCrewNum() + "/" + s.Weapon.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + s.getAvailableMedics());
-		
-		JLabel inj = new JLabel("Injured Crew:");
-		weapCrewInjured = new RichSlider(this, 0,s.Weapon.getInjuredCrewNum(),0);
-		sendInjuredWeap = new JButton("Send to Medbay");
-		sendInjuredWeap.addActionListener(Handler);
-		
-		weapCrewPanel1.add(crewWeap);
-		//weapCrewPanel1.add(availableMedics);
-		weapCrewPanel2.add(inj);
-		weapCrewPanel2.add(weapCrewInjured);
-		weapCrewPanel2.add(sendInjuredWeap);
-		
-		weapCrewPanel.add(weapCrewPanel1);
-		weapCrewPanel.add(weapCrewPanel2);
-		
+		crewWeap = new JLabel("suck my dick");
+		JPanel weapCrewPanel = createCrewPanel(s, crewWeap, weapCrewInjured, sendInjuredWeap);
+		System.out.println();
+		System.out.print(crewWeap.getText());
+		System.out.println();
+		System.out.print(weapCrewInjured);
 		weapPanel.add(weapCrewPanel);
 	}
 	
@@ -1145,6 +1127,42 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 		medBayPanel.add(medBayPanel4);
 		medBayPanel.add(medBayPanel5);
 		medBayPanel.add(medBayPanel6);
+	}
+	
+	private JPanel createCrewPanel(Ship s, JLabel label, RichSlider slider, JButton button) {
+		JLabel crewLabel = label;
+		RichSlider crewSlider = slider;
+		JButton sendButton = button;
+		
+		System.out.print(label.getText());
+		System.out.println();
+		System.out.print(crewLabel.getText());
+		
+		JPanel crewPanel = new JPanel();
+		Border border = BorderFactory.createTitledBorder("Crew Controls");
+		crewPanel.setBorder(border);
+		crewPanel.setLayout(new BoxLayout(crewPanel,BoxLayout.Y_AXIS));
+		
+		JPanel crewPanel1 = new JPanel(new FlowLayout());
+		JPanel crewPanel2 = new JPanel(new FlowLayout());
+		
+		crewLabel = new JLabel("Crew assigned: " + s.Weapon.getCrewNum() + "/" + s.Weapon.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + s.getAvailableMedics());
+		
+		JLabel inj = new JLabel("Injured Crew:");
+		crewSlider = new RichSlider(this, 0,s.Weapon.getInjuredCrewNum(),0);
+		sendButton = new JButton("Send to Medbay");
+		sendButton.addActionListener(Handler);
+		
+		crewPanel1.add(crewLabel);
+		//crewPanel1.add(availableMedics);
+		crewPanel2.add(inj);
+		crewPanel2.add(crewSlider);
+		crewPanel2.add(sendButton);
+		
+		crewPanel.add(crewPanel1);
+		crewPanel.add(crewPanel2);
+		
+		return crewPanel;
 	}
 	
 	public void startGame()

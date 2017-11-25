@@ -22,9 +22,10 @@ public class Game {
 		window = new JFrame();
 		window.setBounds(500, 300, 800, 600);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.getContentPane().add(mainMenu);
+		window.pack();
 		window.setVisible(true);
 		
-		window.getContentPane().add(mainMenu);
 		System.out.println("Game initialized");
 	}
 	
@@ -46,7 +47,12 @@ public class Game {
 	}
 	
 	public void goToMenu() {
-		
+		mainMenu = new Menu(this);
+		window.getContentPane().remove(game);
+		window.getContentPane().add(mainMenu);
+		window.pack();
+		window.setVisible(true);
+		state = 0;
 	}
 
 }

@@ -40,22 +40,22 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 		value=val;
 	}
 	
-	public RichSlider(SpaceshipGame s, int a, int b, int c, int d, int e)
+	public RichSlider(SpaceshipGame s, int min, int max, int val, int majTick, int minTick)
 	{
-		init(a,b,c);
-		slider.setMajorTickSpacing(d);
-		slider.setMinorTickSpacing(e);
+		init(min,max,val);
+		slider.setMajorTickSpacing(majTick);
+		slider.setMinorTickSpacing(minTick);
 		parent=s;
-		value=c;
+		value=max;
 	}
 	
-	private void init(int a, int b, int c)
+	private void init(int min, int max, int val)
 	{
 		plus = new JButton("+");
 		plus.addActionListener(this);
 		minus = new JButton("-");
 		minus.addActionListener(this);
-		slider = new JSlider(a,b,c);
+		slider = new JSlider(min,max,val);
 		slider.setPaintLabels(true);
 		slider.setPaintTicks(true);
 		//slider.setSnapToTicks(true);
@@ -68,10 +68,10 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 		add(plus);
 		add(text);
 		
-		max=b;
-		min=c;
-		slider.setValue(c);
-		text.setText(Integer.toString(c));
+		this.max= max;
+		this.min=min;
+		slider.setValue(val);
+		text.setText(Integer.toString(val));
 	}
 	
 	public int getValue()

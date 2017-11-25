@@ -80,10 +80,7 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 	/***************************************************************************************************************************************/
 
 	//Sliders and RichSliders for various.
-	
-	private JSlider shieldSlider, engineSlider,
-			weapCrewInjured, shieldCrewInjured, engineCrewInjured, reactorCrewInjured, lifeSupportCrewInjured, sensorsCrewInjured, medBayThreshold;
-	private RichSlider crewSlider, lifeSupportSlider, weapSlider, sensorsSlider,
+	private RichSlider sensorsCrewInjured, medBayThreshold, reactorCrewInjured, engineCrewInjured, lifeSupportCrewInjured, shieldCrewInjured, weapCrewInjured, engineSlider, shieldSlider, crewSlider, lifeSupportSlider, weapSlider, sensorsSlider,
 			extinguishWeapon, extinguishShield, extinguishEngine, extinguishReactor, extinguishLifeSupport, extinguishMedBay, extinguishSensors;
 	
 	/***************************************************************************************************************************************/
@@ -600,12 +597,7 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 		crewWeap = new JLabel("Crew assigned: " + s.Weapon.getCrewNum() + "/" + s.Weapon.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + s.getAvailableMedics());
 		
 		JLabel inj = new JLabel("Injured Crew:");
-		weapCrewInjured = new JSlider(0,s.Weapon.getInjuredCrewNum(),0);
-		weapCrewInjured.setMajorTickSpacing(5); 
-		weapCrewInjured.setMinorTickSpacing(1);
-		weapCrewInjured.setPaintTicks(true);
-		weapCrewInjured.setPaintLabels(true);
-		weapCrewInjured.setSnapToTicks(true);
+		weapCrewInjured = new RichSlider(this, 0,s.Weapon.getInjuredCrewNum(),0);
 		sendInjuredWeap = new JButton("Send to Medbay");
 		sendInjuredWeap.addActionListener(Handler);
 		
@@ -648,13 +640,7 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 		shieldExtinguish = new JLabel(extinguishNIcon);
 		
 		shieldAmount = new JLabel("How much energy to allocate for shields (max of " + s.getMaxShields() + " energy):");
-		shieldSlider = new JSlider(0,s.getMaxShields(),0);
-		shieldSlider.setMajorTickSpacing(s.getMaxShields()/5);
-		shieldSlider.setMinorTickSpacing(s.getMaxShields()/25);
-		shieldSlider.setPaintTicks(true);
-		shieldSlider.setPaintLabels(true);
-		shieldSlider.setSnapToTicks(true);
-		shieldSlider.addChangeListener(Handler);
+		shieldSlider = new RichSlider(this,0,s.getMaxShields(),0);
 		
 		JLabel target = new JLabel("Shield Protection Targets (in order of importance):");
 		cShield = new JComboBox(cNames);
@@ -745,12 +731,7 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 				+ s.Shield.getEngineersNeededOverload() + " for overload procedure).  ||  Medics available: " + s.getAvailableMedics());
 		
 		JLabel inj = new JLabel("Injured Crew:");
-		shieldCrewInjured = new JSlider(0,s.Shield.getInjuredCrewNum(),0);
-		shieldCrewInjured.setMajorTickSpacing(5); 
-		shieldCrewInjured.setMinorTickSpacing(1);
-		shieldCrewInjured.setPaintTicks(true);
-		shieldCrewInjured.setPaintLabels(true);
-		shieldCrewInjured.setSnapToTicks(true);
+		shieldCrewInjured = new RichSlider(this, 0,s.Shield.getInjuredCrewNum(),0);
 		sendInjuredShield = new JButton("Send to Medbay");
 		sendInjuredShield.addActionListener(Handler);
 		
@@ -814,13 +795,9 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 		engineExtinguish = new JLabel(extinguishNIcon);
 		
 		engineAmount = new JLabel("How much energy to allocate for propulsion (max of " + s.getMaxEngines() + " energy):");
-		engineSlider = new JSlider(0,s.getMaxEngines(),0);
+		engineSlider = new RichSlider(this,0,s.getMaxEngines(),0);
 		engineSlider.setMajorTickSpacing(s.getMaxEngines()/5);
 		engineSlider.setMinorTickSpacing(s.getMaxEngines()/25);
-		engineSlider.setPaintTicks(true);
-		engineSlider.setPaintLabels(true);
-		engineSlider.setSnapToTicks(true);
-		engineSlider.addChangeListener(Handler);
 		
 		evade = new JLabel("Evade %: " + s.getEvade() + "%");
 		
@@ -872,12 +849,7 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 				+ s.Engine.getEngineersNeededRam() + " for ramming protocol).  ||  Medics available: " + s.getAvailableMedics());
 		
 		JLabel inj = new JLabel("Injured Crew:");
-		engineCrewInjured = new JSlider(0,s.Engine.getInjuredCrewNum(),0);
-		engineCrewInjured.setMajorTickSpacing(5); 
-		engineCrewInjured.setMinorTickSpacing(1);
-		engineCrewInjured.setPaintTicks(true);
-		engineCrewInjured.setPaintLabels(true);
-		engineCrewInjured.setSnapToTicks(true);
+		engineCrewInjured = new RichSlider(this, 0,s.Engine.getInjuredCrewNum(),0);
 		sendInjuredEngine = new JButton("Send to Medbay");
 		sendInjuredEngine.addActionListener(Handler);
 		
@@ -985,12 +957,7 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 				+ s.Power.getEngineersNeededOverload() + " for overload procedure).  ||  Medics available: " + s.getAvailableMedics());
 		
 		JLabel inj = new JLabel("Injured Crew:");
-		reactorCrewInjured = new JSlider(0,s.Power.getInjuredCrewNum(),0);
-		reactorCrewInjured.setMajorTickSpacing(5); 
-		reactorCrewInjured.setMinorTickSpacing(1);
-		reactorCrewInjured.setPaintTicks(true);
-		reactorCrewInjured.setPaintLabels(true);
-		reactorCrewInjured.setSnapToTicks(true);
+		reactorCrewInjured = new RichSlider(this, 0,s.Power.getInjuredCrewNum(),0);
 		sendInjuredReactor = new JButton("Send to Medbay");
 		sendInjuredReactor.addActionListener(Handler);
 		
@@ -1097,12 +1064,7 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 		crewLifeSupport = new JLabel("Crew assigned: " + s.LifeSupport.getCrewNum() + "/" + s.LifeSupport.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + s.getAvailableMedics());
 		
 		JLabel inj = new JLabel("Injured Crew:");
-		lifeSupportCrewInjured = new JSlider(0,s.LifeSupport.getInjuredCrewNum(),0);
-		lifeSupportCrewInjured.setMajorTickSpacing(5); 
-		lifeSupportCrewInjured.setMinorTickSpacing(1);
-		lifeSupportCrewInjured.setPaintTicks(true);
-		lifeSupportCrewInjured.setPaintLabels(true);
-		lifeSupportCrewInjured.setSnapToTicks(true);
+		lifeSupportCrewInjured = new RichSlider(this, 0,s.LifeSupport.getInjuredCrewNum(),0);
 		sendInjuredLifeSupport = new JButton("Send to Medbay");
 		sendInjuredLifeSupport.addActionListener(Handler);
 		
@@ -1160,13 +1122,7 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 		treatedCrew = new JLabel("Number of injured crew in Medical Bay: " + s.MedBay.getInjured().size());
 		
 		JLabel thresh = new JLabel("Health to return injured to work:");
-		medBayThreshold = new JSlider(50,100,s.MedBay.threshold);
-		medBayThreshold.setMajorTickSpacing(10);
-		medBayThreshold.setMinorTickSpacing(2);
-		medBayThreshold.setPaintTicks(true);
-		medBayThreshold.setPaintLabels(true);
-		medBayThreshold.setSnapToTicks(true);
-		medBayThreshold.addChangeListener(Handler);
+		medBayThreshold = new RichSlider(this,50,100,s.MedBay.threshold);
 		
 		medBayPanel1.add(medBayHealth);
 		medBayPanel1.add(medBaySystem);
@@ -2916,7 +2872,7 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 			update(s);
 		}
 	
-		private void injuredCrew(Ship s, Part p, JSlider sl)
+		private void injuredCrew(Ship s, Part p, RichSlider sl)
 		{
 			int i = sl.getValue();
 			

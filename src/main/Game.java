@@ -4,29 +4,43 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import game.Menu;
+import game.SpaceshipGame;
 
 public class Game {
 	
-	public static Menu window;
+	public JFrame window;
+	public Menu mainMenu;
+	public SpaceshipGame game;
+	private int state=-1;
 	
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-            	window = new Menu(new Game());
-        		window.setBounds(700, 300, 500, 400);
-        		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        		window.setVisible(true);
-        		System.out.println("Game initialized");
-            }
-        });
+	public Game() {
+		state = 0;
+		mainMenu = new Menu(this);
+		
+		window = new JFrame();
+		window.setBounds(700, 300, 800, 600);
+		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		window.setVisible(true);
+		
+		window.getContentPane().add(mainMenu);
+		System.out.println("Game initialized");
 	}
 	
-	public void Game() {
-		
+	public int getState() {
+		return state;
 	}
 	
-	public void startGame() {
-		
+	public void close() {
+		window.dispose();
+	}
+	
+	public void startGame(boolean useTimer, int timerLength) {
+		if (game == null) {
+			game = new SpaceshipGame(mainMenu.pShip1, mainMenu.pShip2, this, useTimer, timerLength);
+		}
+		window.getContentPane().remove(mainMenu);
+		window.getContentPane().add(game);
+		state = 1;
 	}
 	
 	public void goToMenu() {

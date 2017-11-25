@@ -39,11 +39,11 @@ import weapons.laser.HeavyLasers;
 import weapons.launcher.ArtemisLaunchers;
 import weapons.launcher.InfernoLaunchers;
 
-public class Menu extends JFrame
+public class Menu extends JPanel
 {
 	private static final long serialVersionUID = 1L;
 
-	private Ship pShip1,pShip2;
+	public Ship pShip1,pShip2;
 	
 	//ship sets (will be updated in the future)************
 	private Ship[] fighters = new Ship[1], cruisers = new Ship[8], battleships = new Ship[2],
@@ -60,14 +60,11 @@ public class Menu extends JFrame
 	private JPanel mainPanel, settingsPanel;
 	
 	GUIHandler GUI = new GUIHandler();
-	static Menu window;
 	SpaceshipGame game;
 	public static Game state;
 	
 	public Menu(Game g)
-	{
-		super("Menu");
-		
+	{		
 		setLayout(new FlowLayout());
 		initShips();
 		initNames();
@@ -204,10 +201,6 @@ public class Menu extends JFrame
 	
 	private void initGUI()
 	{
-		setBounds(700, 300, 500, 400);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
-		
 		mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
 		
@@ -276,8 +269,7 @@ public class Menu extends JFrame
 		mainPanel.add(mPanel5);
 		mainPanel.add(mPanel6);
 		
-		Container c = getContentPane();
-		c.add(mainPanel);
+		this.add(mainPanel);
 	}
 
 	private void createSettingsPanel()
@@ -364,9 +356,11 @@ public class Menu extends JFrame
 
 				pShip1.setScrap(scrapSlider.getValue());
 				pShip2.setScrap(scrapSlider.getValue());
-				window.setVisible(false);
-				game = new SpaceshipGame(pShip1, pShip2, window, timerBox.isSelected(), timerSlider.getValue()*1000);
-				game.setVisible(true);
+				
+				boolean useTimer = timerBox.isSelected();
+				int timerLength = timerSlider.getValue()*1000;
+				
+				state.startGame(useTimer, timerLength);
 			}
 		}
 

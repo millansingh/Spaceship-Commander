@@ -1,5 +1,6 @@
 package game;
 
+import main.Game;
 import main.Tools;
 import main.cmdLineClass;
 import systems.Part;
@@ -24,6 +25,9 @@ import java.util.Arrays;
 public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 {
 	private static final long serialVersionUID = 1L;
+	
+	public Game state;
+	
 	public static Ship ship1, ship2, currentShip;
 	public static int turnCount;
 	public static boolean turn = false, gameStart=false; //true is player 1, false player 2
@@ -115,8 +119,6 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 	
 	SpaceHandler Handler = new SpaceHandler();
 	
-	Menu menu;
-	
 	//Timer stuff.
 	public Timer timerStep;
 	public int roundTime,stepTime=1000;// 1000 = 1 sec
@@ -128,13 +130,13 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 	cmdLineClass cmd = new cmdLineClass(ship1,ship2,this);
 	Thread cmdLine = new Thread(cmd,"Command Line");
 	
-	public SpaceshipGame(Ship s1, Ship s2, Menu m, boolean b, int t)
+	public SpaceshipGame(Ship s1, Ship s2, Game g, boolean b, int t)
 	{
 		super("Spaceship Game");
-		//setLayout(new FlowLayout());
+		state = g;
+		
 		ship1=s1;
 		ship2=s2;
-		menu=m;
 		turnCount=1;
 		
 		cmdLine.start();
@@ -1568,17 +1570,14 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 				timerStep.stop();
 			}
 			Tools.clearConsole();
-			setVisible(false);
-			menu.setVisible(true);
 			cmdLine.stop();
-			this.dispose();
+			state.goToMenu();
 		}
 		else if (n==JOptionPane.NO_OPTION)
 		{
 			Tools.clearConsole();
 			cmdLine.stop();
-			menu.dispose();
-			this.dispose();
+			state.close();
 		}
 	}
 	

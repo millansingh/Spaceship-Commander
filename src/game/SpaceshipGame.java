@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-public class SpaceshipGame extends JFrame implements ActionListener, Runnable
+public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 {
 	private static final long serialVersionUID = 1L;
 	
@@ -132,7 +132,6 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 	
 	public SpaceshipGame(Ship s1, Ship s2, Game g, boolean b, int t)
 	{
-		super("Spaceship Game");
 		state = g;
 		
 		ship1=s1;
@@ -155,9 +154,6 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 		
 		initGUI(ship1, ship2);
 		
-		setBounds(700, 250, 800, 600);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setVisible(true);
 		startGame();
 	}
 
@@ -170,6 +166,7 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 	{
 		turn=!turn;
 		Handler.weapNum=0;
+		this.removeAll();
 		
 		if (timerEnabled && gameStart)
 		{
@@ -177,8 +174,6 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 			timerStep.restart();
 			lTimer.setText("Timer: " + timeStep + "     ");
 		}
-		
-		Container pane = getContentPane();
 		
 		mainPanel = new JPanel();
 		mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
@@ -214,7 +209,7 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 		
 		mainPanel.add(titlePanel);
 		mainPanel.add(tabbedPane);
-		pane.add(mainPanel);
+		this.add(mainPanel);
 		
 		tabbedPane.addTab("Command and Control", statusPanel);
 		tabbedPane.addTab("Sensors", sensorsPanel);
@@ -225,10 +220,10 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 		tabbedPane.addTab("Engines", enginePanel);
 		tabbedPane.addTab("Reactor", reactorPanel);
 		
-		pane.setBackground(Color.WHITE);
+		this.setBackground(Color.WHITE);
 		
-		pane.validate();
-		pane.repaint();
+		this.validate();
+		this.repaint();
 	}
 	
 	private void createTitlePanel()
@@ -448,7 +443,7 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 		sensorsAmount = new JLabel("How much energy to allocate for sensors (max of " + s.getMaxSensors() + " energy):");
 		sensorsSlider = new RichSlider(this,0,s.getMaxSensors(),0);
 		
-		JLabel lock = new JLabel("To prevent cheating, you must lock in your energy and crew (not repair crew) when you are ready. ");
+		JLabel lock = new JLabel("Lock in your energy and crew allocation when you are ready. ");
 		lockEnergy = new JButton("Lock Sensors Energy");
 		lockEnergy.addActionListener(Handler);
 		lockCrew = new JButton("Lock Sensors Crew");
@@ -1270,8 +1265,7 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 			}
 		}
 		
-		Container pane = getContentPane();
-		pane.removeAll();
+		this.removeAll();
 		
 		turnCount++;
 		initGUI(ship1, ship2);
@@ -2023,9 +2017,8 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 			timeStep-=1;
 			lTimer.setText("Timer: " + timeStep + "     ");
 			
-			Container c = getContentPane();
-			c.validate();
-			c.repaint();
+			this.validate();
+			this.repaint();
 			return false;
 		}
 		else
@@ -2101,8 +2094,7 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 			timeStep=roundTime/1000;
 			if (turn)
 			{
-				Container pane = getContentPane();
-				pane.removeAll();
+				this.removeAll();
 				initGUI(ship2, ship1);
 				return;
 			}
@@ -2314,8 +2306,6 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 				
 				if (n==JOptionPane.YES_OPTION)
 				{
-					Container pane = getContentPane();
-					pane.removeAll();
 					if (!turn)
 					{
 						endTurn();
@@ -2947,8 +2937,6 @@ public class SpaceshipGame extends JFrame implements ActionListener, Runnable
 			
 			else
 			{
-				Container pane = getContentPane();
-				pane.removeAll();
 				initGUI(ship2, ship1);
 			}
 		}

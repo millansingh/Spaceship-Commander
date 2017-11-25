@@ -1,5 +1,7 @@
 package main;
 
+import java.awt.Graphics;
+
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
@@ -18,7 +20,7 @@ public class Game {
 		mainMenu = new Menu(this);
 		
 		window = new JFrame();
-		window.setBounds(700, 300, 800, 600);
+		window.setBounds(500, 300, 800, 600);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setVisible(true);
 		
@@ -35,11 +37,11 @@ public class Game {
 	}
 	
 	public void startGame(boolean useTimer, int timerLength) {
-		if (game == null) {
-			game = new SpaceshipGame(mainMenu.pShip1, mainMenu.pShip2, this, useTimer, timerLength);
-		}
+		game = new SpaceshipGame(mainMenu.pShip1, mainMenu.pShip2, this, useTimer, timerLength);
 		window.getContentPane().remove(mainMenu);
 		window.getContentPane().add(game);
+		window.pack();
+		window.setVisible(true);
 		state = 1;
 	}
 	

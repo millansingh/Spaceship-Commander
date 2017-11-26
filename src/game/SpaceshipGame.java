@@ -4,7 +4,7 @@ import main.Game;
 import main.Tools;
 import main.cmdLineClass;
 import systems.Part;
-import ui.RichSlider;
+import ui.modules.RichSlider;
 import weapons.Damage;
 import weapons.WeaponSet;
 

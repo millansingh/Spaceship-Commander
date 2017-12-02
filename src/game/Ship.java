@@ -218,6 +218,9 @@ public class Ship
 		{
 			return Sensors;
 		}
+		else if (i==6) {
+			return MedBay;
+		}
 		else
 		{
 			return null;

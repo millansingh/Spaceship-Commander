@@ -6,6 +6,7 @@ import main.cmdLineClass;
 import systems.Part;
 import ui.components.RichSlider;
 import ui.modules.SystemStatusPanel;
+import ui.modules.CrewPanel;
 import weapons.Damage;
 import weapons.WeaponSet;
 
@@ -40,6 +41,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	public JTabbedPane tabbedPane;
 	
 	public SystemStatusPanel medBayStatus, sensorsStatus, lifeSupportStatus, weapStatus, shieldStatus, engineStatus, reactorStatus;
+	public CrewPanel weapCrewPanel, lifeSupportCrewPanel, shieldCrewPanel, engineCrewPanel, reactorCrewPanel, medBayCrewPanel, sensorsCrewPanel;
 	
 	/***************************************************************************************************************************************/
 	
@@ -562,30 +564,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		JPanel weapCrewPanel = new JPanel();
-		Border border = BorderFactory.createTitledBorder("Crew Controls");
-		weapCrewPanel.setBorder(border);
-		weapCrewPanel.setLayout(new BoxLayout(weapCrewPanel,BoxLayout.Y_AXIS));
-		
-		JPanel weapCrewPanel1 = new JPanel(new FlowLayout());
-		JPanel weapCrewPanel2 = new JPanel(new FlowLayout());
-		
-		crewWeap = new JLabel("Crew assigned: " + s.Weapon.getCrewNum() + "/" + s.Weapon.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + s.getAvailableMedics());
-		
-		JLabel inj = new JLabel("Injured Crew:");
-		weapCrewInjured = new RichSlider(this, 0,s.Weapon.getInjuredCrewNum(),0);
-		sendInjuredWeap = new JButton("Send to Medbay");
-		sendInjuredWeap.addActionListener(Handler);
-		
-		weapCrewPanel1.add(crewWeap);
-		//weapCrewPanel1.add(availableMedics);
-		weapCrewPanel2.add(inj);
-		weapCrewPanel2.add(weapCrewInjured);
-		weapCrewPanel2.add(sendInjuredWeap);
-		
-		weapCrewPanel.add(weapCrewPanel1);
-		weapCrewPanel.add(weapCrewPanel2);
-		
+		weapCrewPanel = new CrewPanel(s,3,this);
 		weapPanel.add(weapCrewPanel);
 	}
 	
@@ -682,30 +661,8 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		JPanel shieldCrewPanel = new JPanel();
-		Border border = BorderFactory.createTitledBorder("Crew Controls");
-		shieldCrewPanel.setBorder(border);
-		shieldCrewPanel.setLayout(new BoxLayout(shieldCrewPanel,BoxLayout.Y_AXIS));
-		
-		JPanel shieldCrewPanel1 = new JPanel(new FlowLayout());
-		JPanel shieldCrewPanel2 = new JPanel(new FlowLayout());
-		
-		crewShield = new JLabel("Crew assigned: " + s.Shield.getCrewNum() + "/" + s.Shield.getEngineersNeeded() + " needed for maximum function (" 
-				+ s.Shield.getEngineersNeededOverload() + " for overload procedure).  ||  Medics available: " + s.getAvailableMedics());
-		
-		JLabel inj = new JLabel("Injured Crew:");
-		shieldCrewInjured = new RichSlider(this, 0,s.Shield.getInjuredCrewNum(),0);
-		sendInjuredShield = new JButton("Send to Medbay");
-		sendInjuredShield.addActionListener(Handler);
-		
-		shieldCrewPanel1.add(crewShield);
-		//shieldCrewPanel1.add(availableMedics);
-		shieldCrewPanel2.add(inj);
-		shieldCrewPanel2.add(shieldCrewInjured);
-		shieldCrewPanel2.add(sendInjuredShield);
-		
-		shieldCrewPanel.add(shieldCrewPanel1);
-		shieldCrewPanel.add(shieldCrewPanel2);
+	
+		shieldCrewPanel = new CrewPanel(s,1,this);
 		
 		shieldPanel.add(shieldCrewPanel);
 	}
@@ -780,31 +737,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		JPanel engineCrewPanel = new JPanel();
-		Border border = BorderFactory.createTitledBorder("Crew Controls");
-		engineCrewPanel.setBorder(border);
-		engineCrewPanel.setLayout(new BoxLayout(engineCrewPanel,BoxLayout.Y_AXIS));
-		
-		JPanel engineCrewPanel1 = new JPanel(new FlowLayout());
-		JPanel engineCrewPanel2 = new JPanel(new FlowLayout());
-		
-		crewEngine = new JLabel("Crew assigned: " + s.Engine.getCrewNum() + "/" + s.Engine.getEngineersNeeded() + " needed for maximum function (" 
-				+ s.Engine.getEngineersNeededRam() + " for ramming protocol).  ||  Medics available: " + s.getAvailableMedics());
-		
-		JLabel inj = new JLabel("Injured Crew:");
-		engineCrewInjured = new RichSlider(this, 0,s.Engine.getInjuredCrewNum(),0);
-		sendInjuredEngine = new JButton("Send to Medbay");
-		sendInjuredEngine.addActionListener(Handler);
-		
-		engineCrewPanel1.add(crewEngine);
-		//engineCrewPanel1.add(availableMedics);
-		engineCrewPanel2.add(inj);
-		engineCrewPanel2.add(engineCrewInjured);
-		engineCrewPanel2.add(sendInjuredEngine);
-		
-		engineCrewPanel.add(engineCrewPanel1);
-		engineCrewPanel.add(engineCrewPanel2);
-		
+		engineCrewPanel = new CrewPanel(s,2,this);
 		enginePanel.add(engineCrewPanel);
 	}
 	
@@ -883,32 +816,8 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		
 		/*
 		 * Crew Panel
-		 * */
-		JPanel reactorCrewPanel = new JPanel();
-		Border border = BorderFactory.createTitledBorder("Crew Controls");
-		reactorCrewPanel.setBorder(border);
-		reactorCrewPanel.setLayout(new BoxLayout(reactorCrewPanel,BoxLayout.Y_AXIS));
-		
-		JPanel reactorCrewPanel1 = new JPanel(new FlowLayout());
-		JPanel reactorCrewPanel2 = new JPanel(new FlowLayout());
-		
-		crewReactor = new JLabel("Crew assigned: " + s.Power.getCrewNum() + "/" + s.Power.getEngineersNeeded() + " needed for maximum function (" 
-				+ s.Power.getEngineersNeededOverload() + " for overload procedure).  ||  Medics available: " + s.getAvailableMedics());
-		
-		JLabel inj = new JLabel("Injured Crew:");
-		reactorCrewInjured = new RichSlider(this, 0,s.Power.getInjuredCrewNum(),0);
-		sendInjuredReactor = new JButton("Send to Medbay");
-		sendInjuredReactor.addActionListener(Handler);
-		
-		
-		reactorCrewPanel1.add(crewReactor);
-		reactorCrewPanel2.add(inj);
-		reactorCrewPanel2.add(reactorCrewInjured);
-		reactorCrewPanel2.add(sendInjuredReactor);
-		
-		reactorCrewPanel.add(reactorCrewPanel1);
-		reactorCrewPanel.add(reactorCrewPanel2);
-		
+		 */
+		reactorCrewPanel = new CrewPanel(s,0,this);
 		reactorPanel.add(reactorCrewPanel);
 	}
 	
@@ -979,30 +888,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		JPanel lifeSupportCrewPanel = new JPanel();
-		Border border = BorderFactory.createTitledBorder("Crew Controls");
-		lifeSupportCrewPanel.setBorder(border);
-		lifeSupportCrewPanel.setLayout(new BoxLayout(lifeSupportCrewPanel,BoxLayout.Y_AXIS));
-		
-		JPanel lifeSupportCrewPanel1 = new JPanel(new FlowLayout());
-		JPanel lifeSupportCrewPanel2 = new JPanel(new FlowLayout());
-		
-		crewLifeSupport = new JLabel("Crew assigned: " + s.LifeSupport.getCrewNum() + "/" + s.LifeSupport.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + s.getAvailableMedics());
-		
-		JLabel inj = new JLabel("Injured Crew:");
-		lifeSupportCrewInjured = new RichSlider(this, 0,s.LifeSupport.getInjuredCrewNum(),0);
-		sendInjuredLifeSupport = new JButton("Send to Medbay");
-		sendInjuredLifeSupport.addActionListener(Handler);
-		
-		
-		lifeSupportCrewPanel1.add(crewLifeSupport);
-		lifeSupportCrewPanel2.add(inj);
-		lifeSupportCrewPanel2.add(lifeSupportCrewInjured);
-		lifeSupportCrewPanel2.add(sendInjuredLifeSupport);
-		
-		lifeSupportCrewPanel.add(lifeSupportCrewPanel1);
-		lifeSupportCrewPanel.add(lifeSupportCrewPanel2);
-		
+		lifeSupportCrewPanel = new CrewPanel(s,4,this);
 		lifeSupportPanel.add(lifeSupportCrewPanel);
 	}
 	
@@ -1823,31 +1709,14 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			medBayExtinguish.setIcon(extinguishNIcon);
 		}
 	}
-	
+		
 	public void updateCrewPanels(Ship s)
 	{
-		crewWeap.setText("Crew assigned: " + s.Weapon.getCrewNum() + "/" + s.Weapon.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + s.getAvailableMedics());
-		weapCrewInjured.setMaximum(s.Weapon.getInjuredCrewNum());
-		weapCrewInjured.setValue(0);
-		
-		crewShield.setText("Crew assigned: " + s.Shield.getCrewNum() + "/" + s.Shield.getEngineersNeeded() + " needed for maximum function (" 
-				+ s.Shield.getEngineersNeededOverload() + " for overload procedure).  ||  Medics available: " + s.getAvailableMedics());
-		shieldCrewInjured.setMaximum(s.Shield.getInjuredCrewNum());
-		shieldCrewInjured.setValue(0);
-		
-		crewEngine.setText("Crew assigned: " + s.Engine.getCrewNum() + "/" + s.Engine.getEngineersNeeded() + " needed for maximum function (" 
-				+ s.Engine.getEngineersNeededRam() + " for ramming protocol).  ||  Medics available: " + s.getAvailableMedics());
-		engineCrewInjured.setMaximum(s.Engine.getInjuredCrewNum());
-		engineCrewInjured.setValue(0);
-		
-		crewReactor.setText("Crew assigned: " + s.Power.getCrewNum() + "/" + s.Power.getEngineersNeeded() + " needed for maximum function (" 
-				+ s.Power.getEngineersNeededOverload() + " for overload procedure).  ||  Medics available: " + s.getAvailableMedics());
-		reactorCrewInjured.setMaximum(s.Power.getInjuredCrewNum());
-		reactorCrewInjured.setValue(0);
-		
-		crewLifeSupport.setText("Crew assigned: " + s.LifeSupport.getCrewNum() + "/" + s.LifeSupport.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + s.getAvailableMedics());
-		lifeSupportCrewInjured.setMaximum(s.LifeSupport.getInjuredCrewNum());
-		lifeSupportCrewInjured.setValue(0);
+		weapCrewPanel.update();
+		lifeSupportCrewPanel.update();
+		shieldCrewPanel.update();
+		engineCrewPanel.update();
+		reactorCrewPanel.update();
 	}
 	
 	public void updateSensors(Ship s, Ship s2)

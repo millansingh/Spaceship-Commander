@@ -5,6 +5,7 @@ import main.Tools;
 import main.cmdLineClass;
 import systems.Part;
 import ui.components.RichSlider;
+import ui.modules.CrewPanel;
 import weapons.Damage;
 import weapons.WeaponSet;
 
@@ -37,6 +38,8 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	//Panels and tabbedPane.
 	public JPanel mainPanel, titlePanel, statusPanel, weapPanel, shieldPanel, enginePanel, reactorPanel, crewPanel, lifeSupportPanel, medBayPanel, sensorsPanel;
 	public JTabbedPane tabbedPane;
+	
+	public CrewPanel weapCrewPanel;
 	
 	/***************************************************************************************************************************************/
 	
@@ -585,12 +588,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		crewWeap = new JLabel("suck my dick");
-		JPanel weapCrewPanel = createCrewPanel(s, crewWeap, weapCrewInjured, sendInjuredWeap);
-		System.out.println();
-		System.out.print(crewWeap.getText());
-		System.out.println();
-		System.out.print(weapCrewInjured);
+		weapCrewPanel = new CrewPanel(s,3,this);
 		weapPanel.add(weapCrewPanel);
 	}
 	
@@ -1126,42 +1124,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		medBayPanel.add(medBayPanel4);
 		medBayPanel.add(medBayPanel5);
 		medBayPanel.add(medBayPanel6);
-	}
-	
-	private JPanel createCrewPanel(Ship s, JLabel label, RichSlider slider, JButton button) {
-		JLabel crewLabel = label;
-		RichSlider crewSlider = slider;
-		JButton sendButton = button;
-		
-		System.out.print(label.getText());
-		System.out.println();
-		System.out.print(crewLabel.getText());
-		
-		JPanel crewPanel = new JPanel();
-		Border border = BorderFactory.createTitledBorder("Crew Controls");
-		crewPanel.setBorder(border);
-		crewPanel.setLayout(new BoxLayout(crewPanel,BoxLayout.Y_AXIS));
-		
-		JPanel crewPanel1 = new JPanel(new FlowLayout());
-		JPanel crewPanel2 = new JPanel(new FlowLayout());
-		
-		crewLabel = new JLabel("Crew assigned: " + s.Weapon.getCrewNum() + "/" + s.Weapon.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + s.getAvailableMedics());
-		
-		JLabel inj = new JLabel("Injured Crew:");
-		crewSlider = new RichSlider(this, 0,s.Weapon.getInjuredCrewNum(),0);
-		sendButton = new JButton("Send to Medbay");
-		sendButton.addActionListener(Handler);
-		
-		crewPanel1.add(crewLabel);
-		//crewPanel1.add(availableMedics);
-		crewPanel2.add(inj);
-		crewPanel2.add(crewSlider);
-		crewPanel2.add(sendButton);
-		
-		crewPanel.add(crewPanel1);
-		crewPanel.add(crewPanel2);
-		
-		return crewPanel;
 	}
 	
 	public void startGame()
@@ -1927,9 +1889,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	
 	public void updateCrewPanels(Ship s)
 	{
-		crewWeap.setText("Crew assigned: " + s.Weapon.getCrewNum() + "/" + s.Weapon.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + s.getAvailableMedics());
-		weapCrewInjured.setMaximum(s.Weapon.getInjuredCrewNum());
-		weapCrewInjured.setValue(0);
+		weapCrewPanel.update();
 		
 		crewShield.setText("Crew assigned: " + s.Shield.getCrewNum() + "/" + s.Shield.getEngineersNeeded() + " needed for maximum function (" 
 				+ s.Shield.getEngineersNeededOverload() + " for overload procedure).  ||  Medics available: " + s.getAvailableMedics());

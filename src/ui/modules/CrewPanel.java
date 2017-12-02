@@ -21,11 +21,12 @@ public class CrewPanel extends Module implements ActionListener {
 	private JLabel header;
 	private RichSlider injuredSlider;
 	private JButton crewButton;
+	private SpaceshipGame parent; 
 	
 
 	public CrewPanel(Ship own, int partNum, SpaceshipGame g) {
 		super(own);
-		
+		parent = g;
 		system = owner.getPartNum(partNum);
 		Border border = BorderFactory.createTitledBorder("Crew Controls");
 		this.setBorder(border);
@@ -37,7 +38,7 @@ public class CrewPanel extends Module implements ActionListener {
 		header = new JLabel("Crew assigned: " + system.getCrewNum() + "/" + system.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + owner.getAvailableMedics());
 		
 		JLabel inj = new JLabel("Injured Crew:");
-		injuredSlider = new RichSlider(g, 0,system.getInjuredCrewNum(),0);
+		injuredSlider = new RichSlider(parent, 0,system.getInjuredCrewNum(),0);
 		crewButton = new JButton("Send to Medbay");
 		crewButton.addActionListener(this);
 		
@@ -52,10 +53,28 @@ public class CrewPanel extends Module implements ActionListener {
 		
 	}
 
+	public void update() {
+		header.setText("Crew assigned: " + system.getCrewNum() + "/" + system.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + owner.getAvailableMedics());
+		injuredSlider.setMaximum(system.getInjuredCrewNum());
+		injuredSlider.setValue(0);
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		JButton b = (JButton) e.getSource();
 		if (b.equals(crewButton)) {
+			int i = injuredSlider.getValue();
 			
+			for (crew.Crew c : system.getInjuredCrew())
+			{
+				if (i>0)
+				{
+					owner.MedBay.addInjured(c);
+					system.getCrew().remove(c);
+					i--;
+				}
+			}
+			update();
+			parent.update(owner);
 		}
 	}
 

@@ -1,5 +1,7 @@
 package ui.modules;
 
+import java.awt.FlowLayout;
+
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JProgressBar;
@@ -7,7 +9,7 @@ import javax.swing.JProgressBar;
 import game.Ship;
 import systems.Part;
 
-public class SystemStatusModule extends Module {
+public class SystemStatusPanel extends Module {
 	
 	private Part system;
 	private JLabel healthLabel, oxygenLabel, repairLabel;
@@ -16,10 +18,12 @@ public class SystemStatusModule extends Module {
 	private ImageIcon oxygenIcon = new ImageIcon("img/icons/icon_Oxygen.png","Oxygen Icon");
 	private ImageIcon repairIcon = new ImageIcon("img/icons/icon_repair.png","Repair");
 	
-	public SystemStatusModule(Ship own, int partNum) {
+	public SystemStatusPanel(Ship own, int partNum) {
 		super(own);
 		
 		system = owner.getPartNum(partNum);
+		
+		this.setLayout(new FlowLayout());
 		
 		healthLabel = new JLabel(system.getName() + " health:");
 		healthBar = new JProgressBar(0, system.initHealth);

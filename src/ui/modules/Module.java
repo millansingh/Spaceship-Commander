@@ -12,7 +12,6 @@ public class Module extends JPanel {
 	
 	public Module(Ship own) {
 		owner = own;
-		this.setLayout(new FlowLayout());
 	}
 
 }

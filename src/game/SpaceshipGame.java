@@ -5,7 +5,7 @@ import main.Tools;
 import main.cmdLineClass;
 import systems.Part;
 import ui.components.RichSlider;
-import ui.modules.SystemStatusModule;
+import ui.modules.SystemStatusPanel;
 import weapons.Damage;
 import weapons.WeaponSet;
 
@@ -38,6 +38,8 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	//Panels and tabbedPane.
 	public JPanel mainPanel, titlePanel, statusPanel, weapPanel, shieldPanel, enginePanel, reactorPanel, crewPanel, lifeSupportPanel, medBayPanel, sensorsPanel;
 	public JTabbedPane tabbedPane;
+	
+	public SystemStatusPanel weapStatus;
 	
 	/***************************************************************************************************************************************/
 	
@@ -519,7 +521,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		weapPanel = new JPanel();
 		weapPanel.setLayout(new BoxLayout(weapPanel,BoxLayout.Y_AXIS));
 		
-		JPanel weaponsPanel1 = new SystemStatusModule(s, 3);
+		weapStatus = new SystemStatusPanel(s, 3);
 		JPanel weaponsPanel2 = new JPanel(new FlowLayout());
 		JPanel weaponsPanel3 = new JPanel(new FlowLayout());
 		JPanel weaponsPanel4 = new JPanel(new FlowLayout());
@@ -564,7 +566,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		weaponsPanel5.add(weapTargeting);
 		weaponsPanel5.add(cWeapons);
 		
-		weapPanel.add(weaponsPanel1);
+		weapPanel.add(weapStatus);
 		weapPanel.add(weaponsPanel2);
 		weapPanel.add(weaponsPanel3);
 		weapPanel.add(weaponsPanel4);
@@ -1584,8 +1586,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		weapSlider.setMaximum(s.Weapon.getGunCount(Handler.weapNum));
 		weapSlider.setValue(s.Weapon.getNumGunsToFire(Handler.weapNum));
 		Handler.updateWeaps=true;
-		weaponOxygen.setText(s.Weapon.oxygenLevel*100 + "%");
-		repairWeap.setText(String.valueOf(s.Weapon.getRepairCrewNum()));
+		weapStatus.update();
 		
 		shieldAmount.setText("How much energy to allocate for shields (max of " + s.getMaxShields() + " energy):");
 		shieldSlider.setMaximum(s.getMaxShields());

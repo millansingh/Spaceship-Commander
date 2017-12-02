@@ -5,6 +5,7 @@ import main.Tools;
 import main.cmdLineClass;
 import systems.Part;
 import ui.components.RichSlider;
+import ui.modules.SystemStatusModule;
 import weapons.Damage;
 import weapons.WeaponSet;
 
@@ -518,20 +519,11 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		weapPanel = new JPanel();
 		weapPanel.setLayout(new BoxLayout(weapPanel,BoxLayout.Y_AXIS));
 		
-		JPanel weaponsPanel1 = new JPanel(new FlowLayout());
+		JPanel weaponsPanel1 = new SystemStatusModule(s, 3);
 		JPanel weaponsPanel2 = new JPanel(new FlowLayout());
 		JPanel weaponsPanel3 = new JPanel(new FlowLayout());
 		JPanel weaponsPanel4 = new JPanel(new FlowLayout());
 		JPanel weaponsPanel5 = new JPanel(new FlowLayout());
-		
-		JLabel weapSystemHealth = new JLabel("Weapon Aiming System Health:");
-		JProgressBar weapSystem = new JProgressBar(0,s.Weapon.initHealth);
-		weapSystem.setString(String.valueOf(s.Weapon.health));
-		weapSystem.setStringPainted(true);
-		weapSystem.setValue(s.Weapon.health);
-		weapSystem.setForeground(s.Weapon.getButtonColor());
-		weaponOxygen = new JLabel(s.Weapon.oxygenLevel*100 + "%",oxygenIcon,JLabel.LEFT);
-		repairWeap = new JLabel(String.valueOf(s.Weapon.getRepairCrewNum()),repairIcon,JLabel.LEFT);
 		
 		JLabel ext = new JLabel("Extinguish Energy:");
 		extinguishWeapon = new RichSlider(this,0,s.getMaxExtinguishers(s.Weapon),0,s.getMaxExtinguishers(s.Weapon)/5,s.getMaxExtinguishers(s.Weapon)/25);
@@ -561,10 +553,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		cWeapons.addItemListener(Handler);
 		cWeapons.setSelectedIndex(s.Weapon.Weapons[Handler.weapNum].aim+1);
 		
-		weaponsPanel1.add(weapSystemHealth);
-		weaponsPanel1.add(weapSystem);
-		weaponsPanel1.add(weaponOxygen);
-		weaponsPanel1.add(repairWeap);
 		weaponsPanel2.add(ext);
 		weaponsPanel2.add(extinguishWeapon);
 		weaponsPanel2.add(weaponFire);

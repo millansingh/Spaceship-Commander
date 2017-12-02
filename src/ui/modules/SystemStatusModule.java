@@ -39,5 +39,10 @@ public class SystemStatusModule extends Module {
 	public int getHealth() {
 		return system.health;
 	}
+	
+	public void update() {
+		oxygenLabel.setText(system.oxygenLevel*100 + "%");
+		repairLabel.setText(String.valueOf(system.getRepairCrewNum()));
+	}
 
 }

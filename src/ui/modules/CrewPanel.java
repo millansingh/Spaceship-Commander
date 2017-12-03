@@ -38,7 +38,7 @@ public class CrewPanel extends Module implements ActionListener {
 		header = new JLabel("Crew assigned: " + system.getCrewNum() + "/" + system.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + owner.getAvailableMedics());
 		
 		JLabel inj = new JLabel("Injured Crew:");
-		injuredSlider = new RichSlider(parent, 0,system.getInjuredCrewNum(),0);
+		injuredSlider = new RichSlider(parent, 0,system.getInjuredCrewNum(),0,5,1);
 		crewButton = new JButton("Send to Medbay");
 		crewButton.addActionListener(this);
 		

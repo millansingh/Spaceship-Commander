@@ -1,6 +1,7 @@
 package ui;
 
 import javax.swing.JComponent;
+import ui.modules.Module;
 
 public class UIController {
 	
@@ -12,7 +13,7 @@ public class UIController {
 		
 	}
 	
-	public void update(JComponent comp) {
+	public void update(Module module) {
 		
 	}
 	

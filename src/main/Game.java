@@ -14,6 +14,7 @@ public class Game {
 	public Menu mainMenu;
 	public SpaceshipGame game;
 	private int state=-1;
+	public boolean gameStart = false;
 	
 	public Game() {
 		state = 0;

@@ -32,7 +32,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	
 	public static Ship ship1, ship2, currentShip;
 	public static int turnCount;
-	public static boolean turn = false, gameStart=false; //true is player 1, false player 2
+	public static boolean turn = false; //true is player 1, false player 2
 	
 	/***************************************************************************************************************************************/
 	
@@ -170,7 +170,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		Handler.weapNum=0;
 		this.removeAll();
 		
-		if (timerEnabled && gameStart)
+		if (timerEnabled && state.gameStart)
 		{
 			timeStep=roundTime/1000;
 			timerStep.restart();
@@ -967,7 +967,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		{
 			timerStep.start();
 		}
-		gameStart=true;
+		state.gameStart=true;
 	}
 	
 	public void endTurn()
@@ -1318,7 +1318,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			JOptionPane.showMessageDialog(null, "It is a tie!");
 		}
 		
-		gameStart=false;
+		state.gameStart=false;
 		
 		int n = JOptionPane.showOptionDialog(null, "After " + turnCount + " turns, Player 1 had " + ship1.getArmor() + " armor remaining and " + ship1.crew.length + " crew remaining, and player 2 had " + ship2.getArmor() + " armor remaining and "
 				+ ship2.crew.length + " crew remaining.\n Would you like to start a new match?", "Rematch", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);

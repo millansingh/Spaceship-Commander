@@ -158,8 +158,8 @@ public class Ship
 	
 	public int getEnergyUsed()
 	{
-		return Weapon.getEnergyUsed() + Shield.getEnergy() + Engine.getEnergy() + LifeSupport.getEnergy() + 
-				Power.extinguishEnergy + Shield.extinguishEnergy + Engine.extinguishEnergy + Weapon.extinguishEnergy + LifeSupport.extinguishEnergy;
+		return Weapon.getEnergyUsed() + Shield.getEnergy() + Engine.getEnergy() + LifeSupport.getEnergy() + Sensors.getEnergy() +
+				Power.extinguishEnergy + Shield.extinguishEnergy + Engine.extinguishEnergy + Weapon.extinguishEnergy + LifeSupport.extinguishEnergy + Sensors.extinguishEnergy + MedBay.extinguishEnergy;
 	}
 	
 	public int getAvailableEnergy()

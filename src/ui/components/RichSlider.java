@@ -156,14 +156,14 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 		}
 	}
 	
-	public void setEnabled(Boolean b)
+	public void rsSetEnabled(Boolean b)
 	{
 		slider.setEnabled(b);
 		plus.setEnabled(b);
 		minus.setEnabled(b);
 		text.setEnabled(b);
-		parent.validate();
-		parent.repaint();
+		this.revalidate();
+		this.repaint();
 	}
 
 	public void actionPerformed(ActionEvent e)

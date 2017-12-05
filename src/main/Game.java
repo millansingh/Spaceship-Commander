@@ -6,6 +6,7 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 
 import game.Menu;
+import game.Ship;
 import game.SpaceshipGame;
 
 public class Game {
@@ -54,6 +55,10 @@ public class Game {
 		window.pack();
 		window.setVisible(true);
 		state = 0;
+	}
+	
+	public void updateGameWindow(Ship s) {
+		game.update(s);
 	}
 
 }

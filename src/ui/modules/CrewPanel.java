@@ -40,9 +40,14 @@ public class CrewPanel extends Module implements ActionListener {
 		header = new JLabel("Crew assigned: " + system.getCrewNum() + "/" + system.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + owner.getAvailableMedics());
 		
 		JLabel inj = new JLabel("Injured Crew:");
-		injuredSlider = new RichSlider(parent, state, 0,system.getInjuredCrewNum(),0,5,1);
+		injuredSlider = new RichSlider(parent, state, 0, system.getInjuredCrewNum(), 0, 5, 1);
 		crewButton = new JButton("Send to Medbay");
 		crewButton.addActionListener(this);
+		
+		if (injuredSlider.getMaximum() == 0) {
+			injuredSlider.rsSetEnabled(false);
+			crewButton.setEnabled(false);
+		}
 		
 		crewPanel1.add(header);
 		//crewPanel1.add(availableMedics);
@@ -59,6 +64,14 @@ public class CrewPanel extends Module implements ActionListener {
 		header.setText("Crew assigned: " + system.getCrewNum() + "/" + system.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + owner.getAvailableMedics());
 		injuredSlider.setMaximum(system.getInjuredCrewNum());
 		injuredSlider.setValue(0);
+		if (injuredSlider.getMaximum() == 0) {
+			injuredSlider.rsSetEnabled(false);
+			crewButton.setEnabled(false);
+		}
+		else {
+			injuredSlider.rsSetEnabled(true);
+			crewButton.setEnabled(true);
+		}
 	}
 	
 	public void actionPerformed(ActionEvent e) {
@@ -76,7 +89,7 @@ public class CrewPanel extends Module implements ActionListener {
 				}
 			}
 			update();
-			parent.update(owner);
+			state.updateGameWindow(owner);
 		}
 	}
 

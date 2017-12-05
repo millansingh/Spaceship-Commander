@@ -18,6 +18,7 @@ public class Medbay extends Part
 		injured=new ArrayList<Crew>();
 		staff=new ArrayList<Medic>();
 		threshold=50;
+		name="Medical Bay";
 	}
 	
 	public int getMedicSkill()

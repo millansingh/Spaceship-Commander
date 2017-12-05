@@ -13,6 +13,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import game.SpaceshipGame;
+import main.Game;
 
 public class RichSlider extends JPanel implements ActionListener,ChangeListener
 {
@@ -22,8 +23,9 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	private JTextField text;
 	private int value,min,max;
 	private SpaceshipGame parent;
+	private Game state;
 	
-	public RichSlider(SpaceshipGame s, int min, int max, int val)
+	public RichSlider(SpaceshipGame s, Game g, int min, int max, int val)
 	{
 		init(min,max,val);
 		if (max%10==0)
@@ -36,17 +38,19 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 			slider.setMajorTickSpacing(max/5);
 			slider.setMinorTickSpacing(max/25);
 		}
-		parent=s;
-		value=val;
+		parent = s;
+		state = g;
+		value = val;
 	}
 	
-	public RichSlider(SpaceshipGame s, int min, int max, int val, int majTick, int minTick)
+	public RichSlider(SpaceshipGame s, Game g, int min, int max, int val, int majTick, int minTick)
 	{
 		init(min,max,val);
 		slider.setMajorTickSpacing(majTick);
 		slider.setMinorTickSpacing(minTick);
-		parent=s;
-		value=max;
+		parent = s;
+		state = g;
+		value = max;
 	}
 	
 	private void init(int min, int max, int val)
@@ -146,7 +150,7 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	public void stateChanged(ChangeEvent arg0) 
 	{
 		setValue(slider.getValue());
-		if (parent.gameStart)
+		if (state.gameStart)
 		{
 			parent.richSliderUpdate(this);
 		}

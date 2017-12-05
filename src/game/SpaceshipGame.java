@@ -356,11 +356,11 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		
 		JLabel crewAmount = new JLabel("How many crew members to send:");
 		if (s.getAvailableCrew()<=50)
-			{crewSlider = new RichSlider(this,0,s.getAvailableCrew(),0,5,1);}
+			{crewSlider = new RichSlider(this,state,0,s.getAvailableCrew(),0,5,1);}
 		else if (s.getAvailableCrew()<=100)	
-			{crewSlider = new RichSlider(this,0,s.getAvailableCrew(),0,10,2);}
+			{crewSlider = new RichSlider(this,state,0,s.getAvailableCrew(),0,10,2);}
 		else
-			{crewSlider = new RichSlider(this,0,s.getAvailableCrew(),0,25,5);}
+			{crewSlider = new RichSlider(this,state,0,s.getAvailableCrew(),0,25,5);}
 		
 		JLabel useCrew = new JLabel("What to do with selected crew:");
 		Crew = new JButton("Assign Crew");
@@ -428,13 +428,13 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		}
 		
 		JLabel ext = new JLabel("Extinguish Energy:");
-		extinguishSensors = new RichSlider(this,0,s.getMaxExtinguishers(s.Sensors),0,s.getMaxExtinguishers(s.Sensors)/5,s.getMaxExtinguishers(s.Sensors)/25);
+		extinguishSensors = new RichSlider(this,state,0,s.getMaxExtinguishers(s.Sensors),0,s.getMaxExtinguishers(s.Sensors)/5,s.getMaxExtinguishers(s.Sensors)/25);
 		extinguishSensors.setValue(s.Sensors.extinguishEnergy);
 		sensorsFire = new JLabel(String.valueOf(s.Sensors.fireDamage),fireIcon,JLabel.LEFT);
 		sensorsExtinguish = new JLabel(extinguishNIcon);
 		
 		sensorsAmount = new JLabel("How much energy to allocate for sensors (max of " + s.getMaxSensors() + " energy):");
-		sensorsSlider = new RichSlider(this,0,s.getMaxSensors(),0);
+		sensorsSlider = new RichSlider(this,state,0,s.getMaxSensors(),0);
 		
 		JLabel lock = new JLabel("Lock in your energy and crew allocation when you are ready. ");
 		lockEnergy = new JButton("Lock Sensors Energy");
@@ -517,7 +517,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		JPanel weaponsPanel5 = new JPanel(new FlowLayout());
 		
 		JLabel ext = new JLabel("Extinguish Energy:");
-		extinguishWeapon = new RichSlider(this,0,s.getMaxExtinguishers(s.Weapon),0,s.getMaxExtinguishers(s.Weapon)/5,s.getMaxExtinguishers(s.Weapon)/25);
+		extinguishWeapon = new RichSlider(this,state,0,s.getMaxExtinguishers(s.Weapon),0,s.getMaxExtinguishers(s.Weapon)/5,s.getMaxExtinguishers(s.Weapon)/25);
 		extinguishWeapon.setValue(s.Weapon.extinguishEnergy);
 		weaponFire = new JLabel(String.valueOf(s.Weapon.fireDamage),fireIcon,JLabel.LEFT);
 		weaponExtinguish = new JLabel(extinguishNIcon);
@@ -537,7 +537,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		cWeaps.addItemListener(Handler);
 		
 		gunsToFire = new JLabel("Weapons to fire this turn (max of " + s.getNumGunsMax(Handler.weapNum) + " guns):");
-		weapSlider = new RichSlider(this,0,s.Weapon.getGunCount(Handler.weapNum),0);
+		weapSlider = new RichSlider(this,state,0,s.Weapon.getGunCount(Handler.weapNum),0);
 		
 		JLabel weapTargeting = new JLabel("Primary Target for this Weapon System:");
 		cWeapons = new JComboBox(cNames);
@@ -580,13 +580,13 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		JPanel shieldsPanel5 = new JPanel(new FlowLayout());
 
 		JLabel ext = new JLabel("Extinguish Energy:");
-		extinguishShield = new RichSlider(this,0,s.getMaxExtinguishers(s.Shield),0,s.getMaxExtinguishers(s.Shield)/5,s.getMaxExtinguishers(s.Shield)/25);
+		extinguishShield = new RichSlider(this,state,0,s.getMaxExtinguishers(s.Shield),0,s.getMaxExtinguishers(s.Shield)/5,s.getMaxExtinguishers(s.Shield)/25);
 		extinguishShield.setValue(s.Shield.extinguishEnergy);
 		shieldFire = new JLabel(String.valueOf(s.Shield.fireDamage),fireIcon,JLabel.LEFT);
 		shieldExtinguish = new JLabel(extinguishNIcon);
 		
 		shieldAmount = new JLabel("How much energy to allocate for shields (max of " + s.getMaxShields() + " energy):");
-		shieldSlider = new RichSlider(this,0,s.getMaxShields(),0);
+		shieldSlider = new RichSlider(this,state,0,s.getMaxShields(),0);
 		
 		JLabel target = new JLabel("Shield Protection Targets (in order of importance):");
 		cShield = new JComboBox(cNames);
@@ -693,13 +693,13 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		JPanel enginePanel5 = new JPanel(new FlowLayout());
 		
 		JLabel ext = new JLabel("Extinguish Energy:");
-		extinguishEngine = new RichSlider(this,0,s.getMaxExtinguishers(s.Engine),0,s.getMaxExtinguishers(s.Engine)/5,s.getMaxExtinguishers(s.Engine)/25);
+		extinguishEngine = new RichSlider(this,state,0,s.getMaxExtinguishers(s.Engine),0,s.getMaxExtinguishers(s.Engine)/5,s.getMaxExtinguishers(s.Engine)/25);
 		extinguishEngine.setValue(s.Engine.extinguishEnergy);
 		engineFire = new JLabel(String.valueOf(s.Engine.fireDamage),fireIcon,JLabel.LEFT);
 		engineExtinguish = new JLabel(extinguishNIcon);
 		
 		engineAmount = new JLabel("How much energy to allocate for propulsion (max of " + s.getMaxEngines() + " energy):");
-		engineSlider = new RichSlider(this,0,s.getMaxEngines(),0);
+		engineSlider = new RichSlider(this,state,0,s.getMaxEngines(),0);
 		engineSlider.setMajorTickSpacing(s.getMaxEngines()/5);
 		engineSlider.setMinorTickSpacing(s.getMaxEngines()/25);
 		
@@ -762,7 +762,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		repairReactor = new JLabel(String.valueOf(s.Power.getRepairCrewNum()),repairIcon,JLabel.LEFT);
 		
 		JLabel ext = new JLabel("Extinguish Energy:");
-		extinguishReactor = new RichSlider(this,0,s.getMaxExtinguishers(s.Power),0,s.getMaxExtinguishers(s.Power)/5,s.getMaxExtinguishers(s.Power)/25);
+		extinguishReactor = new RichSlider(this,state,0,s.getMaxExtinguishers(s.Power),0,s.getMaxExtinguishers(s.Power)/5,s.getMaxExtinguishers(s.Power)/25);
 		extinguishReactor.setValue(s.Power.extinguishEnergy);
 		reactorFire = new JLabel(String.valueOf(s.Power.fireDamage),fireIcon,JLabel.LEFT);
 		reactorExtinguish = new JLabel(extinguishNIcon);
@@ -853,7 +853,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		extinguishLifeSupport.setPaintLabels(true);
 		extinguishLifeSupport.setSnapToTicks(true);
 		extinguishLifeSupport.addChangeListener(Handler);*/
-		extinguishLifeSupport = new RichSlider(this,0,s.getMaxExtinguishers(s.LifeSupport),0,s.getMaxExtinguishers(s.LifeSupport)/5,s.getMaxExtinguishers(s.LifeSupport)/25);
+		extinguishLifeSupport = new RichSlider(this,state,0,s.getMaxExtinguishers(s.LifeSupport),0,s.getMaxExtinguishers(s.LifeSupport)/5,s.getMaxExtinguishers(s.LifeSupport)/25);
 		extinguishLifeSupport.setValue(s.LifeSupport.extinguishEnergy);
 		lifeSupportFire = new JLabel(String.valueOf(s.LifeSupport.fireDamage),fireIcon,JLabel.LEFT);
 		lifeSupportExtinguish = new JLabel(extinguishNIcon);
@@ -867,7 +867,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		lifeSupportSlider.setPaintLabels(true);
 		lifeSupportSlider.setSnapToTicks(true);
 		lifeSupportSlider.addChangeListener(Handler);*/
-		lifeSupportSlider = new RichSlider(this,0,s.getMaxLifeSupport(),0,s.getMaxLifeSupport()/5,s.getMaxLifeSupport()/25);
+		lifeSupportSlider = new RichSlider(this,state,0,s.getMaxLifeSupport(),0,s.getMaxLifeSupport()/5,s.getMaxLifeSupport()/25);
 		lifeSupportSlider.setValue(s.LifeSupport.getEnergy());
 		
 		oxygenFillRate = new JLabel("Current oxygen fill rate: " + s.LifeSupport.getRefill()*100 + "%.");
@@ -921,7 +921,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		extinguishMedBay.setPaintLabels(true);
 		extinguishMedBay.setSnapToTicks(true);
 		extinguishMedBay.addChangeListener(Handler);*/
-		extinguishMedBay = new RichSlider(this,0,s.getMaxExtinguishers(s.MedBay),0,s.getMaxExtinguishers(s.MedBay)/5,s.getMaxExtinguishers(s.MedBay)/25);
+		extinguishMedBay = new RichSlider(this, state, 0, s.getMaxExtinguishers(s.MedBay), 0,s.getMaxExtinguishers(s.MedBay)/5,s.getMaxExtinguishers(s.MedBay)/25);
 		extinguishMedBay.setValue(s.MedBay.extinguishEnergy);
 		medBayFire = new JLabel(String.valueOf(s.MedBay.fireDamage),fireIcon,JLabel.LEFT);
 		medBayExtinguish = new JLabel(extinguishNIcon);
@@ -934,7 +934,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		treatedCrew = new JLabel("Number of injured crew in Medical Bay: " + s.MedBay.getInjured().size());
 		
 		JLabel thresh = new JLabel("Health to return injured to work:");
-		medBayThreshold = new RichSlider(this,50,100,s.MedBay.threshold);
+		medBayThreshold = new RichSlider(this, state,50,100,s.MedBay.threshold);
 		
 		medBayPanel2.add(ext);
 		medBayPanel2.add(extinguishMedBay);

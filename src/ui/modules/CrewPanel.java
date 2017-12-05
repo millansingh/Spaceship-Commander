@@ -40,7 +40,7 @@ public class CrewPanel extends Module implements ActionListener {
 		header = new JLabel("Crew assigned: " + system.getCrewNum() + "/" + system.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + owner.getAvailableMedics());
 		
 		JLabel inj = new JLabel("Injured Crew:");
-		injuredSlider = new RichSlider(parent, state, 0, system.getInjuredCrewNum(), 0, 5, 1);
+		injuredSlider = new RichSlider(this, state, 0, system.getInjuredCrewNum(), 0, 5, 1, false);
 		crewButton = new JButton("Send to Medbay");
 		crewButton.addActionListener(this);
 		
@@ -72,6 +72,9 @@ public class CrewPanel extends Module implements ActionListener {
 			injuredSlider.rsSetEnabled(true);
 			crewButton.setEnabled(true);
 		}
+		
+		this.revalidate();
+		this.repaint();
 	}
 	
 	public void actionPerformed(ActionEvent e) {

@@ -14,6 +14,7 @@ import javax.swing.event.ChangeListener;
 
 import game.SpaceshipGame;
 import main.Game;
+import ui.modules.Module;
 
 public class RichSlider extends JPanel implements ActionListener,ChangeListener
 {
@@ -23,9 +24,11 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	private JTextField text;
 	private int value,min,max;
 	private SpaceshipGame parent;
+	private Module module;
 	private Game state;
+	private boolean realTimeUpdate = false;
 	
-	public RichSlider(SpaceshipGame s, Game g, int min, int max, int val)
+	public RichSlider(SpaceshipGame s, Game g, int min, int max, int val, boolean updates)
 	{
 		init(min,max,val);
 		if (max%10==0)
@@ -41,9 +44,10 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 		parent = s;
 		state = g;
 		value = val;
+		realTimeUpdate = updates;
 	}
 	
-	public RichSlider(SpaceshipGame s, Game g, int min, int max, int val, int majTick, int minTick)
+	public RichSlider(SpaceshipGame s, Game g, int min, int max, int val, int majTick, int minTick, boolean updates)
 	{
 		init(min,max,val);
 		slider.setMajorTickSpacing(majTick);
@@ -51,6 +55,37 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 		parent = s;
 		state = g;
 		value = max;
+		realTimeUpdate = updates;
+	}
+	
+	public RichSlider(Module m, Game g, int min, int max, int val, boolean updates)
+	{
+		init(min,max,val);
+		if (max%10==0)
+		{
+			slider.setMajorTickSpacing(max/5);
+			slider.setMinorTickSpacing(max/10);
+		}
+		else
+		{
+			slider.setMajorTickSpacing(max/5);
+			slider.setMinorTickSpacing(max/25);
+		}
+		module = m;
+		state = g;
+		value = val;
+		realTimeUpdate = updates;
+	}
+	
+	public RichSlider(Module m, Game g, int min, int max, int val, int majTick, int minTick, boolean updates)
+	{
+		init(min,max,val);
+		slider.setMajorTickSpacing(majTick);
+		slider.setMinorTickSpacing(minTick);
+		module = m;
+		state = g;
+		value = max;
+		realTimeUpdate = updates;
 	}
 	
 	private void init(int min, int max, int val)
@@ -146,14 +181,23 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	{
 		return slider.createStandardLabels(i);
 	}
+	
+	public void update() {
+		if (state.gameStart && realTimeUpdate)
+		{
+			if (!parent.equals(null)) {
+				parent.richSliderUpdate(this);
+			}
+			else if (!module.equals(null)) {
+				module.update();
+			}
+		}
+	}
 
 	public void stateChanged(ChangeEvent arg0) 
 	{
 		setValue(slider.getValue());
-		if (state.gameStart)
-		{
-			parent.richSliderUpdate(this);
-		}
+		update();
 	}
 	
 	public void rsSetEnabled(Boolean b)
@@ -174,7 +218,7 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 			if (f.equals(text))
 			{
 				setValue(Integer.valueOf(text.getText()));
-				parent.richSliderUpdate(this);
+				update();
 			}
 		}
 		
@@ -184,12 +228,12 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 			if (b.equals(plus))
 			{
 				setValue(value+1);
-				parent.richSliderUpdate(this);
+				update();
 			}
 			else if (b.equals(minus))
 			{
 				setValue(value-1);
-				parent.richSliderUpdate(this);
+				update();
 			}
 		}
 	}

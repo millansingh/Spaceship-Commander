@@ -564,7 +564,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		weapCrewPanel = new CrewPanel(s,3,this);
+		weapCrewPanel = new CrewPanel(s,3,this,state);
 		weapPanel.add(weapCrewPanel);
 	}
 	
@@ -662,7 +662,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		 * Crew Panel
 		 * */
 	
-		shieldCrewPanel = new CrewPanel(s,1,this);
+		shieldCrewPanel = new CrewPanel(s,1,this,state);
 		
 		shieldPanel.add(shieldCrewPanel);
 	}
@@ -737,7 +737,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		engineCrewPanel = new CrewPanel(s,2,this);
+		engineCrewPanel = new CrewPanel(s,2,this,state);
 		enginePanel.add(engineCrewPanel);
 	}
 	
@@ -817,7 +817,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 */
-		reactorCrewPanel = new CrewPanel(s,0,this);
+		reactorCrewPanel = new CrewPanel(s,0,this,state);
 		reactorPanel.add(reactorCrewPanel);
 	}
 	
@@ -888,7 +888,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		lifeSupportCrewPanel = new CrewPanel(s,4,this);
+		lifeSupportCrewPanel = new CrewPanel(s,4,this,state);
 		lifeSupportPanel.add(lifeSupportCrewPanel);
 	}
 	

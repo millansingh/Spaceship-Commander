@@ -13,6 +13,7 @@ import javax.swing.border.Border;
 
 import game.Ship;
 import game.SpaceshipGame;
+import main.Game;
 import systems.Part;
 import ui.components.RichSlider;
 
@@ -22,11 +23,12 @@ public class CrewPanel extends Module implements ActionListener {
 	private RichSlider injuredSlider;
 	private JButton crewButton;
 	private SpaceshipGame parent; 
-	
+	private Game state;
 
-	public CrewPanel(Ship own, int partNum, SpaceshipGame g) {
+	public CrewPanel(Ship own, int partNum, SpaceshipGame s, Game g) {
 		super(own);
-		parent = g;
+		parent = s;
+		state = g;
 		system = owner.getPartNum(partNum);
 		Border border = BorderFactory.createTitledBorder("Crew Controls");
 		this.setBorder(border);
@@ -38,7 +40,7 @@ public class CrewPanel extends Module implements ActionListener {
 		header = new JLabel("Crew assigned: " + system.getCrewNum() + "/" + system.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + owner.getAvailableMedics());
 		
 		JLabel inj = new JLabel("Injured Crew:");
-		injuredSlider = new RichSlider(parent, 0,system.getInjuredCrewNum(),0,5,1);
+		injuredSlider = new RichSlider(parent, state, 0,system.getInjuredCrewNum(),0,5,1);
 		crewButton = new JButton("Send to Medbay");
 		crewButton.addActionListener(this);
 		

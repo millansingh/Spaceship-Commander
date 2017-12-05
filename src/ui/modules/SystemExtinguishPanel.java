@@ -30,7 +30,12 @@ public class SystemExtinguishPanel extends Module {
 		extSlider.setValue(system.extinguishEnergy);
 		fireIconL = new JLabel(String.valueOf(system.fireDamage),fireIcon,JLabel.LEFT);
 		fireExtinguishL = new JLabel(extinguishNIcon);
-		// TODO Auto-generated constructor stub
+		
+		this.add(ext);
+		this.add(extSlider);
+		this.add(fireIconL);
+		this.add(fireExtinguishL);
+		
 	}
 
 }

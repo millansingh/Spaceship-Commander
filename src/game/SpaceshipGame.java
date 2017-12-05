@@ -7,6 +7,7 @@ import systems.Part;
 import ui.components.RichSlider;
 import ui.modules.SystemStatusPanel;
 import ui.modules.CrewPanel;
+import ui.modules.SystemExtinguishPanel;
 import weapons.Damage;
 import weapons.WeaponSet;
 
@@ -42,6 +43,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	
 	public SystemStatusPanel medBayStatus, sensorsStatus, lifeSupportStatus, weapStatus, shieldStatus, engineStatus, reactorStatus;
 	public CrewPanel weapCrewPanel, lifeSupportCrewPanel, shieldCrewPanel, engineCrewPanel, reactorCrewPanel, medBayCrewPanel, sensorsCrewPanel;
+	public SystemExtinguishPanel sensorsExtinguishPanel, weapExtinguishPanel, medBbayExtinguishPanel, reactorExtinguishPanel, lifeSupportExtinguishPanel, engineExtinguishPanel, shieldExtinguishPanel;
 	
 	/***************************************************************************************************************************************/
 	
@@ -405,7 +407,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		sensorsPanel.setLayout(new BoxLayout(sensorsPanel,BoxLayout.Y_AXIS));
 		
 		sensorsStatus = new SystemStatusPanel(s, 5);
-		JPanel sensorsPanel2 = new JPanel(new FlowLayout());
+		sensorsExtinguishPanel = new SystemExtinguishPanel(s,5,this);
 		JPanel sensorsPanel3 = new JPanel(new FlowLayout());
 		JPanel sensorsPanel4 = new JPanel(new FlowLayout());
 		JPanel sensorsPanel5 = new JPanel(new FlowLayout());
@@ -426,12 +428,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			sensorsMain1Panels[i].setAlignmentX(LEFT_ALIGNMENT);
 			sensorsMain1.add(sensorsMain1Panels[i]);
 		}
-		
-		JLabel ext = new JLabel("Extinguish Energy:");
-		extinguishSensors = new RichSlider(this,0,s.getMaxExtinguishers(s.Sensors),0,s.getMaxExtinguishers(s.Sensors)/5,s.getMaxExtinguishers(s.Sensors)/25);
-		extinguishSensors.setValue(s.Sensors.extinguishEnergy);
-		sensorsFire = new JLabel(String.valueOf(s.Sensors.fireDamage),fireIcon,JLabel.LEFT);
-		sensorsExtinguish = new JLabel(extinguishNIcon);
 		
 		sensorsAmount = new JLabel("How much energy to allocate for sensors (max of " + s.getMaxSensors() + " energy):");
 		sensorsSlider = new RichSlider(this,0,s.getMaxSensors(),0);
@@ -466,12 +462,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		
 		
 		//Add all components to their respective container panels.
-		sensorsPanel2.add(ext);
-		sensorsPanel2.add(extinguishSensors);
-		sensorsPanel2.add(sensorsFire);
-		sensorsPanel2.add(sensorsExtinguish);
-		sensorsPanel3.add(sensorsAmount);
-		sensorsPanel3.add(sensorsSlider);
 		sensorsPanel4.add(lock);
 		sensorsPanel4.add(lockEnergy);
 		sensorsPanel4.add(lockCrew);
@@ -498,7 +488,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		sensorsMain.add(sensorsMain2);
 		
 		sensorsPanel.add(sensorsStatus);
-		sensorsPanel.add(sensorsPanel2);
+		sensorsPanel.add(sensorsExtinguishPanel);
 		sensorsPanel.add(sensorsPanel3);
 		sensorsPanel.add(sensorsPanel4);
 		sensorsPanel.add(sensorsPanel5);

@@ -45,5 +45,30 @@ public class SystemExtinguishPanel extends Module {
 		this.add(fireExtinguishL);
 		
 	}
+	
+	public void update() {
+		extSlider.setMaximum(owner.getMaxExtinguishers(system));
+		extSlider.setMajorTickSpacing(owner.getMaxExtinguishers(system)/5);
+		extSlider.setMinorTickSpacing(owner.getMaxExtinguishers(system)/25);
+		if (owner.getMaxExtinguishers(system)>5)
+		{
+			extSlider.setLabelTable(extSlider.createStandardLabels(owner.getMaxExtinguishers(system)/5));
+		}
+		
+		if (system.isOnFire) {
+			fireIconL.setIcon(fireIcon);
+		}
+		else {
+			fireIconL.setIcon(fireNIcon);
+		}
+
+		
+		if (system.extinguishing) {
+			fireExtinguishL.setIcon(extinguishIcon);
+		}
+		else {
+			fireExtinguishL.setIcon(extinguishNIcon);
+		}
+	}
 
 }

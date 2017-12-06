@@ -43,7 +43,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	
 	public SystemStatusPanel medBayStatus, sensorsStatus, lifeSupportStatus, weapStatus, shieldStatus, engineStatus, reactorStatus;
 	public CrewPanel weapCrewPanel, lifeSupportCrewPanel, shieldCrewPanel, engineCrewPanel, reactorCrewPanel, medBayCrewPanel, sensorsCrewPanel;
-	public SystemExtinguishPanel sensorsExtinguishPanel, weapExtinguishPanel, medBbayExtinguishPanel, reactorExtinguishPanel, lifeSupportExtinguishPanel, engineExtinguishPanel, shieldExtinguishPanel;
+	public SystemExtinguishPanel sensorsExtinguishPanel, weapExtinguishPanel, medBayExtinguishPanel, reactorExtinguishPanel, lifeSupportExtinguishPanel, engineExtinguishPanel, shieldExtinguishPanel;
 	
 	/***************************************************************************************************************************************/
 	
@@ -93,8 +93,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	/***************************************************************************************************************************************/
 
 	//Sliders and RichSliders for various.
-	private RichSlider sensorsCrewInjured, medBayThreshold, reactorCrewInjured, engineCrewInjured, lifeSupportCrewInjured, shieldCrewInjured, weapCrewInjured, engineSlider, shieldSlider, crewSlider, lifeSupportSlider, weapSlider, sensorsSlider,
-			extinguishWeapon, extinguishShield, extinguishEngine, extinguishReactor, extinguishLifeSupport, extinguishMedBay, extinguishSensors;
+	private RichSlider sensorsCrewInjured, medBayThreshold, reactorCrewInjured, engineCrewInjured, lifeSupportCrewInjured, shieldCrewInjured, weapCrewInjured, engineSlider, shieldSlider, crewSlider, lifeSupportSlider, weapSlider, sensorsSlider;
 	
 	/***************************************************************************************************************************************/
 	
@@ -554,16 +553,10 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		shieldPanel.setLayout(new BoxLayout(shieldPanel,BoxLayout.Y_AXIS));
 		
 		shieldStatus = new SystemStatusPanel(s, 1);
-		JPanel shieldsPanel2 = new JPanel(new FlowLayout());
+		shieldExtinguishPanel = new SystemExtinguishPanel(s,1,this);
 		JPanel shieldsPanel3 = new JPanel(new FlowLayout());
 		JPanel shieldsPanel4 = new JPanel(new FlowLayout());
 		JPanel shieldsPanel5 = new JPanel(new FlowLayout());
-
-		JLabel ext = new JLabel("Extinguish Energy:");
-		extinguishShield = new RichSlider(this,0,s.getMaxExtinguishers(s.Shield),0,s.getMaxExtinguishers(s.Shield)/5,s.getMaxExtinguishers(s.Shield)/25);
-		extinguishShield.setValue(s.Shield.extinguishEnergy);
-		shieldFire = new JLabel(String.valueOf(s.Shield.fireDamage),fireIcon,JLabel.LEFT);
-		shieldExtinguish = new JLabel(extinguishNIcon);
 		
 		shieldAmount = new JLabel("How much energy to allocate for shields (max of " + s.getMaxShields() + " energy):");
 		shieldSlider = new RichSlider(this,0,s.getMaxShields(),0);
@@ -618,10 +611,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			HardResetShields.setEnabled(true);
 		}
 		
-		shieldsPanel2.add(ext);
-		shieldsPanel2.add(extinguishShield);
-		shieldsPanel2.add(shieldFire);
-		shieldsPanel2.add(shieldExtinguish);
 		shieldsPanel3.add(shieldAmount);
 		shieldsPanel3.add(shieldSlider);
 		shieldsPanel4.add(target);
@@ -633,7 +622,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		shieldsPanel5.add(HardResetShields);
 		
 		shieldPanel.add(shieldStatus);
-		shieldPanel.add(shieldsPanel2);
+		shieldPanel.add(shieldExtinguishPanel);
 		shieldPanel.add(shieldsPanel3);
 		shieldPanel.add(shieldsPanel4);
 		shieldPanel.add(shieldsPanel5);
@@ -667,16 +656,10 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		enginePanel.setLayout(new BoxLayout(enginePanel,BoxLayout.Y_AXIS));
 		
 		engineStatus = new SystemStatusPanel(s, 2);
-		JPanel enginePanel2 = new JPanel(new FlowLayout());
+		engineExtinguishPanel = new SystemExtinguishPanel(s,2,this);
 		JPanel enginePanel3 = new JPanel(new FlowLayout());
 		JPanel enginePanel4 = new JPanel(new FlowLayout());
 		JPanel enginePanel5 = new JPanel(new FlowLayout());
-		
-		JLabel ext = new JLabel("Extinguish Energy:");
-		extinguishEngine = new RichSlider(this,0,s.getMaxExtinguishers(s.Engine),0,s.getMaxExtinguishers(s.Engine)/5,s.getMaxExtinguishers(s.Engine)/25);
-		extinguishEngine.setValue(s.Engine.extinguishEnergy);
-		engineFire = new JLabel(String.valueOf(s.Engine.fireDamage),fireIcon,JLabel.LEFT);
-		engineExtinguish = new JLabel(extinguishNIcon);
 		
 		engineAmount = new JLabel("How much energy to allocate for propulsion (max of " + s.getMaxEngines() + " energy):");
 		engineSlider = new RichSlider(this,0,s.getMaxEngines(),0);
@@ -698,10 +681,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			RamEngine.setEnabled(true);
 		}
 		
-		enginePanel2.add(ext);
-		enginePanel2.add(extinguishEngine);
-		enginePanel2.add(engineFire);
-		enginePanel2.add(engineExtinguish);
 		enginePanel3.add(engineAmount);
 		enginePanel3.add(engineSlider);
 		enginePanel4.add(evade);
@@ -709,7 +688,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		enginePanel5.add(RamEngine);
 		
 		enginePanel.add(engineStatus);
-		enginePanel.add(enginePanel2);
+		enginePanel.add(engineExtinguishPanel);
 		enginePanel.add(enginePanel3);
 		enginePanel.add(enginePanel4);
 		enginePanel.add(enginePanel5);
@@ -727,7 +706,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		reactorPanel.setLayout(new BoxLayout(reactorPanel,BoxLayout.Y_AXIS));
 		
 		reactorStatus = new SystemStatusPanel(s, 0);
-		JPanel reactorPanel2 = new JPanel(new FlowLayout());
+		reactorExtinguishPanel = new SystemExtinguishPanel(s,0,this);
 		JPanel reactorPanel3 = new JPanel(new FlowLayout());
 		JPanel reactorPanel4 = new JPanel(new FlowLayout());
 		JPanel reactorPanel5 = new JPanel(new FlowLayout());
@@ -740,12 +719,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		reactorSystem.setForeground(s.Power.getButtonColor());
 		reactorOxygen = new JLabel(s.Power.oxygenLevel*100 + "%",oxygenIcon,JLabel.LEFT);
 		repairReactor = new JLabel(String.valueOf(s.Power.getRepairCrewNum()),repairIcon,JLabel.LEFT);
-		
-		JLabel ext = new JLabel("Extinguish Energy:");
-		extinguishReactor = new RichSlider(this,0,s.getMaxExtinguishers(s.Power),0,s.getMaxExtinguishers(s.Power)/5,s.getMaxExtinguishers(s.Power)/25);
-		extinguishReactor.setValue(s.Power.extinguishEnergy);
-		reactorFire = new JLabel(String.valueOf(s.Power.fireDamage),fireIcon,JLabel.LEFT);
-		reactorExtinguish = new JLabel(extinguishNIcon);
 		
 		AvailableEnergy = new JLabel("Battery Storage: " + s.Power.getEnergyStored() + " / " + s.Power.getEnergyStoredMax() + "  ///  Available Energy (Battery - Usage): " + s.getAvailableEnergy());
 		EnergyUse = new JButton("Energy Usage");
@@ -777,10 +750,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			CooldownReactor.setEnabled(true);
 		}
 		
-		reactorPanel2.add(ext);
-		reactorPanel2.add(extinguishReactor);
-		reactorPanel2.add(reactorFire);
-		reactorPanel2.add(reactorExtinguish);
 		reactorPanel3.add(AvailableEnergy);
 		reactorPanel3.add(EnergyUse);
 		reactorPanel4.add(energyProd);
@@ -789,7 +758,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		reactorPanel5.add(CooldownReactor);
 		
 		reactorPanel.add(reactorStatus);
-		reactorPanel.add(reactorPanel2);
+		reactorPanel.add(reactorExtinguishPanel);
 		reactorPanel.add(reactorPanel3);
 		reactorPanel.add(reactorPanel4);
 		reactorPanel.add(reactorPanel5);
@@ -821,22 +790,9 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		lifeSupportPanel.setLayout(new BoxLayout(lifeSupportPanel,BoxLayout.Y_AXIS));
 		
 		lifeSupportStatus = new SystemStatusPanel(s, 4);
-		JPanel lsPanel2 = new JPanel(new FlowLayout());
+		lifeSupportExtinguishPanel = new SystemExtinguishPanel(s,4,this);
 		JPanel lsPanel3 = new JPanel(new FlowLayout());
 		JPanel lsPanel4 = new JPanel(new FlowLayout());
-		
-		JLabel ext = new JLabel("Extinguish Energy:");
-		/*extinguishLifeSupport = new JSlider(0,s.getMaxExtinguishers(),0);
-		extinguishLifeSupport.setMajorTickSpacing(s.getMaxExtinguishers()/5);
-		extinguishLifeSupport.setMinorTickSpacing(s.getMaxExtinguishers()/25);
-		extinguishLifeSupport.setPaintTicks(true);
-		extinguishLifeSupport.setPaintLabels(true);
-		extinguishLifeSupport.setSnapToTicks(true);
-		extinguishLifeSupport.addChangeListener(Handler);*/
-		extinguishLifeSupport = new RichSlider(this,0,s.getMaxExtinguishers(s.LifeSupport),0,s.getMaxExtinguishers(s.LifeSupport)/5,s.getMaxExtinguishers(s.LifeSupport)/25);
-		extinguishLifeSupport.setValue(s.LifeSupport.extinguishEnergy);
-		lifeSupportFire = new JLabel(String.valueOf(s.LifeSupport.fireDamage),fireIcon,JLabel.LEFT);
-		lifeSupportExtinguish = new JLabel(extinguishNIcon);
 		
 		lifeSupportAmount = new JLabel("How much energy to allocate for life support (max of " + s.getMaxLifeSupport() + " energy):");
 		/*lifeSupportSlider = new JSlider(0,s.getMaxLifeSupport(),0);
@@ -852,16 +808,12 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		
 		oxygenFillRate = new JLabel("Current oxygen fill rate: " + s.LifeSupport.getRefill()*100 + "%.");
 		
-		lsPanel2.add(ext);
-		lsPanel2.add(extinguishLifeSupport);
-		lsPanel2.add(lifeSupportFire);
-		lsPanel2.add(lifeSupportExtinguish);
 		lsPanel3.add(lifeSupportAmount);
 		lsPanel3.add(lifeSupportSlider);
 		lsPanel4.add(oxygenFillRate);
 		
 		lifeSupportPanel.add(lifeSupportStatus);
-		lifeSupportPanel.add(lsPanel2);
+		lifeSupportPanel.add(lifeSupportExtinguishPanel);
 		lifeSupportPanel.add(lsPanel3);
 		lifeSupportPanel.add(lsPanel4);
 		
@@ -878,7 +830,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		medBayPanel.setLayout(new BoxLayout(medBayPanel,BoxLayout.Y_AXIS));
 		
 		medBayStatus = new SystemStatusPanel(s, 6);
-		JPanel medBayPanel2 = new JPanel(new FlowLayout());
+		medBayExtinguishPanel = new SystemExtinguishPanel(s,6,this);
 		JPanel medBayPanel3 = new JPanel(new FlowLayout());
 		JPanel medBayPanel4 = new JPanel(new FlowLayout());
 		JPanel medBayPanel5 = new JPanel(new FlowLayout());
@@ -893,19 +845,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		medBayOxygen = new JLabel(s.MedBay.oxygenLevel*100 + "%",oxygenIcon,JLabel.LEFT);
 		repairMedBay = new JLabel(String.valueOf(s.MedBay.getRepairCrewNum()),repairIcon,JLabel.LEFT);
 		
-		JLabel ext = new JLabel("Extinguish Energy:");
-		/*extinguishMedBay = new JSlider(0,s.getMaxExtinguishers(),0);
-		extinguishMedBay.setMajorTickSpacing(s.getMaxExtinguishers()/5);
-		extinguishMedBay.setMinorTickSpacing(s.getMaxExtinguishers()/25);
-		extinguishMedBay.setPaintTicks(true);
-		extinguishMedBay.setPaintLabels(true);
-		extinguishMedBay.setSnapToTicks(true);
-		extinguishMedBay.addChangeListener(Handler);*/
-		extinguishMedBay = new RichSlider(this,0,s.getMaxExtinguishers(s.MedBay),0,s.getMaxExtinguishers(s.MedBay)/5,s.getMaxExtinguishers(s.MedBay)/25);
-		extinguishMedBay.setValue(s.MedBay.extinguishEnergy);
-		medBayFire = new JLabel(String.valueOf(s.MedBay.fireDamage),fireIcon,JLabel.LEFT);
-		medBayExtinguish = new JLabel(extinguishNIcon);
-		
 		availableMedics = new JLabel("Medics available: " + s.getAvailableMedics());
 		medicList = new JButton("Full Medic List");
 		
@@ -916,10 +855,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		JLabel thresh = new JLabel("Health to return injured to work:");
 		medBayThreshold = new RichSlider(this,50,100,s.MedBay.threshold);
 		
-		medBayPanel2.add(ext);
-		medBayPanel2.add(extinguishMedBay);
-		medBayPanel2.add(medBayFire);
-		medBayPanel2.add(medBayExtinguish);
 		medBayPanel3.add(availableMedics);
 		medBayPanel3.add(medicList);
 		medBayPanel4.add(bonus);
@@ -928,7 +863,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		medBayPanel6.add(medBayThreshold);
 		
 		medBayPanel.add(medBayStatus);
-		medBayPanel.add(medBayPanel2);
+		medBayPanel.add(medBayExtinguishPanel);
 		medBayPanel.add(medBayPanel3);
 		medBayPanel.add(medBayPanel4);
 		medBayPanel.add(medBayPanel5);

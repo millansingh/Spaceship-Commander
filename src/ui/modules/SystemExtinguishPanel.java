@@ -28,9 +28,17 @@ public class SystemExtinguishPanel extends Module {
 		JLabel ext = new JLabel("Extinguish Energy:");
 		extSlider = new RichSlider(parent,0,owner.getMaxExtinguishers(system),0,owner.getMaxExtinguishers(system)/5,owner.getMaxExtinguishers(system)/25);
 		extSlider.setValue(system.extinguishEnergy);
-		fireIconL = new JLabel(String.valueOf(system.fireDamage),fireIcon,JLabel.LEFT);
+		fireIconL = new JLabel(String.valueOf(system.fireDamage),fireNIcon,JLabel.LEFT);
 		fireExtinguishL = new JLabel(extinguishNIcon);
 		
+		if (system.isOnFire) {
+			fireIconL.setIcon(fireIcon);
+		}
+		
+		if (system.extinguishing) {
+			fireExtinguishL.setIcon(extinguishIcon);
+		}
+			
 		this.add(ext);
 		this.add(extSlider);
 		this.add(fireIconL);

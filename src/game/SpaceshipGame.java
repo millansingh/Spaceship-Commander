@@ -501,16 +501,10 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		weapPanel.setLayout(new BoxLayout(weapPanel,BoxLayout.Y_AXIS));
 		
 		weapStatus = new SystemStatusPanel(s, 3);
-		JPanel weaponsPanel2 = new JPanel(new FlowLayout());
+		weapExtinguishPanel = new SystemExtinguishPanel(s,3,this);
 		JPanel weaponsPanel3 = new JPanel(new FlowLayout());
 		JPanel weaponsPanel4 = new JPanel(new FlowLayout());
 		JPanel weaponsPanel5 = new JPanel(new FlowLayout());
-		
-		JLabel ext = new JLabel("Extinguish Energy:");
-		extinguishWeapon = new RichSlider(this,0,s.getMaxExtinguishers(s.Weapon),0,s.getMaxExtinguishers(s.Weapon)/5,s.getMaxExtinguishers(s.Weapon)/25);
-		extinguishWeapon.setValue(s.Weapon.extinguishEnergy);
-		weaponFire = new JLabel(String.valueOf(s.Weapon.fireDamage),fireIcon,JLabel.LEFT);
-		weaponExtinguish = new JLabel(extinguishNIcon);
 		
 		String str;
 		if (s.Weapon.Weapons[Handler.weapNum].bInfiniteAmmo)
@@ -534,10 +528,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		cWeapons.addItemListener(Handler);
 		cWeapons.setSelectedIndex(s.Weapon.Weapons[Handler.weapNum].aim+1);
 		
-		weaponsPanel2.add(ext);
-		weaponsPanel2.add(extinguishWeapon);
-		weaponsPanel2.add(weaponFire);
-		weaponsPanel2.add(weaponExtinguish);
 		weaponsPanel3.add(sWeapon);
 		weaponsPanel3.add(cWeaps);
 		weaponsPanel4.add(gunsToFire);
@@ -546,7 +536,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		weaponsPanel5.add(cWeapons);
 		
 		weapPanel.add(weapStatus);
-		weapPanel.add(weaponsPanel2);
+		weapPanel.add(weapExtinguishPanel);
 		weapPanel.add(weaponsPanel3);
 		weapPanel.add(weaponsPanel4);
 		weapPanel.add(weaponsPanel5);
@@ -1591,24 +1581,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	
 	public void updateIconLabels(Ship s)
 	{
-		if (s.Weapon.isOnFire)
-		{
-			weaponFire.setIcon(fireIcon);
-		}
-		else
-		{
-			weaponFire.setIcon(fireNIcon);
-		}
-		
-		if (s.Weapon.extinguishing)
-		{
-			weaponExtinguish.setIcon(extinguishIcon);
-		}
-		else
-		{
-			weaponExtinguish.setIcon(extinguishNIcon);
-		}
-		
 		if (s.Shield.isOnFire)
 		{
 			shieldFire.setIcon(fireIcon);

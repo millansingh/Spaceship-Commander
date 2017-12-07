@@ -6,6 +6,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -217,7 +218,17 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 			JTextField f = (JTextField)e.getSource();
 			if (f.equals(text))
 			{
-				setValue(Integer.valueOf(text.getText()));
+				try {
+					int val = Integer.valueOf(text.getText());
+					if (val <= max && val >= min) {
+						setValue(val);
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Number entered was out of bounds.");
+					}
+				} catch (NumberFormatException numEx) {
+					JOptionPane.showMessageDialog(null, "Invalid input -- that's not a number.");
+				}
 				update();
 			}
 		}

@@ -934,7 +934,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		treatedCrew = new JLabel("Number of injured crew in Medical Bay: " + s.MedBay.getInjured().size());
 		
 		JLabel thresh = new JLabel("Health to return injured to work:");
-		medBayThreshold = new RichSlider(this, state,50,100,s.MedBay.threshold,false);
+		medBayThreshold = new RichSlider(this, state,50,100,s.MedBay.threshold,true);
 		
 		medBayPanel2.add(ext);
 		medBayPanel2.add(extinguishMedBay);
@@ -1048,65 +1048,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		//Set all weapons to not firing
 		ship1.Weapon.lastStep();
 		ship2.Weapon.lastStep();
-		/*		
-		//Damage report for both players
-		JOptionPane.showMessageDialog(null, "Player 1 had " + ship1.getHits() + " hits, and Player 2 had " + ship2.getHits() + " hits.");
-		
-		StringBuffer s1=new StringBuffer("Player 1's Damage Report:\n"),
-				s2=new StringBuffer("Player 2's Damage Report:\n");
-		
-		if (fd1[0].getDamage(0)>0 || fd1[0].getDamage(2)>0)
-		{	
-			s2.append("Reactor: " + fd1[0].getDamage(0) + " base damage and " + fd1[0].getDamage(2) + " splash damage.\n");
-		}
-		if (fd2[0].getDamage(0)>0 || fd2[0].getDamage(2)>0)
-		{
-			s1.append("Reactor: " + fd2[0].getDamage(0) + " base damage and " + fd2[0].getDamage(2) + " splash damage.\n");
-		}
-		if (fd1[1].getDamage(0)>0 || fd1[1].getDamage(2)>0)
-		{
-			s2.append("Shield Generator: " + fd1[1].getDamage(0) + " base damage and " + fd1[1].getDamage(2) + " splash damage.\n");
-		}
-		if (fd2[1].getDamage(0)>0 || fd2[1].getDamage(2)>0)
-		{
-			s1.append("Shield Generator: " + fd2[1].getDamage(0) + " base damage and " + fd2[1].getDamage(2) + " splash damage.\n");
-		}
-		if (fd1[2].getDamage(0)>0 || fd1[2].getDamage(2)>0)
-		{
-			s2.append("Engine: " + fd1[2].getDamage(0) + " base damage and " + fd1[2].getDamage(2) + " splash damage.\n");
-		}
-		if (fd2[2].getDamage(0)>0 || fd2[2].getDamage(2)>0)
-		{
-			s1.append("Engine: " + fd2[2].getDamage(0) + " base damage and " + fd2[2].getDamage(2) + " splash damage.\n");
-		}
-		if (fd1[4].getDamage(0)>0 || fd1[4].getDamage(2)>0)
-		{
-			s2.append("Life Support: " + fd1[4].getDamage(0) + " base damage and " + fd1[4].getDamage(2) + " splash damage.\n");
-		}
-		if (fd2[4].getDamage(0)>0 || fd2[4].getDamage(2)>0)
-		{
-			s1.append("Life Support: " + fd2[4].getDamage(0) + " base damage and " + fd2[4].getDamage(2) + " splash damage.\n");
-		}
-		if (fd1[5].getDamage(0)>0 || fd1[5].getDamage(2)>0)
-		{
-			s2.append("Weapon System: " + fd1[5].getDamage(0) + " base damage and " + fd1[5].getDamage(2) + " splash damage.");
-		}
-		if (fd2[5].getDamage(0)>0 || fd2[5].getDamage(2)>0)
-		{
-			s1.append("Weapon System: " + fd2[5].getDamage(0) + " base damage and " + fd2[5].getDamage(2) + " splash damage.");
-		}
-		
-		if (s1.toString().equals("Player 1's Damage Report:\n"))
-		{
-			s1.append("No damage.");
-		}
-		if (s2.toString().equals("Player 2's Damage Report:\n"))
-		{
-			s2.append("No damage.");
-		}
-		
-		JOptionPane.showMessageDialog(null, s1);
-		JOptionPane.showMessageDialog(null, s2);*/
 	}
 	
 	public void overloadStep()
@@ -1786,6 +1727,21 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			Handler.lifeSupportSliderEvent(s);
 		}
 		
+		else if (r.equals(shieldSlider))
+		{
+			Handler.shieldSliderEvent(s);
+		}
+		
+		else if (r.equals(engineSlider))
+		{
+			Handler.engineSliderEvent(s);
+		}
+		
+		else if (r.equals(medBayThreshold))
+		{
+			s.MedBay.threshold=medBayThreshold.getValue();
+		}
+		
 		else if (r.equals(extinguishWeapon))
 		{
 			Handler.initExtinguish(s,s.Weapon,extinguishWeapon);
@@ -1865,7 +1821,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	
 	//--------------------------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------
-	private class SpaceHandler implements ActionListener, ItemListener, ChangeListener
+	private class SpaceHandler implements ActionListener, ItemListener
 	{
 		protected int weapNum=0;
 		protected boolean updateWeaps=true,updateCrewSelect=false;
@@ -2154,49 +2110,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			}
 		}
 		
-		//All Sliders*****************
-		public void stateChanged(ChangeEvent e) 
-		{
-			JSlider s = (JSlider)e.getSource();
-			
-			if (s.equals(shieldSlider))
-			{
-				if (turn)
-				{
-					System.out.println("shield event triggered.");
-					shieldSliderEvent(ship1);
-				}
-				else
-				{
-					shieldSliderEvent(ship2);
-				}
-			}
-			
-			else if (s.equals(engineSlider))
-			{
-				if (turn)
-				{
-					engineSliderEvent(ship1);
-				}
-				else
-				{
-					engineSliderEvent(ship2);
-				}
-			}
-			
-			else if (s.equals(medBayThreshold))
-			{
-				if (turn)
-				{
-					ship1.MedBay.threshold=medBayThreshold.getValue();
-				}
-				else
-				{
-					ship2.MedBay.threshold=medBayThreshold.getValue();
-				}	
-			}
-		}
-		
 		private void weapSliderEvent(Ship s)
 		{	
 			if (weapSlider.getValue()>s.getNumGunsMax(weapNum))
@@ -2231,7 +2144,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		{
 			if (lifeSupportSlider.getValue()>s.getAvailableEnergy()+s.LifeSupport.getEnergy())
 			{
-				lifeSupportSlider.setValue(s.getAvailableEnergy());
+				lifeSupportSlider.setValue(s.getAvailableEnergy()+s.LifeSupport.getEnergy());
 			}
 			s.LifeSupport.setEnergy(lifeSupportSlider.getValue());
 			update(s);

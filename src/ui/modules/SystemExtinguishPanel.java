@@ -55,8 +55,12 @@ public class SystemExtinguishPanel extends Module {
 			extSlider.setLabelTable(extSlider.createStandardLabels(owner.getMaxExtinguishers(system)/5));
 		}
 		
+		/*
+		 * Used for debug set fire command only right now!!
+		 * */
 		if (system.isOnFire) {
 			fireIconL.setIcon(fireIcon);
+			fireIconL.setText(String.valueOf(system.fireDamage));
 		}
 		else {
 			fireIconL.setIcon(fireNIcon);
@@ -69,6 +73,8 @@ public class SystemExtinguishPanel extends Module {
 		else {
 			fireExtinguishL.setIcon(extinguishNIcon);
 		}
+		
+		system.initializeExtinguishers(extSlider.getValue());
 	}
 
 }

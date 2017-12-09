@@ -208,7 +208,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		createLifeSupportPanel(s);
 		
 		updateButtons(s);
-		updateIconLabels(s);
 		
 		mainPanel.add(titlePanel);
 		mainPanel.add(tabbedPane);
@@ -1258,18 +1257,8 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	public void update(Ship s)
 	{
 		updateButtons(s);
-		updateIconLabels(s);
 		updateExtinguishSliders(s);
 		updateCrewPanels(s);
-		
-		/*
-		 * Used for debug set fire command only right now!!
-		 * */
-		weaponFire.setText(String.valueOf(s.Weapon.fireDamage));
-		shieldFire.setText(String.valueOf(s.Shield.fireDamage));
-		engineFire.setText(String.valueOf(s.Engine.fireDamage));
-		reactorFire.setText(String.valueOf(s.Power.fireDamage));
-		lifeSupportFire.setText(String.valueOf(s.LifeSupport.fireDamage));
 		
 		crewAlive.setText("Crew Remaining Alive: " + s.getAliveCrew() + "/" + s.initCrewLength);
 		
@@ -1465,148 +1454,16 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	
 	public void updateExtinguishSliders(Ship s)
 	{
-		extinguishLifeSupport.setMaximum(s.getMaxExtinguishers(s.LifeSupport));
-		extinguishLifeSupport.setMajorTickSpacing(s.getMaxExtinguishers(s.LifeSupport)/5);
-		extinguishLifeSupport.setMinorTickSpacing(s.getMaxExtinguishers(s.LifeSupport)/25);
-		if (s.getMaxExtinguishers(s.LifeSupport)>5)
-		{
-			extinguishLifeSupport.setLabelTable(extinguishLifeSupport.createStandardLabels(s.getMaxExtinguishers(s.LifeSupport)/5));
-		}
-		
-		extinguishMedBay.setMaximum(s.getMaxExtinguishers(s.MedBay));
-		extinguishMedBay.setMajorTickSpacing(s.getMaxExtinguishers(s.MedBay)/5);
-		extinguishMedBay.setMinorTickSpacing(s.getMaxExtinguishers(s.MedBay)/25);
-		if (s.getMaxExtinguishers(s.MedBay)>5)
-		{
-			extinguishMedBay.setLabelTable(extinguishMedBay.createStandardLabels(s.getMaxExtinguishers(s.MedBay)/5));
-		}
-		
-		extinguishWeapon.setMaximum(s.getMaxExtinguishers(s.Weapon));
-		extinguishWeapon.setMajorTickSpacing(s.getMaxExtinguishers(s.Weapon)/5);
-		extinguishWeapon.setMinorTickSpacing(s.getMaxExtinguishers(s.Weapon)/25);
-		if (s.getMaxExtinguishers(s.Weapon)>5)
-		{
-			extinguishWeapon.setLabelTable(extinguishWeapon.createStandardLabels(s.getMaxExtinguishers(s.Weapon)/5));
-		}
-		
-		extinguishShield.setMaximum(s.getMaxExtinguishers(s.Shield));
-		extinguishShield.setMajorTickSpacing(s.getMaxExtinguishers(s.Shield)/5);
-		extinguishShield.setMinorTickSpacing(s.getMaxExtinguishers(s.Shield)/25);
-		if (s.getMaxExtinguishers(s.Shield)>5)
-		{
-			extinguishShield.setLabelTable(extinguishShield.createStandardLabels(s.getMaxExtinguishers(s.Shield)/5));
-		}
-		
-		extinguishEngine.setMaximum(s.getMaxExtinguishers(s.Engine));
-		extinguishEngine.setMajorTickSpacing(s.getMaxExtinguishers(s.Engine)/5);
-		extinguishEngine.setMinorTickSpacing(s.getMaxExtinguishers(s.Engine)/25);
-		if (s.getMaxExtinguishers(s.Engine)>5)
-		{
-			extinguishEngine.setLabelTable(extinguishEngine.createStandardLabels(s.getMaxExtinguishers(s.Engine)/5));
-		}
-		
-		extinguishReactor.setMaximum(s.getMaxExtinguishers(s.Power));
-		extinguishReactor.setMajorTickSpacing(s.getMaxExtinguishers(s.Power)/5);
-		extinguishReactor.setMinorTickSpacing(s.getMaxExtinguishers(s.Power)/25);
-		if (s.getMaxExtinguishers(s.Power)>5)
-		{
-			extinguishReactor.setLabelTable(extinguishReactor.createStandardLabels(s.getMaxExtinguishers(s.Power)/5));
-		}
+		lifeSupportExtinguishPanel.update();
+		sensorsExtinguishPanel.update();
+		weapExtinguishPanel.update();
+		engineExtinguishPanel.update();
+		medBayExtinguishPanel.update();
+		shieldExtinguishPanel.update();
+		reactorExtinguishPanel.update();
 	}
 	
-	public void updateIconLabels(Ship s)
-	{
-		if (s.Shield.isOnFire)
-		{
-			shieldFire.setIcon(fireIcon);
-		}
-		else
-		{
-			shieldFire.setIcon(fireNIcon);
-		}
-		
-		if (s.Shield.extinguishing)
-		{
-			shieldExtinguish.setIcon(extinguishIcon);
-		}
-		else
-		{
-			shieldExtinguish.setIcon(extinguishNIcon);
-		}
-		
-		if (s.Engine.isOnFire)
-		{
-			engineFire.setIcon(fireIcon);
-		}
-		else
-		{
-			engineFire.setIcon(fireNIcon);
-		}
-		
-		if (s.Engine.extinguishing)
-		{
-			engineExtinguish.setIcon(extinguishIcon);
-		}
-		else
-		{
-			engineExtinguish.setIcon(extinguishNIcon);
-		}
-		
-		if (s.Power.isOnFire)
-		{
-			reactorFire.setIcon(fireIcon);
-		}
-		else
-		{
-			reactorFire.setIcon(fireNIcon);
-		}
-		
-		if (s.Power.extinguishing)
-		{
-			reactorExtinguish.setIcon(extinguishIcon);
-		}
-		else
-		{
-			reactorExtinguish.setIcon(extinguishNIcon);
-		}
-		
-		if (s.LifeSupport.isOnFire)
-		{
-			lifeSupportFire.setIcon(fireIcon);
-		}
-		else
-		{
-			lifeSupportFire.setIcon(fireNIcon);
-		}
-		
-		if (s.LifeSupport.extinguishing)
-		{
-			lifeSupportExtinguish.setIcon(extinguishIcon);
-		}
-		else
-		{
-			lifeSupportExtinguish.setIcon(extinguishNIcon);
-		}
-		
-		if (s.MedBay.isOnFire)
-		{
-			medBayFire.setIcon(fireIcon);
-		}
-		else
-		{
-			medBayFire.setIcon(fireNIcon);
-		}
-		
-		if (s.MedBay.extinguishing)
-		{
-			medBayExtinguish.setIcon(extinguishIcon);
-		}
-		else
-		{
-			medBayExtinguish.setIcon(extinguishNIcon);
-		}
-	}
-		
+
 	public void updateCrewPanels(Ship s)
 	{
 		weapCrewPanel.update();
@@ -1682,37 +1539,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		{
 			Handler.lifeSupportSliderEvent(s);
 		}
-		
-		else if (r.equals(extinguishWeapon))
-		{
-			Handler.initExtinguish(s,s.Weapon,extinguishWeapon);
-		}
-		
-		else if (r.equals(extinguishShield))
-		{
-			Handler.initExtinguish(s,s.Shield,extinguishShield);
-		}
-		
-		else if (r.equals(extinguishEngine))
-		{
-			Handler.initExtinguish(s,s.Engine,extinguishEngine);
-		}
-		
-		else if (r.equals(extinguishReactor))
-		{
-			Handler.initExtinguish(s,s.Power,extinguishReactor);
-		}
-		
-		else if (r.equals(extinguishLifeSupport))
-		{
-			Handler.initExtinguish(s,s.LifeSupport,extinguishLifeSupport);
-		}
-		
-		else if (r.equals(extinguishMedBay))
-		{
-			Handler.initExtinguish(s,s.MedBay,extinguishMedBay);
-		}
-		
+
 		else if (r.equals(weapSlider) && Handler.updateWeaps)
 		{
 			Handler.weapSliderEvent(s);

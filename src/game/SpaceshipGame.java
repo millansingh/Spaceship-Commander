@@ -2022,7 +2022,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				if (turn)
 				{
 					str.append("Energy Breakdown: " + ship1.Weapon.getEnergyUsed() + " in weaponry, " + ship1.Shield.getEnergy() + " in shields, " + ship1.Engine.getEnergy() + 
-							" in engines, and " + ship1.LifeSupport.getEnergy() + " in life support.");
+							" in engines, " + ship1.LifeSupport.getEnergy() + " in life support, and " + ship1.Sensors.getEnergy() + " in Sensors.");
 					
 					if (ship1.getExtinguisherEnergy()>0)
 					{
@@ -2032,7 +2032,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				else
 				{
 					str.append("Energy Breakdown: " + ship2.Weapon.getEnergyUsed() + " in weaponry, " + ship2.Shield.getEnergy() + " in shields, " + ship2.Engine.getEnergy() + 
-							" in engines, and " + ship2.LifeSupport.getEnergy() + " in life support.");
+							" in engines, " + ship2.LifeSupport.getEnergy() + " in life support, and " + ship2.Sensors.getEnergy() + " in Sensors.");
 					
 					if (ship2.getExtinguisherEnergy()>0)
 					{

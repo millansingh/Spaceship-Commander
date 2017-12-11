@@ -33,7 +33,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	
 	public static Ship ship1, ship2, currentShip;
 	public static int turnCount;
-	public static boolean turn = false, gameStart=false; //true is player 1, false player 2
+	public static boolean turn = false; //true is player 1, false player 2
 	
 	/***************************************************************************************************************************************/
 	
@@ -171,7 +171,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		Handler.weapNum=0;
 		this.removeAll();
 		
-		if (timerEnabled && gameStart)
+		if (timerEnabled && state.gameStart)
 		{
 			timeStep=roundTime/1000;
 			timerStep.restart();
@@ -356,11 +356,11 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		
 		JLabel crewAmount = new JLabel("How many crew members to send:");
 		if (s.getAvailableCrew()<=50)
-			{crewSlider = new RichSlider(this,0,s.getAvailableCrew(),0,5,1);}
+			{crewSlider = new RichSlider(this,state,0,s.getAvailableCrew(),0,5,1,false);}
 		else if (s.getAvailableCrew()<=100)	
-			{crewSlider = new RichSlider(this,0,s.getAvailableCrew(),0,10,2);}
+			{crewSlider = new RichSlider(this,state,0,s.getAvailableCrew(),0,10,2,false);}
 		else
-			{crewSlider = new RichSlider(this,0,s.getAvailableCrew(),0,25,5);}
+			{crewSlider = new RichSlider(this,state,0,s.getAvailableCrew(),0,25,5,false);}
 		
 		JLabel useCrew = new JLabel("What to do with selected crew:");
 		Crew = new JButton("Assign Crew");
@@ -426,9 +426,9 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			sensorsMain1Panels[i].setAlignmentX(LEFT_ALIGNMENT);
 			sensorsMain1.add(sensorsMain1Panels[i]);
 		}
-		
+    
 		sensorsAmount = new JLabel("How much energy to allocate for sensors (max of " + s.getMaxSensors() + " energy):");
-		sensorsSlider = new RichSlider(this,0,s.getMaxSensors(),0);
+		sensorsSlider = new RichSlider(this,state,0,s.getMaxSensors(),0,false);
 		
 		JLabel lock = new JLabel("Lock in your energy and crew allocation when you are ready. ");
 		lockEnergy = new JButton("Lock Sensors Energy");
@@ -519,7 +519,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		cWeaps.addItemListener(Handler);
 		
 		gunsToFire = new JLabel("Weapons to fire this turn (max of " + s.getNumGunsMax(Handler.weapNum) + " guns):");
-		weapSlider = new RichSlider(this,0,s.Weapon.getGunCount(Handler.weapNum),0);
+		weapSlider = new RichSlider(this,state,0,s.Weapon.getGunCount(Handler.weapNum),0,true);
 		
 		JLabel weapTargeting = new JLabel("Primary Target for this Weapon System:");
 		cWeapons = new JComboBox(cNames);
@@ -542,7 +542,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		weapCrewPanel = new CrewPanel(s,3,this);
+		weapCrewPanel = new CrewPanel(s,3,this,state);
 		weapPanel.add(weapCrewPanel);
 	}
 	
@@ -556,9 +556,9 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		JPanel shieldsPanel3 = new JPanel(new FlowLayout());
 		JPanel shieldsPanel4 = new JPanel(new FlowLayout());
 		JPanel shieldsPanel5 = new JPanel(new FlowLayout());
-		
+
 		shieldAmount = new JLabel("How much energy to allocate for shields (max of " + s.getMaxShields() + " energy):");
-		shieldSlider = new RichSlider(this,0,s.getMaxShields(),0);
+		shieldSlider = new RichSlider(this,state,0,s.getMaxShields(),0,true);
 		
 		JLabel target = new JLabel("Shield Protection Targets (in order of importance):");
 		cShield = new JComboBox(cNames);
@@ -630,7 +630,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		 * Crew Panel
 		 * */
 	
-		shieldCrewPanel = new CrewPanel(s,1,this);
+		shieldCrewPanel = new CrewPanel(s,1,this,state);
 		
 		shieldPanel.add(shieldCrewPanel);
 	}
@@ -661,7 +661,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		JPanel enginePanel5 = new JPanel(new FlowLayout());
 		
 		engineAmount = new JLabel("How much energy to allocate for propulsion (max of " + s.getMaxEngines() + " energy):");
-		engineSlider = new RichSlider(this,0,s.getMaxEngines(),0);
+		engineSlider = new RichSlider(this,state,0,s.getMaxEngines(),0,true);
 		engineSlider.setMajorTickSpacing(s.getMaxEngines()/5);
 		engineSlider.setMinorTickSpacing(s.getMaxEngines()/25);
 		
@@ -695,7 +695,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		engineCrewPanel = new CrewPanel(s,2,this);
+		engineCrewPanel = new CrewPanel(s,2,this,state);
 		enginePanel.add(engineCrewPanel);
 	}
 	
@@ -765,7 +765,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 */
-		reactorCrewPanel = new CrewPanel(s,0,this);
+		reactorCrewPanel = new CrewPanel(s,0,this,state);
 		reactorPanel.add(reactorCrewPanel);
 	}
 	
@@ -794,15 +794,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		JPanel lsPanel4 = new JPanel(new FlowLayout());
 		
 		lifeSupportAmount = new JLabel("How much energy to allocate for life support (max of " + s.getMaxLifeSupport() + " energy):");
-		/*lifeSupportSlider = new JSlider(0,s.getMaxLifeSupport(),0);
-		lifeSupportSlider.setMajorTickSpacing(s.getMaxLifeSupport()/5);
-		lifeSupportSlider.setMinorTickSpacing(s.getMaxLifeSupport()/25);
-		lifeSupportSlider.setValue(s.LifeSupport.getEnergy());
-		lifeSupportSlider.setPaintTicks(true);
-		lifeSupportSlider.setPaintLabels(true);
-		lifeSupportSlider.setSnapToTicks(true);
-		lifeSupportSlider.addChangeListener(Handler);*/
-		lifeSupportSlider = new RichSlider(this,0,s.getMaxLifeSupport(),0,s.getMaxLifeSupport()/5,s.getMaxLifeSupport()/25);
+		lifeSupportSlider = new RichSlider(this,state,0,s.getMaxLifeSupport(),0,s.getMaxLifeSupport()/5,s.getMaxLifeSupport()/25,true);
 		lifeSupportSlider.setValue(s.LifeSupport.getEnergy());
 		
 		oxygenFillRate = new JLabel("Current oxygen fill rate: " + s.LifeSupport.getRefill()*100 + "%.");
@@ -819,7 +811,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		lifeSupportCrewPanel = new CrewPanel(s,4,this);
+		lifeSupportCrewPanel = new CrewPanel(s,4,this,state);
 		lifeSupportPanel.add(lifeSupportCrewPanel);
 	}
 	
@@ -852,7 +844,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		treatedCrew = new JLabel("Number of injured crew in Medical Bay: " + s.MedBay.getInjured().size());
 		
 		JLabel thresh = new JLabel("Health to return injured to work:");
-		medBayThreshold = new RichSlider(this,50,100,s.MedBay.threshold);
+		medBayThreshold = new RichSlider(this, state,50,100,s.MedBay.threshold,true);
 		
 		medBayPanel3.add(availableMedics);
 		medBayPanel3.add(medicList);
@@ -881,7 +873,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		{
 			timerStep.start();
 		}
-		gameStart=true;
+		state.gameStart=true;
 	}
 	
 	public void endTurn()
@@ -962,65 +954,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		//Set all weapons to not firing
 		ship1.Weapon.lastStep();
 		ship2.Weapon.lastStep();
-		/*		
-		//Damage report for both players
-		JOptionPane.showMessageDialog(null, "Player 1 had " + ship1.getHits() + " hits, and Player 2 had " + ship2.getHits() + " hits.");
-		
-		StringBuffer s1=new StringBuffer("Player 1's Damage Report:\n"),
-				s2=new StringBuffer("Player 2's Damage Report:\n");
-		
-		if (fd1[0].getDamage(0)>0 || fd1[0].getDamage(2)>0)
-		{	
-			s2.append("Reactor: " + fd1[0].getDamage(0) + " base damage and " + fd1[0].getDamage(2) + " splash damage.\n");
-		}
-		if (fd2[0].getDamage(0)>0 || fd2[0].getDamage(2)>0)
-		{
-			s1.append("Reactor: " + fd2[0].getDamage(0) + " base damage and " + fd2[0].getDamage(2) + " splash damage.\n");
-		}
-		if (fd1[1].getDamage(0)>0 || fd1[1].getDamage(2)>0)
-		{
-			s2.append("Shield Generator: " + fd1[1].getDamage(0) + " base damage and " + fd1[1].getDamage(2) + " splash damage.\n");
-		}
-		if (fd2[1].getDamage(0)>0 || fd2[1].getDamage(2)>0)
-		{
-			s1.append("Shield Generator: " + fd2[1].getDamage(0) + " base damage and " + fd2[1].getDamage(2) + " splash damage.\n");
-		}
-		if (fd1[2].getDamage(0)>0 || fd1[2].getDamage(2)>0)
-		{
-			s2.append("Engine: " + fd1[2].getDamage(0) + " base damage and " + fd1[2].getDamage(2) + " splash damage.\n");
-		}
-		if (fd2[2].getDamage(0)>0 || fd2[2].getDamage(2)>0)
-		{
-			s1.append("Engine: " + fd2[2].getDamage(0) + " base damage and " + fd2[2].getDamage(2) + " splash damage.\n");
-		}
-		if (fd1[4].getDamage(0)>0 || fd1[4].getDamage(2)>0)
-		{
-			s2.append("Life Support: " + fd1[4].getDamage(0) + " base damage and " + fd1[4].getDamage(2) + " splash damage.\n");
-		}
-		if (fd2[4].getDamage(0)>0 || fd2[4].getDamage(2)>0)
-		{
-			s1.append("Life Support: " + fd2[4].getDamage(0) + " base damage and " + fd2[4].getDamage(2) + " splash damage.\n");
-		}
-		if (fd1[5].getDamage(0)>0 || fd1[5].getDamage(2)>0)
-		{
-			s2.append("Weapon System: " + fd1[5].getDamage(0) + " base damage and " + fd1[5].getDamage(2) + " splash damage.");
-		}
-		if (fd2[5].getDamage(0)>0 || fd2[5].getDamage(2)>0)
-		{
-			s1.append("Weapon System: " + fd2[5].getDamage(0) + " base damage and " + fd2[5].getDamage(2) + " splash damage.");
-		}
-		
-		if (s1.toString().equals("Player 1's Damage Report:\n"))
-		{
-			s1.append("No damage.");
-		}
-		if (s2.toString().equals("Player 2's Damage Report:\n"))
-		{
-			s2.append("No damage.");
-		}
-		
-		JOptionPane.showMessageDialog(null, s1);
-		JOptionPane.showMessageDialog(null, s2);*/
 	}
 	
 	public void overloadStep()
@@ -1232,7 +1165,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			JOptionPane.showMessageDialog(null, "It is a tie!");
 		}
 		
-		gameStart=false;
+		state.gameStart=false;
 		
 		int n = JOptionPane.showOptionDialog(null, "After " + turnCount + " turns, Player 1 had " + ship1.getArmor() + " armor remaining and " + ship1.crew.length + " crew remaining, and player 2 had " + ship2.getArmor() + " armor remaining and "
 				+ ship2.crew.length + " crew remaining.\n Would you like to start a new match?", "Rematch", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
@@ -1539,7 +1472,22 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		{
 			Handler.lifeSupportSliderEvent(s);
 		}
-
+		
+		else if (r.equals(shieldSlider))
+		{
+			Handler.shieldSliderEvent(s);
+		}
+		
+		else if (r.equals(engineSlider))
+		{
+			Handler.engineSliderEvent(s);
+		}
+		
+		else if (r.equals(medBayThreshold))
+		{
+			s.MedBay.threshold=medBayThreshold.getValue();
+		}
+		
 		else if (r.equals(weapSlider) && Handler.updateWeaps)
 		{
 			Handler.weapSliderEvent(s);
@@ -1589,7 +1537,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	
 	//--------------------------------------------------------------------------------------
 	//--------------------------------------------------------------------------------------
-	private class SpaceHandler implements ActionListener, ItemListener, ChangeListener
+	private class SpaceHandler implements ActionListener, ItemListener
 	{
 		protected int weapNum=0;
 		protected boolean updateWeaps=true,updateCrewSelect=false;
@@ -1878,48 +1826,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			}
 		}
 		
-		//All Sliders*****************
-		public void stateChanged(ChangeEvent e) 
-		{
-			JSlider s = (JSlider)e.getSource();
-			
-			if (s.equals(shieldSlider))
-			{
-				if (turn)
-				{
-					shieldSliderEvent(ship1);
-				}
-				else
-				{
-					shieldSliderEvent(ship2);
-				}
-			}
-			
-			else if (s.equals(engineSlider))
-			{
-				if (turn)
-				{
-					engineSliderEvent(ship1);
-				}
-				else
-				{
-					engineSliderEvent(ship2);
-				}
-			}
-			
-			else if (s.equals(medBayThreshold))
-			{
-				if (turn)
-				{
-					ship1.MedBay.threshold=medBayThreshold.getValue();
-				}
-				else
-				{
-					ship2.MedBay.threshold=medBayThreshold.getValue();
-				}	
-			}
-		}
-		
 		private void weapSliderEvent(Ship s)
 		{	
 			if (weapSlider.getValue()>s.getNumGunsMax(weapNum))
@@ -1954,7 +1860,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		{
 			if (lifeSupportSlider.getValue()>s.getAvailableEnergy()+s.LifeSupport.getEnergy())
 			{
-				lifeSupportSlider.setValue(s.getAvailableEnergy());
+				lifeSupportSlider.setValue(s.getAvailableEnergy()+s.LifeSupport.getEnergy());
 			}
 			s.LifeSupport.setEnergy(lifeSupportSlider.getValue());
 			update(s);

@@ -6,6 +6,7 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
 import javax.swing.JTextField;
@@ -13,6 +14,8 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import game.SpaceshipGame;
+import main.Game;
+import ui.modules.Module;
 
 public class RichSlider extends JPanel implements ActionListener,ChangeListener
 {
@@ -22,8 +25,11 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	private JTextField text;
 	private int value,min,max;
 	private SpaceshipGame parent;
+	private Module module;
+	private Game state;
+	private boolean realTimeUpdate = false;
 	
-	public RichSlider(SpaceshipGame s, int min, int max, int val)
+	public RichSlider(SpaceshipGame s, Game g, int min, int max, int val, boolean updates)
 	{
 		init(min,max,val);
 		if (max%10==0)
@@ -36,17 +42,51 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 			slider.setMajorTickSpacing(max/5);
 			slider.setMinorTickSpacing(max/25);
 		}
-		parent=s;
-		value=val;
+		parent = s;
+		state = g;
+		value = val;
+		realTimeUpdate = updates;
 	}
 	
-	public RichSlider(SpaceshipGame s, int min, int max, int val, int majTick, int minTick)
+	public RichSlider(SpaceshipGame s, Game g, int min, int max, int val, int majTick, int minTick, boolean updates)
 	{
 		init(min,max,val);
 		slider.setMajorTickSpacing(majTick);
 		slider.setMinorTickSpacing(minTick);
-		parent=s;
-		value=max;
+		parent = s;
+		state = g;
+		value = max;
+		realTimeUpdate = updates;
+	}
+	
+	public RichSlider(Module m, Game g, int min, int max, int val, boolean updates)
+	{
+		init(min,max,val);
+		if (max%10==0)
+		{
+			slider.setMajorTickSpacing(max/5);
+			slider.setMinorTickSpacing(max/10);
+		}
+		else
+		{
+			slider.setMajorTickSpacing(max/5);
+			slider.setMinorTickSpacing(max/25);
+		}
+		module = m;
+		state = g;
+		value = val;
+		realTimeUpdate = updates;
+	}
+	
+	public RichSlider(Module m, Game g, int min, int max, int val, int majTick, int minTick, boolean updates)
+	{
+		init(min,max,val);
+		slider.setMajorTickSpacing(majTick);
+		slider.setMinorTickSpacing(minTick);
+		module = m;
+		state = g;
+		value = max;
+		realTimeUpdate = updates;
 	}
 	
 	private void init(int min, int max, int val)
@@ -142,24 +182,33 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	{
 		return slider.createStandardLabels(i);
 	}
+	
+	public void update() {
+		if (state.gameStart && realTimeUpdate)
+		{
+			if (!parent.equals(null)) {
+				parent.richSliderUpdate(this);
+			}
+			else if (!module.equals(null)) {
+				module.update();
+			}
+		}
+	}
 
 	public void stateChanged(ChangeEvent arg0) 
 	{
 		setValue(slider.getValue());
-		if (parent.gameStart)
-		{
-			parent.richSliderUpdate(this);
-		}
+		update();
 	}
 	
-	public void setEnabled(Boolean b)
+	public void rsSetEnabled(Boolean b)
 	{
 		slider.setEnabled(b);
 		plus.setEnabled(b);
 		minus.setEnabled(b);
 		text.setEnabled(b);
-		parent.validate();
-		parent.repaint();
+		this.revalidate();
+		this.repaint();
 	}
 
 	public void actionPerformed(ActionEvent e)
@@ -169,8 +218,18 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 			JTextField f = (JTextField)e.getSource();
 			if (f.equals(text))
 			{
-				setValue(Integer.valueOf(text.getText()));
-				parent.richSliderUpdate(this);
+				try {
+					int val = Integer.valueOf(text.getText());
+					if (val <= max && val >= min) {
+						setValue(val);
+					}
+					else {
+						JOptionPane.showMessageDialog(null, "Number entered was out of bounds.");
+					}
+				} catch (NumberFormatException numEx) {
+					JOptionPane.showMessageDialog(null, "Invalid input -- that's not a number.");
+				}
+				update();
 			}
 		}
 		
@@ -180,12 +239,12 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 			if (b.equals(plus))
 			{
 				setValue(value+1);
-				parent.richSliderUpdate(this);
+				update();
 			}
 			else if (b.equals(minus))
 			{
 				setValue(value-1);
-				parent.richSliderUpdate(this);
+				update();
 			}
 		}
 	}

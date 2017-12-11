@@ -13,5 +13,9 @@ public class Module extends JPanel {
 	public Module(Ship own) {
 		owner = own;
 	}
+	
+	public void update() {
+		return;
+	}
 
 }

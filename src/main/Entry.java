@@ -1,6 +1,4 @@
-package game;
-
-import main.Game;
+package main;
 
 public class Entry {
 

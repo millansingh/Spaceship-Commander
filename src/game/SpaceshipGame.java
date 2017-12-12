@@ -356,11 +356,11 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		
 		JLabel crewAmount = new JLabel("How many crew members to send:");
 		if (s.getAvailableCrew()<=50)
-			{crewSlider = new RichSlider(this,state,0,s.getAvailableCrew(),0,5,1,false);}
+			{crewSlider = new RichSlider(this,0,s.getAvailableCrew(),0,5,1,false);}
 		else if (s.getAvailableCrew()<=100)	
-			{crewSlider = new RichSlider(this,state,0,s.getAvailableCrew(),0,10,2,false);}
+			{crewSlider = new RichSlider(this,0,s.getAvailableCrew(),0,10,2,false);}
 		else
-			{crewSlider = new RichSlider(this,state,0,s.getAvailableCrew(),0,25,5,false);}
+			{crewSlider = new RichSlider(this,0,s.getAvailableCrew(),0,25,5,false);}
 		
 		JLabel useCrew = new JLabel("What to do with selected crew:");
 		Crew = new JButton("Assign Crew");
@@ -405,7 +405,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		sensorsPanel.setLayout(new BoxLayout(sensorsPanel,BoxLayout.Y_AXIS));
 		
 		sensorsStatus = new SystemStatusPanel(s, 5);
-		sensorsExtinguishPanel = new SystemExtinguishPanel(s,5,this);
+		sensorsExtinguishPanel = new SystemExtinguishPanel(s,5,state);
 		JPanel sensorsPanel3 = new JPanel(new FlowLayout());
 		JPanel sensorsPanel4 = new JPanel(new FlowLayout());
 		JPanel sensorsPanel5 = new JPanel(new FlowLayout());
@@ -428,7 +428,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		}
     
 		sensorsAmount = new JLabel("How much energy to allocate for sensors (max of " + s.getMaxSensors() + " energy):");
-		sensorsSlider = new RichSlider(this,state,0,s.getMaxSensors(),0,false);
+		sensorsSlider = new RichSlider(this,0,s.getMaxSensors(),0,false);
 		
 		JLabel lock = new JLabel("Lock in your energy and crew allocation when you are ready. ");
 		lockEnergy = new JButton("Lock Sensors Energy");
@@ -499,7 +499,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		weapPanel.setLayout(new BoxLayout(weapPanel,BoxLayout.Y_AXIS));
 		
 		weapStatus = new SystemStatusPanel(s, 3);
-		weapExtinguishPanel = new SystemExtinguishPanel(s,3,this);
+		weapExtinguishPanel = new SystemExtinguishPanel(s,3,state);
 		JPanel weaponsPanel3 = new JPanel(new FlowLayout());
 		JPanel weaponsPanel4 = new JPanel(new FlowLayout());
 		JPanel weaponsPanel5 = new JPanel(new FlowLayout());
@@ -519,7 +519,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		cWeaps.addItemListener(Handler);
 		
 		gunsToFire = new JLabel("Weapons to fire this turn (max of " + s.getNumGunsMax(Handler.weapNum) + " guns):");
-		weapSlider = new RichSlider(this,state,0,s.Weapon.getGunCount(Handler.weapNum),0,true);
+		weapSlider = new RichSlider(this,0,s.Weapon.getGunCount(Handler.weapNum),0,true);
 		
 		JLabel weapTargeting = new JLabel("Primary Target for this Weapon System:");
 		cWeapons = new JComboBox(cNames);
@@ -542,7 +542,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		weapCrewPanel = new CrewPanel(s,3,this,state);
+		weapCrewPanel = new CrewPanel(s,3,state);
 		weapPanel.add(weapCrewPanel);
 	}
 	
@@ -552,13 +552,13 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		shieldPanel.setLayout(new BoxLayout(shieldPanel,BoxLayout.Y_AXIS));
 		
 		shieldStatus = new SystemStatusPanel(s, 1);
-		shieldExtinguishPanel = new SystemExtinguishPanel(s,1,this);
+		shieldExtinguishPanel = new SystemExtinguishPanel(s,1,state);
 		JPanel shieldsPanel3 = new JPanel(new FlowLayout());
 		JPanel shieldsPanel4 = new JPanel(new FlowLayout());
 		JPanel shieldsPanel5 = new JPanel(new FlowLayout());
 
 		shieldAmount = new JLabel("How much energy to allocate for shields (max of " + s.getMaxShields() + " energy):");
-		shieldSlider = new RichSlider(this,state,0,s.getMaxShields(),0,true);
+		shieldSlider = new RichSlider(this,0,s.getMaxShields(),0,true);
 		
 		JLabel target = new JLabel("Shield Protection Targets (in order of importance):");
 		cShield = new JComboBox(cNames);
@@ -630,7 +630,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		 * Crew Panel
 		 * */
 	
-		shieldCrewPanel = new CrewPanel(s,1,this,state);
+		shieldCrewPanel = new CrewPanel(s,1,state);
 		
 		shieldPanel.add(shieldCrewPanel);
 	}
@@ -655,13 +655,13 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		enginePanel.setLayout(new BoxLayout(enginePanel,BoxLayout.Y_AXIS));
 		
 		engineStatus = new SystemStatusPanel(s, 2);
-		engineExtinguishPanel = new SystemExtinguishPanel(s,2,this);
+		engineExtinguishPanel = new SystemExtinguishPanel(s,2,state);
 		JPanel enginePanel3 = new JPanel(new FlowLayout());
 		JPanel enginePanel4 = new JPanel(new FlowLayout());
 		JPanel enginePanel5 = new JPanel(new FlowLayout());
 		
 		engineAmount = new JLabel("How much energy to allocate for propulsion (max of " + s.getMaxEngines() + " energy):");
-		engineSlider = new RichSlider(this,state,0,s.getMaxEngines(),0,true);
+		engineSlider = new RichSlider(this,0,s.getMaxEngines(),0,true);
 		engineSlider.setMajorTickSpacing(s.getMaxEngines()/5);
 		engineSlider.setMinorTickSpacing(s.getMaxEngines()/25);
 		
@@ -695,7 +695,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		engineCrewPanel = new CrewPanel(s,2,this,state);
+		engineCrewPanel = new CrewPanel(s,2,state);
 		enginePanel.add(engineCrewPanel);
 	}
 	
@@ -705,19 +705,10 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		reactorPanel.setLayout(new BoxLayout(reactorPanel,BoxLayout.Y_AXIS));
 		
 		reactorStatus = new SystemStatusPanel(s, 0);
-		reactorExtinguishPanel = new SystemExtinguishPanel(s,0,this);
+		reactorExtinguishPanel = new SystemExtinguishPanel(s,0,state);
 		JPanel reactorPanel3 = new JPanel(new FlowLayout());
 		JPanel reactorPanel4 = new JPanel(new FlowLayout());
 		JPanel reactorPanel5 = new JPanel(new FlowLayout());
-		
-		JLabel reactorHealth = new JLabel("Reactor Health:");
-		JProgressBar reactorSystem = new JProgressBar(0,s.Power.initHealth);
-		reactorSystem.setString(String.valueOf(s.Power.health));
-		reactorSystem.setStringPainted(true);
-		reactorSystem.setValue(s.Power.health);
-		reactorSystem.setForeground(s.Power.getButtonColor());
-		reactorOxygen = new JLabel(s.Power.oxygenLevel*100 + "%",oxygenIcon,JLabel.LEFT);
-		repairReactor = new JLabel(String.valueOf(s.Power.getRepairCrewNum()),repairIcon,JLabel.LEFT);
 		
 		AvailableEnergy = new JLabel("Battery Storage: " + s.Power.getEnergyStored() + " / " + s.Power.getEnergyStoredMax() + "  ///  Available Energy (Battery - Usage): " + s.getAvailableEnergy());
 		EnergyUse = new JButton("Energy Usage");
@@ -765,7 +756,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 */
-		reactorCrewPanel = new CrewPanel(s,0,this,state);
+		reactorCrewPanel = new CrewPanel(s,0,state);
 		reactorPanel.add(reactorCrewPanel);
 	}
 	
@@ -789,12 +780,12 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		lifeSupportPanel.setLayout(new BoxLayout(lifeSupportPanel,BoxLayout.Y_AXIS));
 		
 		lifeSupportStatus = new SystemStatusPanel(s, 4);
-		lifeSupportExtinguishPanel = new SystemExtinguishPanel(s,4,this);
+		lifeSupportExtinguishPanel = new SystemExtinguishPanel(s,4,state);
 		JPanel lsPanel3 = new JPanel(new FlowLayout());
 		JPanel lsPanel4 = new JPanel(new FlowLayout());
 		
 		lifeSupportAmount = new JLabel("How much energy to allocate for life support (max of " + s.getMaxLifeSupport() + " energy):");
-		lifeSupportSlider = new RichSlider(this,state,0,s.getMaxLifeSupport(),0,s.getMaxLifeSupport()/5,s.getMaxLifeSupport()/25,true);
+		lifeSupportSlider = new RichSlider(this,0,s.getMaxLifeSupport(),0,s.getMaxLifeSupport()/5,s.getMaxLifeSupport()/25,true);
 		lifeSupportSlider.setValue(s.LifeSupport.getEnergy());
 		
 		oxygenFillRate = new JLabel("Current oxygen fill rate: " + s.LifeSupport.getRefill()*100 + "%.");
@@ -811,7 +802,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		/*
 		 * Crew Panel
 		 * */
-		lifeSupportCrewPanel = new CrewPanel(s,4,this,state);
+		lifeSupportCrewPanel = new CrewPanel(s,4,state);
 		lifeSupportPanel.add(lifeSupportCrewPanel);
 	}
 	
@@ -821,20 +812,11 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		medBayPanel.setLayout(new BoxLayout(medBayPanel,BoxLayout.Y_AXIS));
 		
 		medBayStatus = new SystemStatusPanel(s, 6);
-		medBayExtinguishPanel = new SystemExtinguishPanel(s,6,this);
+		medBayExtinguishPanel = new SystemExtinguishPanel(s,6,state);
 		JPanel medBayPanel3 = new JPanel(new FlowLayout());
 		JPanel medBayPanel4 = new JPanel(new FlowLayout());
 		JPanel medBayPanel5 = new JPanel(new FlowLayout());
 		JPanel medBayPanel6 = new JPanel(new FlowLayout());
-		
-		JLabel medBayHealth = new JLabel("Medical Bay Health:");
-		JProgressBar medBaySystem = new JProgressBar(0,s.MedBay.initHealth);
-		medBaySystem.setString(String.valueOf(s.MedBay.health));
-		medBaySystem.setStringPainted(true);
-		medBaySystem.setValue(s.MedBay.health);
-		medBaySystem.setForeground(s.MedBay.getButtonColor());
-		medBayOxygen = new JLabel(s.MedBay.oxygenLevel*100 + "%",oxygenIcon,JLabel.LEFT);
-		repairMedBay = new JLabel(String.valueOf(s.MedBay.getRepairCrewNum()),repairIcon,JLabel.LEFT);
 		
 		availableMedics = new JLabel("Medics available: " + s.getAvailableMedics());
 		medicList = new JButton("Full Medic List");
@@ -844,7 +826,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		treatedCrew = new JLabel("Number of injured crew in Medical Bay: " + s.MedBay.getInjured().size());
 		
 		JLabel thresh = new JLabel("Health to return injured to work:");
-		medBayThreshold = new RichSlider(this, state,50,100,s.MedBay.threshold,true);
+		medBayThreshold = new RichSlider(this,50,100,s.MedBay.threshold,true);
 		
 		medBayPanel3.add(availableMedics);
 		medBayPanel3.add(medicList);
@@ -1189,87 +1171,89 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 	
 	public void update(Ship s)
 	{
-		updateButtons(s);
-		updateExtinguishSliders(s);
-		updateCrewPanels(s);
-		
-		crewAlive.setText("Crew Remaining Alive: " + s.getAliveCrew() + "/" + s.initCrewLength);
-		
-		if (cParts.getSelectedIndex()!=6)
-		{
-			lCrew.setText("Available Crew: " + s.getAvailableCrew() + "  |  Crew used in selected part: " + s.getPartNum(cParts.getSelectedIndex()).getCrewNum() + "/" + s.getPartNum(cParts.getSelectedIndex()).getEngineersNeeded());
+		if (state.gameStart) {
+			updateButtons(s);
+			updateExtinguishSliders(s);
+			updateCrewPanels(s);
+			
+			crewAlive.setText("Crew Remaining Alive: " + s.getAliveCrew() + "/" + s.initCrewLength);
+			
+			if (cParts.getSelectedIndex()!=6)
+			{
+				lCrew.setText("Available Crew: " + s.getAvailableCrew() + "  |  Crew used in selected part: " + s.getPartNum(cParts.getSelectedIndex()).getCrewNum() + "/" + s.getPartNum(cParts.getSelectedIndex()).getEngineersNeeded());
+			}
+			else
+			{
+				lCrew.setText("Available Crew: " + s.getAvailableCrew() + "  |  Crew used in Weapon Repairs: " + s.Weapon.getWeapRepairCrewNum());
+			}
+			crewSlider.setMaximum(s.getAvailableCrew());
+			if (!Handler.updateCrewSelect)
+			{
+				crewSlider.setValue(0);
+			}
+			Handler.updateCrewSelect=false;
+			
+			availableMedics.setText("Medics available: " + s.getAvailableMedics());
+			treatedCrew.setText("Number of injured crew in Medical Bay: " + s.MedBay.getInjured().size());
+			
+			medBayStatus.update();
+			
+			lifeSupportAmount.setText("How much energy to allocate for life support (max of " + s.getMaxLifeSupport() + " energy):");
+			lifeSupportSlider.setMaximum(s.getMaxLifeSupport());
+			lifeSupportSlider.setMajorTickSpacing(s.getMaxLifeSupport()/5);
+			lifeSupportSlider.setMinorTickSpacing(s.getMaxLifeSupport()/25);
+			if (s.getMaxLifeSupport()>5)
+			{
+				lifeSupportSlider.setLabelTable(lifeSupportSlider.createStandardLabels(s.getMaxLifeSupport()/5));
+			}
+			lifeSupportStatus.update();
+			oxygenFillRate.setText("Current oxygen fill rate: " + s.LifeSupport.getRefill()*100 + "%.");
+			
+			String str;
+			if (s.Weapon.Weapons[Handler.weapNum].bInfiniteAmmo)
+			{
+				str = "Current Weapon System: ";
+			}
+			else
+			{
+				str = "Current Weapon System (" + s.Weapon.Weapons[Handler.weapNum].ammo + " ammo left): ";
+			}
+			sWeapon.setText(str);
+			gunsToFire.setText("Weapons to fire this turn (max of " + s.getNumGunsMax(Handler.weapNum) + " guns):");
+			weapSlider.setMaximum(s.Weapon.getGunCount(Handler.weapNum));
+			weapSlider.setValue(s.Weapon.getNumGunsToFire(Handler.weapNum));
+			Handler.updateWeaps=true;
+			weapStatus.update();
+			
+			shieldAmount.setText("How much energy to allocate for shields (max of " + s.getMaxShields() + " energy):");
+			shieldSlider.setMaximum(s.getMaxShields());
+			shieldSlider.setMajorTickSpacing(s.getMaxShields()/5);
+			shieldSlider.setMinorTickSpacing(s.getMaxShields()/25);
+			if (s.getMaxShields()>5)
+			{
+				shieldSlider.setLabelTable(shieldSlider.createStandardLabels(s.getMaxShields()/5));
+			}
+			shieldStatus.update();
+			
+			engineAmount.setText("How much energy to allocate for propulsion (max of " + s.getMaxEngines() + " energy):");
+			engineSlider.setMaximum(s.getMaxEngines());
+			engineSlider.setMajorTickSpacing(s.getMaxEngines()/5);
+			engineSlider.setMinorTickSpacing(s.getMaxEngines()/25);
+			if (s.getMaxEngines()>5)
+			{
+				engineSlider.setLabelTable(engineSlider.createStandardLabels(s.getMaxEngines()/5));
+			}
+			engineStatus.update();
+			evade.setText("Evade %: " + s.getEvade() + "%");
+			
+			reactorStatus.update();
+			
+			AvailableEnergy.setText("Battery Storage: " + s.Power.getEnergyStored() + " / " + s.Power.getEnergyStoredMax() + "  ///  Available Energy (Battery - Usage): " + s.getAvailableEnergy());
+			energyProd.setText("Energy produced this turn (assuming no reactor damage is taken): " + s.Power.getEnergyProduced());
+			
+			validate();
+			repaint();
 		}
-		else
-		{
-			lCrew.setText("Available Crew: " + s.getAvailableCrew() + "  |  Crew used in Weapon Repairs: " + s.Weapon.getWeapRepairCrewNum());
-		}
-		crewSlider.setMaximum(s.getAvailableCrew());
-		if (!Handler.updateCrewSelect)
-		{
-			crewSlider.setValue(0);
-		}
-		Handler.updateCrewSelect=false;
-		
-		availableMedics.setText("Medics available: " + s.getAvailableMedics());
-		treatedCrew.setText("Number of injured crew in Medical Bay: " + s.MedBay.getInjured().size());
-		
-		medBayStatus.update();
-		
-		lifeSupportAmount.setText("How much energy to allocate for life support (max of " + s.getMaxLifeSupport() + " energy):");
-		lifeSupportSlider.setMaximum(s.getMaxLifeSupport());
-		lifeSupportSlider.setMajorTickSpacing(s.getMaxLifeSupport()/5);
-		lifeSupportSlider.setMinorTickSpacing(s.getMaxLifeSupport()/25);
-		if (s.getMaxLifeSupport()>5)
-		{
-			lifeSupportSlider.setLabelTable(lifeSupportSlider.createStandardLabels(s.getMaxLifeSupport()/5));
-		}
-		lifeSupportStatus.update();
-		oxygenFillRate.setText("Current oxygen fill rate: " + s.LifeSupport.getRefill()*100 + "%.");
-		
-		String str;
-		if (s.Weapon.Weapons[Handler.weapNum].bInfiniteAmmo)
-		{
-			str = "Current Weapon System: ";
-		}
-		else
-		{
-			str = "Current Weapon System (" + s.Weapon.Weapons[Handler.weapNum].ammo + " ammo left): ";
-		}
-		sWeapon.setText(str);
-		gunsToFire.setText("Weapons to fire this turn (max of " + s.getNumGunsMax(Handler.weapNum) + " guns):");
-		weapSlider.setMaximum(s.Weapon.getGunCount(Handler.weapNum));
-		weapSlider.setValue(s.Weapon.getNumGunsToFire(Handler.weapNum));
-		Handler.updateWeaps=true;
-		weapStatus.update();
-		
-		shieldAmount.setText("How much energy to allocate for shields (max of " + s.getMaxShields() + " energy):");
-		shieldSlider.setMaximum(s.getMaxShields());
-		shieldSlider.setMajorTickSpacing(s.getMaxShields()/5);
-		shieldSlider.setMinorTickSpacing(s.getMaxShields()/25);
-		if (s.getMaxShields()>5)
-		{
-			shieldSlider.setLabelTable(shieldSlider.createStandardLabels(s.getMaxShields()/5));
-		}
-		shieldStatus.update();
-		
-		engineAmount.setText("How much energy to allocate for propulsion (max of " + s.getMaxEngines() + " energy):");
-		engineSlider.setMaximum(s.getMaxEngines());
-		engineSlider.setMajorTickSpacing(s.getMaxEngines()/5);
-		engineSlider.setMinorTickSpacing(s.getMaxEngines()/25);
-		if (s.getMaxEngines()>5)
-		{
-			engineSlider.setLabelTable(engineSlider.createStandardLabels(s.getMaxEngines()/5));
-		}
-		engineStatus.update();
-		evade.setText("Evade %: " + s.getEvade() + "%");
-		
-		reactorStatus.update();
-		
-		AvailableEnergy.setText("Battery Storage: " + s.Power.getEnergyStored() + " / " + s.Power.getEnergyStoredMax() + "  ///  Available Energy (Battery - Usage): " + s.getAvailableEnergy());
-		energyProd.setText("Energy produced this turn (assuming no reactor damage is taken): " + s.Power.getEnergyProduced());
-		
-		validate();
-		repaint();
 	}
 	
 	public void updateButtons(Ship s)

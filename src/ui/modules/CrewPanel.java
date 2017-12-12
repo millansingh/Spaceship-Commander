@@ -22,12 +22,10 @@ public class CrewPanel extends Module implements ActionListener {
 	private JLabel header;
 	private RichSlider injuredSlider;
 	private JButton crewButton;
-	private SpaceshipGame parent; 
 	private Game state;
 
-	public CrewPanel(Ship own, int partNum, SpaceshipGame s, Game g) {
+	public CrewPanel(Ship own, int partNum, Game g) {
 		super(own);
-		parent = s;
 		state = g;
 		system = owner.getPartNum(partNum);
 		Border border = BorderFactory.createTitledBorder("Crew Controls");
@@ -40,7 +38,7 @@ public class CrewPanel extends Module implements ActionListener {
 		header = new JLabel("Crew assigned: " + system.getCrewNum() + "/" + system.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + owner.getAvailableMedics());
 		
 		JLabel inj = new JLabel("Injured Crew:");
-		injuredSlider = new RichSlider(this, state, 0, system.getInjuredCrewNum(), 0, 5, 1, false);
+		injuredSlider = new RichSlider(this, 0, system.getInjuredCrewNum(), 0, 5, 1, false);
 		crewButton = new JButton("Send to Medbay");
 		crewButton.addActionListener(this);
 		
@@ -61,20 +59,22 @@ public class CrewPanel extends Module implements ActionListener {
 	}
 
 	public void update() {
-		header.setText("Crew assigned: " + system.getCrewNum() + "/" + system.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + owner.getAvailableMedics());
-		injuredSlider.setMaximum(system.getInjuredCrewNum());
-		injuredSlider.setValue(0);
-		if (injuredSlider.getMaximum() == 0) {
-			injuredSlider.rsSetEnabled(false);
-			crewButton.setEnabled(false);
+		if (state.gameStart) {
+			header.setText("Crew assigned: " + system.getCrewNum() + "/" + system.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + owner.getAvailableMedics());
+			injuredSlider.setMaximum(system.getInjuredCrewNum());
+			injuredSlider.setValue(0);
+			if (injuredSlider.getMaximum() == 0) {
+				injuredSlider.rsSetEnabled(false);
+				crewButton.setEnabled(false);
+			}
+			else {
+				injuredSlider.rsSetEnabled(true);
+				crewButton.setEnabled(true);
+			}
+			
+			this.revalidate();
+			this.repaint();
 		}
-		else {
-			injuredSlider.rsSetEnabled(true);
-			crewButton.setEnabled(true);
-		}
-		
-		this.revalidate();
-		this.repaint();
 	}
 	
 	public void actionPerformed(ActionEvent e) {

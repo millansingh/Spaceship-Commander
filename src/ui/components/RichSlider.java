@@ -26,10 +26,9 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	private int value,min,max;
 	private SpaceshipGame parent;
 	private Module module;
-	private Game state;
 	private boolean realTimeUpdate = false;
 	
-	public RichSlider(SpaceshipGame s, Game g, int min, int max, int val, boolean updates)
+	public RichSlider(SpaceshipGame s, int min, int max, int val, boolean updates)
 	{
 		init(min,max,val);
 		if (max%10==0)
@@ -43,23 +42,21 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 			slider.setMinorTickSpacing(max/25);
 		}
 		parent = s;
-		state = g;
 		value = val;
 		realTimeUpdate = updates;
 	}
 	
-	public RichSlider(SpaceshipGame s, Game g, int min, int max, int val, int majTick, int minTick, boolean updates)
+	public RichSlider(SpaceshipGame s, int min, int max, int val, int majTick, int minTick, boolean updates)
 	{
 		init(min,max,val);
 		slider.setMajorTickSpacing(majTick);
 		slider.setMinorTickSpacing(minTick);
 		parent = s;
-		state = g;
 		value = max;
 		realTimeUpdate = updates;
 	}
 	
-	public RichSlider(Module m, Game g, int min, int max, int val, boolean updates)
+	public RichSlider(Module m, int min, int max, int val, boolean updates)
 	{
 		init(min,max,val);
 		if (max%10==0)
@@ -73,18 +70,16 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 			slider.setMinorTickSpacing(max/25);
 		}
 		module = m;
-		state = g;
 		value = val;
 		realTimeUpdate = updates;
 	}
 	
-	public RichSlider(Module m, Game g, int min, int max, int val, int majTick, int minTick, boolean updates)
+	public RichSlider(Module m, int min, int max, int val, int majTick, int minTick, boolean updates)
 	{
 		init(min,max,val);
 		slider.setMajorTickSpacing(majTick);
 		slider.setMinorTickSpacing(minTick);
 		module = m;
-		state = g;
 		value = max;
 		realTimeUpdate = updates;
 	}
@@ -184,7 +179,7 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	}
 	
 	public void update() {
-		if (state.gameStart && realTimeUpdate)
+		if (realTimeUpdate)
 		{
 			if (!parent.equals(null)) {
 				parent.richSliderUpdate(this);

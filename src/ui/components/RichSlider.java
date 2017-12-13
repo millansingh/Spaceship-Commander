@@ -138,12 +138,6 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 		return min;
 	}
 	
-	public void update(int i)
-	{
-		slider.setValue(i);
-		text.setText(Integer.toString(i));
-	}
-	
 	public void setMaximum(int i)
 	{
 		max=i;
@@ -178,7 +172,9 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 		return slider.createStandardLabels(i);
 	}
 	
-	public void update() {
+	public void update(int i) {
+		slider.setValue(i);
+		text.setText(Integer.toString(i));
 		if (realTimeUpdate)
 		{
 			if (!parent.equals(null)) {
@@ -192,8 +188,7 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 
 	public void stateChanged(ChangeEvent arg0) 
 	{
-		setValue(slider.getValue());
-		update();
+		update(slider.getValue());
 	}
 	
 	public void rsSetEnabled(Boolean b)
@@ -216,7 +211,7 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 				try {
 					int val = Integer.valueOf(text.getText());
 					if (val <= max && val >= min) {
-						setValue(val);
+						update(val);
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Number entered was out of bounds.");
@@ -224,7 +219,6 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 				} catch (NumberFormatException numEx) {
 					JOptionPane.showMessageDialog(null, "Invalid input -- that's not a number.");
 				}
-				update();
 			}
 		}
 		
@@ -233,13 +227,11 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 			JButton b = (JButton)e.getSource();
 			if (b.equals(plus))
 			{
-				setValue(value+1);
-				update();
+				update(value+1);
 			}
 			else if (b.equals(minus))
 			{
-				setValue(value-1);
-				update();
+				update(value-1);
 			}
 		}
 	}

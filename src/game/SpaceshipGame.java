@@ -13,8 +13,6 @@ import weapons.WeaponSet;
 
 import javax.swing.*;
 import javax.swing.border.Border;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -1169,9 +1167,17 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		}
 	}
 	
-	public void update(Ship s)
+	public void update()
 	{
 		if (state.gameStart) {
+			Ship s;
+			if (turn) {
+				s = ship1;
+			}
+			else {
+				s = ship2;
+			}
+			
 			updateButtons(s);
 			updateExtinguishSliders(s);
 			updateCrewPanels(s);
@@ -1578,20 +1584,20 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			
 			else if (b.equals(ManShip))
 			{
-				if (turn){ship1.manTheShip();update(ship1);}
-				else{ship2.manTheShip();update(ship2);}
+				if (turn){ship1.manTheShip();}
+				else{ship2.manTheShip();}
 			}
 			
 			else if (b.equals(HalfRepair))
 			{
-				if (turn){ship1.freeRepairCrewHalf();update(ship1);}
-				else{ship1.freeRepairCrewHalf();update(ship2);}
+				if (turn){ship1.freeRepairCrewHalf();}
+				else{ship1.freeRepairCrewHalf();}
 			}
 			
 			else if (b.equals(EndRepair))
 			{
-				if (turn){ship1.freeRepairCrew();update(ship1);}
-				else{ship2.freeRepairCrew();update(ship2);}
+				if (turn){ship1.freeRepairCrew();}
+				else{ship2.freeRepairCrew();}
 			}
 			
 			else if (b.equals(WeapStats))
@@ -1787,7 +1793,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 					weapNum=cWeaps.getSelectedIndex();
 					cWeapons.setSelectedIndex(s.Weapon.Weapons[weapNum].aim+1);
 					updateWeaps=false;
-					update(s);
 				}
 				else if (b.equals(cParts))
 				{
@@ -1801,7 +1806,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 					}
 					
 					updateCrewSelect=true;
-					update(s);
 				}
 				else if (b.equals(cPartsWeap))
 				{
@@ -1817,7 +1821,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				weapSlider.setValue(s.getNumGunsMax(weapNum));
 			}
 			s.Weapon.setGunsToFire(weapSlider.getValue(), weapNum);
-			update(s);
 		}
 		
 		private void shieldSliderEvent(Ship s)
@@ -1827,7 +1830,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				shieldSlider.setValue(s.getAvailableEnergy());
 			}
 			s.Shield.setEnergy(shieldSlider.getValue());
-			update(s);
 		}
 		
 		private void engineSliderEvent(Ship s)
@@ -1837,7 +1839,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				engineSlider.setValue(s.getAvailableEnergy());
 			}
 			s.Engine.setEnergy(engineSlider.getValue());
-			update(s);
 		}
 		
 		private void lifeSupportSliderEvent(Ship s)
@@ -1847,13 +1848,11 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				lifeSupportSlider.setValue(s.getAvailableEnergy()+s.LifeSupport.getEnergy());
 			}
 			s.LifeSupport.setEnergy(lifeSupportSlider.getValue());
-			update(s);
 		}
 		
 		private void initExtinguish(Ship s, Part p, RichSlider sl)
 		{
 			p.initializeExtinguishers(sl.getValue());
-			update(s);
 		}
 		
 		//Button implementation*******
@@ -1940,8 +1939,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				{
 					JOptionPane.showMessageDialog(null, "This system has been completely destoryed and is no longer operational, thus it cannot have crew allocated.");
 				}
-				
-				update(s);
 			}
 		}
 		
@@ -1960,8 +1957,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 					JOptionPane.showMessageDialog(null, "You have freed " + crewSlider.getValue() + " crew to your " + s.getPartNameCrew(cParts.getSelectedIndex()) + 
 							". This gives you an accuracy modifier of " + ((systems.Weapons)s.getPartNum(cParts.getSelectedIndex())).getAccuracyMod()*100 + "%.");
 				}
-				
-				update(s);
 			}
 		}
 		
@@ -1987,8 +1982,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 						JOptionPane.showMessageDialog(null, "This system has been completely destoryed and is no longer operational, thus it cannot have crew allocated.");
 					}
 				}
-				
-				update(s);
 			}
 		}
 		
@@ -2002,8 +1995,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				{
 					JOptionPane.showMessageDialog(null, "All crew assigned to repairs have been freed up.");
 					s.freeRepairCrew(cParts.getSelectedIndex());
-					
-					update(s);
 				}
 			}
 			else
@@ -2014,8 +2005,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				{
 					JOptionPane.showMessageDialog(null, "All crew assigned to weapon repairs have been freed up.");
 					s.Weapon.clearWeapRepairCrew();
-					
-					update(s);
 				}
 			}
 		}
@@ -2032,10 +2021,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 					if (n==JOptionPane.YES_OPTION)
 					{
 						JOptionPane.showMessageDialog(null, "All " + s.getPartNum(cParts.getSelectedIndex()).getCrewNum() + " crew assigned to your " + s.getPartNameCrew(cParts.getSelectedIndex()) + " have been freed up for other assignments.");
-						//s.freeCrew(cParts.getSelectedIndex(), s.getPartNum(cParts.getSelectedIndex()).getCrewNum());
 						s.getPartNum(cParts.getSelectedIndex()).clearCrew();
-						
-						update(s);
 					}
 				}
 				else if (s.getPartNum(cParts.getSelectedIndex()).getCrewNum()>s.getPartNum(cParts.getSelectedIndex()).getEngineersNeeded() && s.getPartNum(cParts.getSelectedIndex()).isOverloading)
@@ -2049,8 +2035,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 						JOptionPane.showMessageDialog(null, s.getPartNum(cParts.getSelectedIndex()).getCrewNum()-s.getPartNum(cParts.getSelectedIndex()).getEngineersNeeded() + 
 								" unnecessary crew assigned to your " + s.getPartNameCrew(cParts.getSelectedIndex()) + " have been freed up for other assignments.");
 						s.freeCrew(cParts.getSelectedIndex(), s.getPartNum(cParts.getSelectedIndex()).getCrewNum()-s.getPartNum(cParts.getSelectedIndex()).getEngineersNeeded());
-						
-						update(s);
 					}
 				}
 				else if (s.getPartNum(cParts.getSelectedIndex()).getCrewNum()<=s.getPartNum(cParts.getSelectedIndex()).getEngineersNeeded() && s.getPartNum(cParts.getSelectedIndex()).isOverloading)
@@ -2074,8 +2058,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 					{
 						JOptionPane.showMessageDialog(null, "All " + s.getPartNum(cParts.getSelectedIndex()).getCrewNum() + " crew assigned to your " + s.getPartNameCrew(cParts.getSelectedIndex()) + " have been freed up for other assignments.");
 						s.freeCrew(cParts.getSelectedIndex(), s.getPartNum(cParts.getSelectedIndex()).getCrewNum());
-						
-						update(s);
 					}
 				}
 				else if (s.getPartNum(cParts.getSelectedIndex()).getCrewNum()>s.getPartNum(cParts.getSelectedIndex()).getEngineersNeededOverload() && ((systems.Engine)s.getPartNum(cParts.getSelectedIndex())).isRamming)
@@ -2089,8 +2071,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 						JOptionPane.showMessageDialog(null, s.getPartNum(cParts.getSelectedIndex()).getCrewNum()-s.getPartNum(cParts.getSelectedIndex()).getEngineersNeededOverload() + 
 								" unnecessary crew assigned to your " + s.getPartNameCrew(cParts.getSelectedIndex()) + " have been freed up for other assignments.");
 						s.freeCrew(cParts.getSelectedIndex(), s.getPartNum(cParts.getSelectedIndex()).getCrewNum()-s.getPartNum(cParts.getSelectedIndex()).getEngineersNeededOverload());
-						
-						update(s);
 					}
 				}
 				else if (s.getPartNum(cParts.getSelectedIndex()).getCrewNum()<=s.getPartNum(cParts.getSelectedIndex()).getEngineersNeededOverload() && ((systems.Engine)s.getPartNum(cParts.getSelectedIndex())).isRamming)
@@ -2114,8 +2094,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 					{
 						JOptionPane.showMessageDialog(null, s.getPartNum(cParts.getSelectedIndex()).getCrewNum() + " unnecessary crew assigned to your " + s.getPartNameCrew(cParts.getSelectedIndex()) + " have been freed up for other assignments.");
 						s.freeCrew(cParts.getSelectedIndex(), s.getPartNum(cParts.getSelectedIndex()).getCrewNum());
-						
-						update(s);
 					}
 				}
 				else
@@ -2139,8 +2117,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				
 				JOptionPane.showMessageDialog(null, "Shield generator overload sequence complete...increasing output to " + s.Shield.getEnergyMax() + " energy.");
 			}
-			
-			update(s);
 		}
 		
 		private void overloadReactor(Ship s)
@@ -2156,8 +2132,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				
 				JOptionPane.showMessageDialog(null, "Reactor overload sequence complete...increasing output to " + s.Power.getEnergyProduced() + " energy.");
 			}
-			
-			update(s);
 		}
 		
 		private void ramEngine(Ship s)
@@ -2199,8 +2173,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 					s.Engine.setEnergy(s.Engine.getEnergyMax());
 				}
 			}
-			
-			update(s);
 		}
 	
 		private void hardResetShields(Ship s)
@@ -2217,8 +2189,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				
 				JOptionPane.showMessageDialog(null, "Shield Hard Reset Sequence Initiated.");
 			}
-			
-			update(s);
 		}
 		
 		private void cooldownReactor(Ship s)
@@ -2235,8 +2205,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				
 				JOptionPane.showMessageDialog(null, "Reactor Full Cooldown Sequence Initiated.");
 			}
-			
-			update(s);
 		}
 		
 		private void lockEnergy(Ship s, Ship s2)
@@ -2249,7 +2217,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			{
 				updateSensors(s, s2);
 			}
-			update(s);
 		}
 		
 		private void lockCrew(Ship s, Ship s2)
@@ -2260,7 +2227,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			{
 				updateSensors(s, s2);
 			}
-			update(s);
 		}
 	
 		private void injuredCrew(Ship s, Part p, RichSlider sl)
@@ -2276,7 +2242,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 					i--;
 				}
 			}
-			update(s);
 		}
 	}
 	

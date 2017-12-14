@@ -63,8 +63,8 @@ public class Game {
 		state = 0;
 	}
 	
-	public void updateGameWindow(Ship s) {
-		game.update(s);
+	public void updateGameWindow() {
+		game.update();
 	}
 
 }

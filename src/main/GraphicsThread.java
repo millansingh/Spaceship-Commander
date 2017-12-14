@@ -48,7 +48,6 @@ public class GraphicsThread extends Thread {
 				averageFPS = (double) 1000 / ((totalTime / frameCount) / 1000000);
 				frameCount = 0;
 				totalTime = 0;
-				System.out.println("FPS: " + averageFPS);
 			}
 		}
 	}
@@ -62,8 +61,8 @@ public class GraphicsThread extends Thread {
 	}
 	
 	public void draw() {
-		if (state.getState() != -1) {
-			// TODO Implement this method
+		if (state.getState() == 1) {
+			state.updateGameWindow();
 		}
 	}
 

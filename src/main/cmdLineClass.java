@@ -30,7 +30,6 @@ public class cmdLineClass implements Runnable
 			int n = scan.nextInt();
 			current.Power.setEnergyStored(current.Power.getEnergyStored()-n);
 			System.out.println("New energy level: " + current.Power.getEnergyStored());
-			parent.update(current);
 		}
 		else if (s.equals("Add"))
 		{
@@ -38,7 +37,6 @@ public class cmdLineClass implements Runnable
 			int n = scan.nextInt();
 			current.Power.setEnergyStored(current.Power.getEnergyStored()+n);
 			System.out.println("New energy level: " + current.Power.getEnergyStored());
-			parent.update(current);
 		}
 		else if (s.equals("Damage System"))
 		{
@@ -49,7 +47,6 @@ public class cmdLineClass implements Runnable
 			int d = scan.nextInt();
 			p.health-=d;
 			System.out.println("The new system health is " + p.health);
-			parent.update(current);
 		}
 		else if (s.equals("Repair System"))
 		{
@@ -60,7 +57,6 @@ public class cmdLineClass implements Runnable
 			int d = scan.nextInt();
 			p.health+=d;
 			System.out.println("The new system health is " + p.health);
-			parent.update(current);
 		}
 		else if (s.equals("Start Fire"))
 		{
@@ -72,7 +68,6 @@ public class cmdLineClass implements Runnable
 			p.isOnFire=true;
 			p.fireDamage+=d;
 			System.out.println("The system is currently on fire with " + p.fireDamage + " fire damage per turn.");
-			parent.update(current);
 		}
 		else
 		{

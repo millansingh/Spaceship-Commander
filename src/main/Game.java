@@ -9,16 +9,15 @@ import game.Menu;
 import game.Ship;
 import game.SpaceshipGame;
 
-public class Game implements Runnable {
+public class Game {
 	
 	public JFrame window;
 	public Menu mainMenu;
 	public SpaceshipGame game;
 	private int state=-1;
 	public boolean gameStart = false;
-	public boolean running;
 	
-	private Thread gameThread;
+	private GraphicsThread drawThread;
 	
 	public Game() {
 		state = 0;
@@ -33,16 +32,8 @@ public class Game implements Runnable {
 		
 		System.out.println("Game initialized");
 		
-		gameThread = new Thread(this);
-		gameThread.start();
-	}
-	
-	public void run() {
-		running = true;
-		
-		while(running) {
-			draw();
-		}
+		drawThread = new GraphicsThread(this);
+		drawThread.start();
 	}
 	
 	public int getState() {
@@ -50,14 +41,8 @@ public class Game implements Runnable {
 	}
 	
 	public void close() {
-		running = false;
+		drawThread.setRunning(false);
 		window.dispose();
-	}
-	
-	public void draw() {
-		if (state != -1) {
-			
-		}
 	}
 	
 	public void startGame(boolean useTimer, int timerLength) {

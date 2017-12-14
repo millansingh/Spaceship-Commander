@@ -1827,7 +1827,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		{
 			if (shieldSlider.getValue()>s.getAvailableEnergy()+s.Shield.getEnergy())
 			{
-				shieldSlider.setValue(s.getAvailableEnergy());
+				shieldSlider.setValue(s.getAvailableEnergy()+s.Shield.getEnergy());
 			}
 			s.Shield.setEnergy(shieldSlider.getValue());
 		}
@@ -1836,7 +1836,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		{
 			if (engineSlider.getValue()>s.getAvailableEnergy()+s.Engine.getEnergy())
 			{
-				engineSlider.setValue(s.getAvailableEnergy());
+				engineSlider.setValue(s.getAvailableEnergy()+s.Engine.getEnergy());
 			}
 			s.Engine.setEnergy(engineSlider.getValue());
 		}

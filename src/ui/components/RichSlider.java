@@ -103,8 +103,8 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 		add(plus);
 		add(text);
 		
-		this.max= max;
-		this.min=min;
+		this.max = max;
+		this.min = min;
 		slider.setValue(val);
 		text.setText(Integer.toString(val));
 	}
@@ -125,7 +125,6 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 			i=min;
 		}
 		value=i;
-		update(value);
 	}
 	
 	public int getMaximum()
@@ -178,12 +177,23 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	}
 	
 	public void update(int i) {
+		setValue(i);
 		slider.setValue(i);
 		text.setText(Integer.toString(i));
+		
+		if (realTimeUpdate) {
+			if (parent != null) {
+				parent.richSliderUpdate(this);
+			}
+			else if (module != null) {
+				module.update();
+			}
+		}
 	}
 
 	public void stateChanged(ChangeEvent arg0) 
 	{
+//		System.out.println(slider.getValue());
 		update(slider.getValue());
 	}
 	

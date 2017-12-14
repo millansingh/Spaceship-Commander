@@ -77,7 +77,8 @@ public class SystemExtinguishPanel extends Module {
 			}
 			
 			system.initializeExtinguishers(extSlider.getValue());
-			state.updateGameWindow(owner);
+			this.revalidate();
+			this.repaint();
 		}
 	}
 

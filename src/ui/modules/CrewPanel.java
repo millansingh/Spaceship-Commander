@@ -91,8 +91,6 @@ public class CrewPanel extends Module implements ActionListener {
 					i--;
 				}
 			}
-			update();
-			state.updateGameWindow(owner);
 		}
 	}
 

@@ -172,18 +172,14 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 		return slider.createStandardLabels(i);
 	}
 	
+	public void update() {
+		this.revalidate();
+		this.repaint();
+	}
+	
 	public void update(int i) {
 		slider.setValue(i);
 		text.setText(Integer.toString(i));
-		if (realTimeUpdate)
-		{
-			if (!parent.equals(null)) {
-				parent.richSliderUpdate(this);
-			}
-			else if (!module.equals(null)) {
-				module.update();
-			}
-		}
 	}
 
 	public void stateChanged(ChangeEvent arg0) 
@@ -197,8 +193,6 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 		plus.setEnabled(b);
 		minus.setEnabled(b);
 		text.setEnabled(b);
-		this.revalidate();
-		this.repaint();
 	}
 
 	public void actionPerformed(ActionEvent e)

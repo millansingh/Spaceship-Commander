@@ -47,6 +47,9 @@ public class SystemStatusPanel extends Module {
 	public void update() {
 		oxygenLabel.setText(system.oxygenLevel*100 + "%");
 		repairLabel.setText(String.valueOf(system.getRepairCrewNum()));
+		
+		this.revalidate();
+		this.repaint();
 	}
 
 }

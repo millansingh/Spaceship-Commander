@@ -17,6 +17,8 @@ public class Game {
 	private int state=-1;
 	public boolean gameStart = false;
 	
+	private GraphicsThread drawThread;
+	
 	public Game() {
 		state = 0;
 		mainMenu = new Menu(this);
@@ -29,6 +31,9 @@ public class Game {
 		window.setVisible(true);
 		
 		System.out.println("Game initialized");
+		
+		drawThread = new GraphicsThread(this);
+		drawThread.start();
 	}
 	
 	public int getState() {
@@ -36,6 +41,7 @@ public class Game {
 	}
 	
 	public void close() {
+		drawThread.setRunning(false);
 		window.dispose();
 	}
 	
@@ -57,8 +63,8 @@ public class Game {
 		state = 0;
 	}
 	
-	public void updateGameWindow(Ship s) {
-		game.update(s);
+	public void updateGameWindow() {
+		game.update();
 	}
 
 }

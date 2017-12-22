@@ -1182,22 +1182,7 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			updateExtinguishSliders(s);
 			updateCrewPanels(s);
 			
-			crewAlive.setText("Crew Remaining Alive: " + s.getAliveCrew() + "/" + s.initCrewLength);
-			
-			if (cParts.getSelectedIndex()!=6)
-			{
-				lCrew.setText("Available Crew: " + s.getAvailableCrew() + "  |  Crew used in selected part: " + s.getPartNum(cParts.getSelectedIndex()).getCrewNum() + "/" + s.getPartNum(cParts.getSelectedIndex()).getEngineersNeeded());
-			}
-			else
-			{
-				lCrew.setText("Available Crew: " + s.getAvailableCrew() + "  |  Crew used in Weapon Repairs: " + s.Weapon.getWeapRepairCrewNum());
-			}
-			crewSlider.setMaximum(s.getAvailableCrew());
-			if (!Handler.updateCrewSelect)
-			{
-				crewSlider.setValue(0);
-			}
-			Handler.updateCrewSelect=false;
+			updateCommandAndControlPanel(s);
 			
 			availableMedics.setText("Medics available: " + s.getAvailableMedics());
 			treatedCrew.setText("Number of injured crew in Medical Bay: " + s.MedBay.getInjured().size());
@@ -1260,6 +1245,25 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 			validate();
 			repaint();
 		}
+	}
+	
+	public void updateCommandAndControlPanel(Ship s) {
+		crewAlive.setText("Crew Remaining Alive: " + s.getAliveCrew() + "/" + s.initCrewLength);
+		
+		if (cParts.getSelectedIndex()!=6)
+		{
+			lCrew.setText("Available Crew: " + s.getAvailableCrew() + "  |  Crew used in selected part: " + s.getPartNum(cParts.getSelectedIndex()).getCrewNum() + "/" + s.getPartNum(cParts.getSelectedIndex()).getEngineersNeeded());
+		}
+		else
+		{
+			lCrew.setText("Available Crew: " + s.getAvailableCrew() + "  |  Crew used in Weapon Repairs: " + s.Weapon.getWeapRepairCrewNum());
+		}
+		crewSlider.setMaximum(s.getAvailableCrew());
+//		if (!Handler.updateCrewSelect)
+//		{
+//			crewSlider.setValue(0);
+//		}
+		Handler.updateCrewSelect=false;
 	}
 	
 	public void updateButtons(Ship s)

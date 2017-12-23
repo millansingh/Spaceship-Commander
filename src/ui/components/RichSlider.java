@@ -141,14 +141,12 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	{
 		max=i;
 		slider.setMaximum(i);
-		//update(min);
 	}
 	
 	public void setMinimum(int i)
 	{
 		min=i;
 		slider.setMinimum(i);
-		update(min);
 	}
 	
 	public void setMajorTickSpacing(int i)
@@ -172,6 +170,9 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	}
 	
 	public void update() {
+		slider.setValue(value);
+		text.setText(Integer.toString(value));
+		
 		this.revalidate();
 		this.repaint();
 	}
@@ -194,7 +195,7 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	public void stateChanged(ChangeEvent arg0) 
 	{
 //		System.out.println(slider.getValue());
-		update(slider.getValue());
+		setValue(slider.getValue());
 	}
 	
 	public void rsSetEnabled(Boolean b)
@@ -215,7 +216,7 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 				try {
 					int val = Integer.valueOf(text.getText());
 					if (val <= max && val >= min) {
-						update(val);
+						setValue(val);
 					}
 					else {
 						JOptionPane.showMessageDialog(null, "Number entered was out of bounds.");
@@ -231,11 +232,11 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 			JButton b = (JButton)e.getSource();
 			if (b.equals(plus))
 			{
-				update(value+1);
+				setValue(value+1);
 			}
 			else if (b.equals(minus))
 			{
-				update(value-1);
+				setValue(value-1);
 			}
 		}
 	}

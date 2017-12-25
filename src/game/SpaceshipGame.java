@@ -205,8 +205,6 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		createMedBayPanel(s);
 		createLifeSupportPanel(s);
 		
-		updateButtons(s);
-		
 		mainPanel.add(titlePanel);
 		mainPanel.add(tabbedPane);
 		this.add(mainPanel);
@@ -1178,221 +1176,209 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				s = ship2;
 			}
 			
-			updateButtons(s);
-			updateExtinguishSliders(s);
-			updateCrewPanels(s);
+			updateCommandAndControlPanel(s);
 			
-			crewAlive.setText("Crew Remaining Alive: " + s.getAliveCrew() + "/" + s.initCrewLength);
+			updateMedbayPanel(s);
 			
-			if (cParts.getSelectedIndex()!=6)
-			{
-				lCrew.setText("Available Crew: " + s.getAvailableCrew() + "  |  Crew used in selected part: " + s.getPartNum(cParts.getSelectedIndex()).getCrewNum() + "/" + s.getPartNum(cParts.getSelectedIndex()).getEngineersNeeded());
-			}
-			else
-			{
-				lCrew.setText("Available Crew: " + s.getAvailableCrew() + "  |  Crew used in Weapon Repairs: " + s.Weapon.getWeapRepairCrewNum());
-			}
-			crewSlider.setMaximum(s.getAvailableCrew());
-			if (!Handler.updateCrewSelect)
-			{
-				crewSlider.setValue(0);
-			}
-			Handler.updateCrewSelect=false;
+			updateLifeSupportPanel(s);
 			
-			availableMedics.setText("Medics available: " + s.getAvailableMedics());
-			treatedCrew.setText("Number of injured crew in Medical Bay: " + s.MedBay.getInjured().size());
+			updateWeaponsPanel(s);
 			
-			medBayStatus.update();
+			updateSensorsPanel(s);
 			
-			lifeSupportAmount.setText("How much energy to allocate for life support (max of " + s.getMaxLifeSupport() + " energy):");
-			lifeSupportSlider.setMaximum(s.getMaxLifeSupport());
-			lifeSupportSlider.setMajorTickSpacing(s.getMaxLifeSupport()/5);
-			lifeSupportSlider.setMinorTickSpacing(s.getMaxLifeSupport()/25);
-			if (s.getMaxLifeSupport()>5)
-			{
-				lifeSupportSlider.setLabelTable(lifeSupportSlider.createStandardLabels(s.getMaxLifeSupport()/5));
-			}
-			lifeSupportStatus.update();
-			oxygenFillRate.setText("Current oxygen fill rate: " + s.LifeSupport.getRefill()*100 + "%.");
+			updateShieldPanel(s);
 			
-			String str;
-			if (s.Weapon.Weapons[Handler.weapNum].bInfiniteAmmo)
-			{
-				str = "Current Weapon System: ";
-			}
-			else
-			{
-				str = "Current Weapon System (" + s.Weapon.Weapons[Handler.weapNum].ammo + " ammo left): ";
-			}
-			sWeapon.setText(str);
-			gunsToFire.setText("Weapons to fire this turn (max of " + s.getNumGunsMax(Handler.weapNum) + " guns):");
-			weapSlider.setMaximum(s.Weapon.getGunCount(Handler.weapNum));
-			weapSlider.setValue(s.Weapon.getNumGunsToFire(Handler.weapNum));
-			Handler.updateWeaps=true;
-			weapStatus.update();
+			updateEnginePanel(s);
 			
-			shieldAmount.setText("How much energy to allocate for shields (max of " + s.getMaxShields() + " energy):");
-			shieldSlider.setMaximum(s.getMaxShields());
-			shieldSlider.setMajorTickSpacing(s.getMaxShields()/5);
-			shieldSlider.setMinorTickSpacing(s.getMaxShields()/25);
-			if (s.getMaxShields()>5)
-			{
-				shieldSlider.setLabelTable(shieldSlider.createStandardLabels(s.getMaxShields()/5));
-			}
-			shieldStatus.update();
-			
-			engineAmount.setText("How much energy to allocate for propulsion (max of " + s.getMaxEngines() + " energy):");
-			engineSlider.setMaximum(s.getMaxEngines());
-			engineSlider.setMajorTickSpacing(s.getMaxEngines()/5);
-			engineSlider.setMinorTickSpacing(s.getMaxEngines()/25);
-			if (s.getMaxEngines()>5)
-			{
-				engineSlider.setLabelTable(engineSlider.createStandardLabels(s.getMaxEngines()/5));
-			}
-			engineStatus.update();
-			evade.setText("Evade %: " + s.getEvade() + "%");
-			
-			reactorStatus.update();
-			
-			AvailableEnergy.setText("Battery Storage: " + s.Power.getEnergyStored() + " / " + s.Power.getEnergyStoredMax() + "  ///  Available Energy (Battery - Usage): " + s.getAvailableEnergy());
-			energyProd.setText("Energy produced this turn (assuming no reactor damage is taken): " + s.Power.getEnergyProduced());
+			updateReactorPanel(s);
 			
 			validate();
 			repaint();
 		}
 	}
 	
-	public void updateButtons(Ship s)
-	{
-		if (cParts.getSelectedIndex()!=6)
-		{
+	public void updateCommandAndControlPanel(Ship s) {
+		if (cParts.getSelectedIndex()!=6) {
 			ResetCrew.setEnabled(true);
 			Crew.setEnabled(true);
 			
-			if (s.getPartNum(cParts.getSelectedIndex()).getCrewNum()>0)
-			{
+			if (s.getPartNum(cParts.getSelectedIndex()).getCrewNum()>0) {
 				ResetCrew.setEnabled(true);
 			}
-			else
-			{
+			else {
 				ResetCrew.setEnabled(false);
 			}
 			
-			if (s.getPartNum(cParts.getSelectedIndex()).getRepairCrewNum()>0)
-			{
+			if (s.getPartNum(cParts.getSelectedIndex()).getRepairCrewNum()>0) {
 				StopRepair.setEnabled(true);
 			}
-			else
-			{
+			else {
 				StopRepair.setEnabled(false);
 			}
 			
-			if (s.getPartNum(cParts.getSelectedIndex()).canRepair(s.getScrap()))
-			{
+			if (s.getPartNum(cParts.getSelectedIndex()).canRepair(s.getScrap())) {
 				Repair.setEnabled(true);
 			}
-			else
-			{
+			else {
 				Repair.setEnabled(false);
 			}
 			
-			if (cParts.getSelectedIndex()==5 && s.Sensors.isLockedCrew())
-			{
+			if (cParts.getSelectedIndex()==5 && s.Sensors.isLockedCrew()) {
 				Crew.setEnabled(false);
 			}
-			else
-			{
+			else {
 				Crew.setEnabled(true);
 			}
 		}
-		else
-		{
+		else {
 			ResetCrew.setEnabled(false);
 			Crew.setEnabled(false);
 			
-			if (s.Weapon.getWeapRepairCrewNum()>0)
-			{
+			if (s.Weapon.getWeapRepairCrewNum()>0) {
 				StopRepair.setEnabled(true);
 			}
-			else
-			{
+			else {
 				StopRepair.setEnabled(false);
 			}
 			
-			if (s.Weapon.canRepairWeap(s.getScrap()))
-			{
+			if (s.Weapon.canRepairWeap(s.getScrap())) {
 				Repair.setEnabled(true);
 			}
-			else
-			{
+			else {
 				Repair.setEnabled(false);
 			}
 		}
 		
+		crewAlive.setText("Crew Remaining Alive: " + s.getAliveCrew() + "/" + s.initCrewLength);
+		
+		if (cParts.getSelectedIndex()!=6)
+		{
+			lCrew.setText("Available Crew: " + s.getAvailableCrew() + "  |  Crew used in selected part: " + s.getPartNum(cParts.getSelectedIndex()).getCrewNum() + "/" + s.getPartNum(cParts.getSelectedIndex()).getEngineersNeeded());
+		}
+		else
+		{
+			lCrew.setText("Available Crew: " + s.getAvailableCrew() + "  |  Crew used in Weapon Repairs: " + s.Weapon.getWeapRepairCrewNum());
+		}
+		crewSlider.setMaximum(s.getAvailableCrew());
+//		if (!Handler.updateCrewSelect)
+//		{
+//			crewSlider.setValue(0);
+//		}
+		Handler.updateCrewSelect=false;
+	}
+	
+	public void	updateMedbayPanel(Ship s) {
+		availableMedics.setText("Medics available: " + s.getAvailableMedics());
+		treatedCrew.setText("Number of injured crew in Medical Bay: " + s.MedBay.getInjured().size());
+		
+		medBayStatus.update();
+		medBayExtinguishPanel.update();
+	}
+	
+	public void updateLifeSupportPanel(Ship s) {
+		lifeSupportAmount.setText("How much energy to allocate for life support (max of " + s.getMaxLifeSupport() + " energy):");
+		lifeSupportSlider.setMaximum(s.getMaxLifeSupport());
+		lifeSupportSlider.setMajorTickSpacing(s.getMaxLifeSupport()/5);
+		lifeSupportSlider.setMinorTickSpacing(s.getMaxLifeSupport()/25);
+		if (s.getMaxLifeSupport()>5)
+		{
+			lifeSupportSlider.setLabelTable(lifeSupportSlider.createStandardLabels(s.getMaxLifeSupport()/5));
+		}
+		lifeSupportStatus.update();
+		oxygenFillRate.setText("Current oxygen fill rate: " + s.LifeSupport.getRefill()*100 + "%.");
+		lifeSupportExtinguishPanel.update();
+		lifeSupportCrewPanel.update();
+	}
+	
+	public void updateWeaponsPanel(Ship s) {
+		String str;
+		if (s.Weapon.Weapons[Handler.weapNum].bInfiniteAmmo)
+		{
+			str = "Current Weapon System: ";
+		}
+		else
+		{
+			str = "Current Weapon System (" + s.Weapon.Weapons[Handler.weapNum].ammo + " ammo left): ";
+		}
+		sWeapon.setText(str);
+		gunsToFire.setText("Weapons to fire this turn (max of " + s.getNumGunsMax(Handler.weapNum) + " guns):");
+		weapSlider.setMaximum(s.Weapon.getGunCount(Handler.weapNum));
+		weapSlider.setValue(s.Weapon.getNumGunsToFire(Handler.weapNum));
+		Handler.updateWeaps=true;
+		weapStatus.update();
+		weapCrewPanel.update();
+		weapExtinguishPanel.update();	
+	}
+	
+	public void updateShieldPanel(Ship s) {
+		shieldAmount.setText("How much energy to allocate for shields (max of " + s.getMaxShields() + " energy):");
+		shieldSlider.setMaximum(s.getMaxShields());
+		shieldSlider.setMajorTickSpacing(s.getMaxShields()/5);
+		shieldSlider.setMinorTickSpacing(s.getMaxShields()/25);
+		if (s.getMaxShields()>5)
+		{
+			shieldSlider.setLabelTable(shieldSlider.createStandardLabels(s.getMaxShields()/5));
+		}
 		if (!s.Shield.canOverload())
 		{
 			OverloadShields.setEnabled(false);
 		}
-		else
-		{
+		else {
 			OverloadShields.setEnabled(true);
 		}
-		
-		if (!s.Engine.canRam())
-		{
-			RamEngine.setEnabled(false);
-		}
-		else
-		{
-			RamEngine.setEnabled(true);
-		}
-		
-		if (!s.Power.canOverload())
-		{
-			OverloadReactor.setEnabled(false);
-		}
-		else
-		{
-			OverloadReactor.setEnabled(true);
-		}
-		
-		if (!s.Shield.isOverloading)
-		{
+		if (!s.Shield.isOverloading) {
 			HardResetShields.setEnabled(false);
 		}
-		else
-		{
+		else {
 			HardResetShields.setEnabled(true);
 		}
+		shieldStatus.update();	
+		shieldExtinguishPanel.update();
+		shieldCrewPanel.update();
+	}
 		
-		if (!s.Power.isOverloading)
+	public void updateEnginePanel(Ship s) {
+		engineAmount.setText("How much energy to allocate for propulsion (max of " + s.getMaxEngines() + " energy):");
+		engineSlider.setMaximum(s.getMaxEngines());
+		engineSlider.setMajorTickSpacing(s.getMaxEngines()/5);
+		engineSlider.setMinorTickSpacing(s.getMaxEngines()/25);
+		if (s.getMaxEngines()>5)
 		{
+			engineSlider.setLabelTable(engineSlider.createStandardLabels(s.getMaxEngines()/5));
+		}
+		if (!s.Engine.canRam()) {
+			RamEngine.setEnabled(false);
+		}
+		else {
+			RamEngine.setEnabled(true);
+		}
+		engineStatus.update();
+		evade.setText("Evade %: " + s.getEvade() + "%");
+		engineExtinguishPanel.update();
+		engineCrewPanel.update();
+	}
+	public void updateSensorsPanel(Ship s) {
+		sensorsExtinguishPanel.update();
+	}
+
+	public void updateReactorPanel(Ship s) {
+		reactorStatus.update();
+		
+		AvailableEnergy.setText("Battery Storage: " + s.Power.getEnergyStored() + " / " + s.Power.getEnergyStoredMax() + "  ///  Available Energy (Battery - Usage): " + s.getAvailableEnergy());
+		energyProd.setText("Energy produced this turn (assuming no reactor damage is taken): " + s.Power.getEnergyProduced());
+		if (!s.Power.canOverload()) {
+			OverloadReactor.setEnabled(false);
+		}
+		else {
+			OverloadReactor.setEnabled(true);
+		}
+		if (!s.Power.isOverloading) {
 			CooldownReactor.setEnabled(false);
 		}
-		else
-		{
+		else {
 			CooldownReactor.setEnabled(true);
 		}
-	}
-	
-	public void updateExtinguishSliders(Ship s)
-	{
-		lifeSupportExtinguishPanel.update();
-		sensorsExtinguishPanel.update();
-		weapExtinguishPanel.update();
-		engineExtinguishPanel.update();
-		medBayExtinguishPanel.update();
-		shieldExtinguishPanel.update();
 		reactorExtinguishPanel.update();
-	}
-	
-
-	public void updateCrewPanels(Ship s)
-	{
-		weapCrewPanel.update();
-		lifeSupportCrewPanel.update();
-		shieldCrewPanel.update();
-		engineCrewPanel.update();
 		reactorCrewPanel.update();
 	}
 	

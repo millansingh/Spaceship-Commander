@@ -8,6 +8,7 @@ public class GraphicsThread extends Thread {
 	
 	private int FPS = 30;
 	private double averageFPS;
+	private long averageFrameTime;
 	
 	public GraphicsThread(Game g) {
 		state = g;
@@ -21,6 +22,7 @@ public class GraphicsThread extends Thread {
 		long URDTimeMili;
 		long waitTime;
 		long totalTime = 0;
+		long frameTime = 0;
 		
 		int frameCount = 0;
 		int maxFrameCount = FPS;
@@ -33,6 +35,7 @@ public class GraphicsThread extends Thread {
 			draw();
 			
 			URDTimeMili = (System.nanoTime() - startTime) / 1000000;
+			frameTime += URDTimeMili;
 			waitTime = targetTime - URDTimeMili;
 			
 			try {
@@ -46,8 +49,11 @@ public class GraphicsThread extends Thread {
 			
 			if (frameCount == maxFrameCount) {
 				averageFPS = (double) 1000 / ((totalTime / frameCount) / 1000000);
+				averageFrameTime = frameTime / frameCount;
+				frameTime = 0;
 				frameCount = 0;
 				totalTime = 0;
+				System.out.println("FPS: " + averageFPS + "\n" + "Average Frame Time: " + averageFrameTime);
 			}
 		}
 	}

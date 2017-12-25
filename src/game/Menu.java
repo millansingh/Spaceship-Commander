@@ -61,7 +61,7 @@ public class Menu extends JPanel
 	
 	GUIHandler GUI = new GUIHandler();
 	SpaceshipGame game;
-	public static Game state;
+	public Game state;
 	
 	public Menu(Game g)
 	{		
@@ -360,7 +360,7 @@ public class Menu extends JPanel
 				boolean useTimer = timerBox.isSelected();
 				int timerLength = timerSlider.getValue()*1000;
 				
-				state.startGame(useTimer, timerLength);
+				state.beginStrategy(useTimer, timerLength);
 			}
 		}
 

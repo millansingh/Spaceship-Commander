@@ -61,7 +61,7 @@ public class GraphicsThread extends Thread {
 	}
 	
 	public void draw() {
-		if (state.getState() == 1) {
+		if (state.getState() == 2) {
 			state.updateGameWindow();
 		}
 	}

@@ -8,11 +8,13 @@ import javax.swing.SwingUtilities;
 import game.Menu;
 import game.Ship;
 import game.SpaceshipGame;
+import game.StrategyMenu;
 
 public class Game {
 	
 	public JFrame window;
 	public Menu mainMenu;
+	public StrategyMenu strategyMenu;
 	public SpaceshipGame game;
 	private int state=-1;
 	public boolean gameStart = false;
@@ -45,13 +47,22 @@ public class Game {
 		window.dispose();
 	}
 	
-	public void startGame(boolean useTimer, int timerLength) {
-		game = new SpaceshipGame(mainMenu.pShip1, mainMenu.pShip2, this, useTimer, timerLength);
+	public void beginStrategy(boolean useTimer, int timerLength) {
+		strategyMenu = new StrategyMenu(mainMenu.pShip1, mainMenu.pShip2, this, useTimer, timerLength);
 		window.getContentPane().remove(mainMenu);
-		window.getContentPane().add(game);
+		window.getContentPane().add(strategyMenu);
 		window.pack();
 		window.setVisible(true);
 		state = 1;
+	}
+	
+	public void startGame(boolean useTimer, int timerLength) {
+		game = new SpaceshipGame(strategyMenu.ship1, strategyMenu.ship2, this, useTimer, timerLength);
+		window.getContentPane().remove(strategyMenu);
+		window.getContentPane().add(game);
+		window.pack();
+		window.setVisible(true);
+		state = 2;
 	}
 	
 	public void goToMenu() {

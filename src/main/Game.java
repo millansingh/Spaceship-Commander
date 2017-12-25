@@ -74,6 +74,10 @@ public class Game {
 		state = 0;
 	}
 	
+	public void updateStrategyMenu() {
+		strategyMenu.update();
+	}
+	
 	public void updateGameWindow() {
 		game.update();
 	}

@@ -30,15 +30,17 @@ public class Ship
 	public LifeSupport LifeSupport;
 	public Medbay MedBay;
 	public Sensors Sensors;
-	public Crew[] crew;
+	public ArrayList<Crew> crew;
 	public Medic[] medics;
 	public boolean dShield=false, dPower=false;
 	public boolean rPower=false, rShield=false, rEngine=false, rWeapon=false, rLifeSupport=false;
 	public String name, fancyName;
-	public final int initCrewLength,weight,initMedicsLength;
+	public int initCrewLength;
+	public final int WEIGHT, MAXCREWLENGTH;
+	public final int initMedicsLength;
 	public double hullOxygen=1;
 	
-	public Ship(String n, String fn, int a, int we, PowerPlant p, Weapons w, Shields s, Engine e, LifeSupport l, Medbay me, Sensors se, int c, int med, int m)
+	public Ship(String n, String fn, int a, int we, PowerPlant p, Weapons w, Shields s, Engine e, LifeSupport l, Medbay me, Sensors se, int c, int mc, int med, int m)
 	{
 		//A ship comprises a PowerPlant, Weapons System, Shield Generator, Engine, Life Support, Medical Bay, Sensors, and Crew. These systems may also contain sub-systems.
 		//The heart of the game's mechanics come from the allocation of energy and crew.
@@ -46,7 +48,7 @@ public class Ship
 		name=n;
 		fancyName=fn;
 		armor=a;
-		weight=we;
+		WEIGHT=we;
 		maxExtinguishers=m;
 		initArmor=a;
 		Power=p;
@@ -58,17 +60,18 @@ public class Ship
 		Sensors=se;
 		LifeSupport.setEnergy(Math.min(LifeSupport.getEnergyNeeded(), getMaxLifeSupport()));
 		initCrewLength=c;
-		crew=new Crew[c];
+		MAXCREWLENGTH = mc;
+		crew=new ArrayList<Crew>();
 		int j=(int)(c*0.75);
-		for (int i=0;i<crew.length;i++)
+		for (int i=0;i<c;i++)
 		{
 			if (i<j)
 			{
-				crew[i]=new Engineer(100,4+(int)(Math.random()*5));
+				crew.add(new Engineer(100,4+(int)(Math.random()*5)));
 			}
 			else
 			{
-				crew[i]=new Engineer(100,9+(int)(Math.random()*4));
+				crew.add(new Engineer(100,9+(int)(Math.random()*4)));
 			}
 		}
 		initMedicsLength=med;
@@ -229,7 +232,7 @@ public class Ship
 	
 	public int getWeight()
 	{
-		return weight+Power.weight+Shield.weight+Weapon.getWeight()+Engine.weight+LifeSupport.weight;
+		return WEIGHT+Power.weight+Shield.weight+Weapon.getWeight()+Engine.weight+LifeSupport.weight;
 	}
 	
 	//****************************************************************************
@@ -859,15 +862,22 @@ public class Ship
 		return repair;
 	}
 	
+	public void addInitCrew(int num) {
+		for(int i=0; i<num; i++) {
+			crew.add(new Engineer(100,4+(int)(Math.random()*5)));
+			initCrewLength = crew.size();
+		}
+	}
+	
 	public ArrayList<Crew> crewCheck() 
 	{
 		ArrayList <Crew> c = new ArrayList<Crew>();
-		for (int i=0;i<crew.length;i++)
+		for (int i=0;i<crew.size();i++)
 		{
-			if (crew[i].health<=0 && !crew[i].isDead)
+			if (crew.get(i).health<=0 && !crew.get(i).isDead)
 			{
-				crew[i].isDead=true;
-				c.add(crew[i]);
+				crew.get(i).isDead=true;
+				c.add(crew.get(i));
 			}
 		}
 		for (int j=0;j<medics.length;j++)
@@ -992,10 +1002,10 @@ public class Ship
 	
 	public void clearCrew()
 	{
-		for (int i=0;i<crew.length;i++)
+		for (int i=0;i<crew.size();i++)
 		{
-			crew[i].assignment=-1;
-			crew[i].isOnFire=false;
+			crew.get(i).assignment=-1;
+			crew.get(i).isOnFire=false;
 		}
 		Weapon.clearCrew();
 		Shield.clearCrew();
@@ -1187,7 +1197,7 @@ public class Ship
 	
 	public int getRepairSpeed(int i)
 	{
-		return crew[0].getRepairSkill()*i;
+		return crew.get(0).getRepairSkill()*i;
 	}
 	
 	public int getAvailableCrew()

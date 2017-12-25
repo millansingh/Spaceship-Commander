@@ -1147,8 +1147,8 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		
 		state.gameStart=false;
 		
-		int n = JOptionPane.showOptionDialog(null, "After " + turnCount + " turns, Player 1 had " + ship1.getArmor() + " armor remaining and " + ship1.crew.length + " crew remaining, and player 2 had " + ship2.getArmor() + " armor remaining and "
-				+ ship2.crew.length + " crew remaining.\n Would you like to start a new match?", "Rematch", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+		int n = JOptionPane.showOptionDialog(null, "After " + turnCount + " turns, Player 1 had " + ship1.getArmor() + " armor remaining and " + ship1.crew.size() + " crew remaining, and player 2 had " + ship2.getArmor() + " armor remaining and "
+				+ ship2.crew.size() + " crew remaining.\n Would you like to start a new match?", "Rematch", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		if (n==JOptionPane.YES_OPTION)
 		{
 			if (timerEnabled)
@@ -1541,11 +1541,11 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 				ArrayList<crew.Crew> crewList;
 				if (turn)
 				{
-					crewList = new ArrayList<crew.Crew>(Arrays.asList(ship1.crew));
+					crewList = new ArrayList<crew.Crew>(ship1.crew);
 				}
 				else
 				{
-					crewList = new ArrayList<crew.Crew>(Arrays.asList(ship2.crew));
+					crewList = new ArrayList<crew.Crew>(ship2.crew);
 				}
 				crewList = Tools.sortCrew(crewList);
 				

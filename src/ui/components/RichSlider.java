@@ -31,15 +31,29 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	public RichSlider(SpaceshipGame s, int min, int max, int val, boolean updates)
 	{
 		init(min,max,val);
-		if (max%10==0)
-		{
-			slider.setMajorTickSpacing(max/5);
-			slider.setMinorTickSpacing(max/10);
+		if (max <= 50) {
+			if (max % 10 == 0) {
+				slider.setMajorTickSpacing(10);
+				slider.setMinorTickSpacing(2);
+			}
+			else if (max % 5 == 0) {
+				slider.setMajorTickSpacing(5);
+				slider.setMinorTickSpacing(1);
+			}
+			else {
+				slider.setMajorTickSpacing(max/5);
+				slider.setMinorTickSpacing(max/25);
+			}
 		}
-		else
-		{
-			slider.setMajorTickSpacing(max/5);
-			slider.setMinorTickSpacing(max/25);
+		else {			
+			if (max%10==0) {
+				slider.setMajorTickSpacing(max/5);
+				slider.setMinorTickSpacing(max/10);
+			}
+			else {
+				slider.setMajorTickSpacing(max/5);
+				slider.setMinorTickSpacing(max/25);
+			}
 		}
 		parent = s;
 		value = val;
@@ -59,15 +73,29 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	public RichSlider(Module m, int min, int max, int val, boolean updates)
 	{
 		init(min,max,val);
-		if (max%10==0)
-		{
-			slider.setMajorTickSpacing(max/5);
-			slider.setMinorTickSpacing(max/10);
+		if (max <= 50) {
+			if (max % 10 == 0) {
+				slider.setMajorTickSpacing(10);
+				slider.setMinorTickSpacing(2);
+			}
+			else if (max % 5 == 0) {
+				slider.setMajorTickSpacing(5);
+				slider.setMinorTickSpacing(1);
+			}
+			else {
+				slider.setMajorTickSpacing(max/5);
+				slider.setMinorTickSpacing(max/25);
+			}
 		}
-		else
-		{
-			slider.setMajorTickSpacing(max/5);
-			slider.setMinorTickSpacing(max/25);
+		else {			
+			if (max%10==0) {
+				slider.setMajorTickSpacing(max/5);
+				slider.setMinorTickSpacing(max/10);
+			}
+			else {
+				slider.setMajorTickSpacing(max/5);
+				slider.setMinorTickSpacing(max/25);
+			}
 		}
 		module = m;
 		value = val;

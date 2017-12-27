@@ -61,8 +61,6 @@ public class CrewPanel extends Module implements ActionListener {
 	public void update() {
 		if (state.gameStart) {
 			header.setText("Crew assigned: " + system.getCrewNum() + "/" + system.getEngineersNeeded() + " needed for maximum function.  ||  Medics available: " + owner.getAvailableMedics());
-			injuredSlider.setMaximum(system.getInjuredCrewNum());
-			injuredSlider.setValue(0);
 			if (injuredSlider.getMaximum() == 0) {
 				injuredSlider.rsSetEnabled(false);
 				crewButton.setEnabled(false);
@@ -89,6 +87,8 @@ public class CrewPanel extends Module implements ActionListener {
 					owner.MedBay.addInjured(c);
 					system.getCrew().remove(c);
 					i--;
+					injuredSlider.setMaximum(system.getInjuredCrewNum());
+					injuredSlider.setValue(0);
 				}
 			}
 		}

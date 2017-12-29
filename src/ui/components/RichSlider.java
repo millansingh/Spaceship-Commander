@@ -26,7 +26,7 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	private int value,min,max;
 	private SpaceshipGame parent;
 	private Module module;
-	private boolean realTimeUpdate = false;
+	private boolean realTimeUpdate = false, updating = false;
 	
 	public RichSlider(SpaceshipGame s, int min, int max, int val, boolean updates)
 	{
@@ -198,17 +198,12 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 	}
 	
 	public void update() {
-		slider.setValue(value);
-		text.setText(Integer.toString(value));
-		
-		this.revalidate();
-		this.repaint();
-	}
-	
-	public void update(int i) {
-		setValue(i);
-		slider.setValue(i);
-		text.setText(Integer.toString(i));
+		if (slider.getValue() != value) {			
+			slider.setValue(value);
+		}
+		if (Integer.valueOf(text.getText()) != value) {			
+			text.setText(Integer.toString(value));
+		}
 		
 		if (realTimeUpdate) {
 			if (parent != null) {
@@ -218,11 +213,13 @@ public class RichSlider extends JPanel implements ActionListener,ChangeListener
 				module.update();
 			}
 		}
+		
+//		this.revalidate();
+//		this.repaint();
 	}
 
 	public void stateChanged(ChangeEvent arg0) 
 	{
-//		System.out.println(slider.getValue());
 		setValue(slider.getValue());
 	}
 	

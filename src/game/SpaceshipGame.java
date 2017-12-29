@@ -1271,6 +1271,8 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		availableMedics.setText("Medics available: " + s.getAvailableMedics());
 		treatedCrew.setText("Number of injured crew in Medical Bay: " + s.MedBay.getInjured().size());
 		
+		medBayThreshold.update();
+		
 		medBayStatus.update();
 		medBayExtinguishPanel.update();
 	}
@@ -1284,6 +1286,9 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		{
 			lifeSupportSlider.setLabelTable(lifeSupportSlider.createStandardLabels(s.getMaxLifeSupport()/5));
 		}
+		
+		lifeSupportSlider.update();
+		
 		lifeSupportStatus.update();
 		oxygenFillRate.setText("Current oxygen fill rate: " + s.LifeSupport.getRefill()*100 + "%.");
 		lifeSupportExtinguishPanel.update();
@@ -1303,8 +1308,12 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		sWeapon.setText(str);
 		gunsToFire.setText("Weapons to fire this turn (max of " + s.getNumGunsMax(Handler.weapNum) + " guns):");
 		weapSlider.setMaximum(s.Weapon.getGunCount(Handler.weapNum));
-		weapSlider.setValue(s.Weapon.getNumGunsToFire(Handler.weapNum));
+		weapSlider.update();
+		if (weapSlider.getValue() != s.Weapon.getNumGunsToFire(Handler.weapNum)) {			
+			weapSlider.setValue(s.Weapon.getNumGunsToFire(Handler.weapNum));
+		}
 		Handler.updateWeaps=true;
+		
 		weapStatus.update();
 		weapCrewPanel.update();
 		weapExtinguishPanel.update();	
@@ -1319,6 +1328,9 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		{
 			shieldSlider.setLabelTable(shieldSlider.createStandardLabels(s.getMaxShields()/5));
 		}
+		
+		shieldSlider.update();
+		
 		if (!s.Shield.canOverload())
 		{
 			OverloadShields.setEnabled(false);
@@ -1346,6 +1358,9 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		{
 			engineSlider.setLabelTable(engineSlider.createStandardLabels(s.getMaxEngines()/5));
 		}
+		
+		engineSlider.update();
+		
 		if (!s.Engine.canRam()) {
 			RamEngine.setEnabled(false);
 		}

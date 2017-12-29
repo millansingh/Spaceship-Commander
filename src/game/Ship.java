@@ -239,7 +239,7 @@ public class Ship
 	
 	public Damage[] calcDamage(int g, double e)
 	{
-		//This method created an array of Damage objects which hold values for different damage types, mundane, fire, splash, and eventually other types.
+		//This method creates an array of Damage objects which hold values for different damage types, mundane, fire, splash, and eventually other types.
 		//That array gets fed to the other ship for damage calculation. The array length is the number of guns of the other ship, plus the hull, engine, life support, reactor, shields, and weapons system.
 		Damage[] damage = new Damage[g+6];
 		double evade=e/100;
@@ -413,8 +413,9 @@ public class Ship
 	
 	public Damage[] takeDamage(Damage[] damage)
 	{
-		//Apply calculated damage using the array from the other ship's calcDamage method. Most of the horsepower comes from the tageDamageHelper method.
+		//Apply calculated damage using the array from the other ship's calcDamage method. Most of the horsepower comes from the takeDamageHelper method.
 		Damage[] d = damage;
+		// TODO move this somewhere that makes more sense.
 		Power.setEnergyStored(Power.getEnergyStored()-getEnergyUsed());
 		int total=0;
 		d=deflect(d);

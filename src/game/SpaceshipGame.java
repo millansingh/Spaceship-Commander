@@ -456,6 +456,8 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		
 		
 		//Add all components to their respective container panels.
+		sensorsPanel3.add(sensorsAmount);
+		sensorsPanel3.add(sensorsSlider);
 		sensorsPanel4.add(lock);
 		sensorsPanel4.add(lockEnergy);
 		sensorsPanel4.add(lockCrew);

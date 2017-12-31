@@ -489,6 +489,11 @@ public class SpaceshipGame extends JPanel implements ActionListener, Runnable
 		sensorsPanel.add(sensorsPanel4);
 		sensorsPanel.add(sensorsPanel5);
 		sensorsPanel.add(sensorsMain);
+		/*
+		 * Crew Panel
+		 * */
+		sensorsCrewPanel = new CrewPanel(s,5,state);
+		sensorsPanel.add(sensorsCrewPanel);
 	}
 	
 	private void createWeaponPanel(Ship s)

@@ -2,7 +2,11 @@ package main;
 
 import java.awt.Graphics;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
+import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
 import game.Menu;
@@ -18,6 +22,9 @@ public class Game {
 	public SpaceshipGame game;
 	private int state=-1;
 	public boolean gameStart = false;
+	public boolean drawFPS = true;
+	private JPanel statsPanel;
+	private JLabel FPSLabel, frameTimeLabel;
 	
 	private GraphicsThread drawThread;
 	
@@ -28,7 +35,19 @@ public class Game {
 		window = new JFrame();
 		window.setBounds(500, 300, 800, 600);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		statsPanel = new JPanel();
+		statsPanel.setLayout(new BoxLayout(statsPanel, BoxLayout.Y_AXIS));
+		statsPanel.setBounds(10,35,150,40);
+		statsPanel.setOpaque(false);
+		FPSLabel = new JLabel();
+		frameTimeLabel = new JLabel();
+		statsPanel.add(FPSLabel);
+		statsPanel.add(frameTimeLabel);
+		
+		window.getLayeredPane().add(statsPanel,JLayeredPane.PALETTE_LAYER);
 		window.getContentPane().add(mainMenu);
+		
 		window.pack();
 		window.setVisible(true);
 		
@@ -36,6 +55,14 @@ public class Game {
 		
 		drawThread = new GraphicsThread(this);
 		drawThread.start();
+	}
+	
+	public void setStatsPanel(double FPS, long averageFrameTime) {
+		if (state == 2) {
+			FPS = Math.round(FPS * 100.0)/100.0;
+			FPSLabel.setText("FPS: " + FPS);
+			frameTimeLabel.setText("Average Frame Time: " + averageFrameTime);
+		}
 	}
 	
 	public int getState() {

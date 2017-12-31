@@ -3,6 +3,8 @@ package main;
 import java.awt.Graphics;
 
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JLayeredPane;
 import javax.swing.SwingUtilities;
 
 import game.Menu;
@@ -18,6 +20,8 @@ public class Game {
 	public SpaceshipGame game;
 	private int state=-1;
 	public boolean gameStart = false;
+	public boolean drawFPS = true;
+	public JLabel FPSLabel;
 	
 	private GraphicsThread drawThread;
 	
@@ -28,6 +32,9 @@ public class Game {
 		window = new JFrame();
 		window.setBounds(500, 300, 800, 600);
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		FPSLabel = new JLabel();
+		FPSLabel.setBounds(5,5,150,100);
+		window.getLayeredPane().add(FPSLabel,JLayeredPane.PALETTE_LAYER);
 		window.getContentPane().add(mainMenu);
 		window.pack();
 		window.setVisible(true);
@@ -36,6 +43,10 @@ public class Game {
 		
 		drawThread = new GraphicsThread(this);
 		drawThread.start();
+	}
+	
+	public void setFPSLabel(double FPS, long averageFrameTime) {
+		FPSLabel.setText("FPS: " + FPS + "\n" + "Average Frame Time: " + averageFrameTime);
 	}
 	
 	public int getState() {

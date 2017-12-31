@@ -55,7 +55,7 @@ public class GraphicsThread extends Thread {
 				totalTime = 0;
 				// System.out.println("FPS: " + averageFPS + "\n" + "Average Frame Time: " + averageFrameTime);
 				if (state.drawFPS) {
-					state.setFPSLabel(averageFPS, averageFrameTime);
+					state.setStatsPanel(averageFPS, averageFrameTime);
 				}
 			}
 		}

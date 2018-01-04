@@ -1,0 +1,82 @@
+[
+	{
+		"name": "Hardened Crusier",
+		"fancyName": "Hardened 'Bernardo' Cruiser",
+		"armor": 3500,
+		"baseWeight": 25,
+		"initCrew": 40,
+		"maxCrew": 50,
+		"initMedics": 5,
+		"maxExtinguishers": 120
+	},
+	{
+		"name": "Fleet Crusier",
+		"fancyName": "Terrifying Fleet Cruiser",
+		"armor": 3000,
+		"baseWeight": 10,
+		"initCrew": 30,
+		"maxCrew": 38,
+		"initMedics": 3,
+		"maxExtinguishers": 80
+	},
+	{
+		"name": "Millennium Crusier",
+		"fancyName": "Millennium 'All-In' Cruiser",
+		"armor": 2000,
+		"baseWeight": 15,
+		"initCrew": 35,
+		"maxCrew": 45,
+		"initMedics": 3,
+		"maxExtinguishers": 80
+	},
+	{
+		"name": "Frontline Crusier",
+		"fancyName": "Fiery Frontline Cruiser",
+		"armor": 3000,
+		"baseWeight": 12,
+		"initCrew": 40,
+		"maxCrew": 45,
+		"initMedics": 5,
+		"maxExtinguishers": 100
+	},
+	{
+		"name": "Thunder Cruiser",
+		"fancyName": "Rolling Thunder Cruiser",
+		"armor": 3500,
+		"baseWeight": 30,
+		"initCrew": 30,
+		"maxCrew": 40,
+		"initMedics": 3,
+		"maxExtinguishers": 80
+	},
+	{
+		"name": "Manta Crusier",
+		"fancyName": "Manta Ray Cruiser",
+		"armor": 3500,
+		"baseWeight": 30,
+		"initCrew": 30,
+		"maxCrew": 40,
+		"initMedics": 3,
+		"maxExtinguishers": 80
+	},
+	{
+		"name": "Alamo Crusier",
+		"fancyName": "Alamo Battle Cruiser",
+		"armor": 2000,
+		"baseWeight": 10,
+		"initCrew": 30,
+		"maxCrew": 40,
+		"initMedics": 2,
+		"maxExtinguishers": 80
+	},
+	{
+		"name": "Inferno Crusier",
+		"fancyName": "Inferno Blazin' Cruiser",
+		"armor": 2500,
+		"baseWeight": 10,
+		"initCrew": 35,
+		"maxCrew": 45,
+		"initMedics": 2,
+		"maxExtinguishers": 100
+	}
+]

@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.io.FileReader;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -18,6 +19,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JSlider;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 import systems.*;
 import main.Game;
@@ -75,8 +80,46 @@ public class Menu extends JPanel
 		state = g;
 	}
 	
+	private Ship buildShip(JSONObject ship) {
+		String name = (String) ship.get("name");
+		String fancyName = (String) ship.get("fancyName");
+		
+		long larmor = (Long) ship.get("armor");
+		long lweight = (Long) ship.get("baseWeight");
+		long linitCrew = (Long) ship.get("initCrew");
+		long lmaxCrew = (Long) ship.get("maxCrew");
+		long linitMedics = (Long) ship.get("initMedics");
+		long lmaxExtinguishers = (Long) ship.get("maxExtinguishers");
+		
+		int armor = (int) larmor;
+		int weight = (int) lweight;
+		int initCrew = (int) linitCrew;
+		int maxCrew = (int) lmaxCrew;
+		int initMedics = (int) linitMedics;
+		int maxExtinguishers = (int) lmaxExtinguishers;
+		
+		Ship s = new Ship(name, fancyName, armor, weight, new PowerPlant(700,3000,3700,2600,1,35,1500,2000,true), 
+				new Weapons(600,0,new WeaponSet[] {new BasicCannons(25), new ArtemisLaunchers(1,3)},1000), new Shields(500,800,2,30,1500,2000,false), new Engine(500,300,0.8,2,10,1000,1500),
+				new LifeSupport(400,250,100,5,800),new Medbay(800,12),new Sensors(200,1,300,100,false,200),initCrew,maxCrew,initMedics,maxExtinguishers);
+		
+		return s;
+	}
+	
 	public void initShips()
 	{
+		JSONParser parser = new JSONParser();
+		
+		try {
+			Object obj = parser.parse(new FileReader("./config/cruisers.json"));
+			
+			JSONArray cruiserJSON = (JSONArray) obj;
+			JSONObject hardenedJSON = (JSONObject) cruiserJSON.get(0);
+			
+			cruisers[0] = buildShip(hardenedJSON);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 		//PLAYER 1.
 		fighters[0] = new Ship("Fighter", "Nerf Fighter", 700, 1, new PowerPlant(250,700,700,500,0,5,200,250,true), 
 				new Weapons(100,0,new WeaponSet[] {new AccurateCannons(5)},200), new Shields(100,100,1,3,100,200,true), new Engine(150,100,0.9,1,2,100,200),
@@ -84,9 +127,9 @@ public class Menu extends JPanel
 		
 		/************************************************************************************************************************************************************************************/
 		
-		cruisers[0] = new Ship("Hardened Cruiser", "Hardened 'Bernardo' Cruiser", 3500, 25, new PowerPlant(700,3000,3700,2600,1,35,1500,2000,true), 
-				new Weapons(600,0,new WeaponSet[] {new BasicCannons(25), new ArtemisLaunchers(1,3)},1000), new Shields(500,800,2,30,1500,2000,false), new Engine(500,300,0.8,2,10,1000,1500),
-				new LifeSupport(400,250,100,5,800),new Medbay(800,12),new Sensors(200,1,300,100,false,200),40,50,5,120); 
+//		cruisers[0] = new Ship("Hardened Cruiser", "Hardened 'Bernardo' Cruiser", 3500, 25, new PowerPlant(700,3000,3700,2600,1,35,1500,2000,true), 
+//				new Weapons(600,0,new WeaponSet[] {new BasicCannons(25), new ArtemisLaunchers(1,3)},1000), new Shields(500,800,2,30,1500,2000,false), new Engine(500,300,0.8,2,10,1000,1500),
+//				new LifeSupport(400,250,100,5,800),new Medbay(800,12),new Sensors(200,1,300,100,false,200),40,50,5,120); 
 						
 		cruisers[1] = new Ship("Fleet Cruiser", "Terrifying Fleet Cruiser", 3000, 10, new PowerPlant(500,3000,3500,2500,2,12,1000,1750,true), 
 				new Weapons(500,0,new WeaponSet[] {new AccurateCannons(25)},1000), new Shields(400,600,2,20,500,1000,true), new Engine(400,400,0.8,2,10,500,1000),

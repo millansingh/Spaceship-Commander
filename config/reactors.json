@@ -1,0 +1,15 @@
+{
+	"hardened": {
+		"health": 700,
+		"energyStored": 3000,
+		"energyStoredMax": 3700,
+		"energyProduced": 2600,
+		"resetTime": 1,
+		"weight": 35,
+		"skillNeeded": 1500,
+		"skillNeededOverload": 2000,
+		"canOverload": true
+	},
+	"fleet": {
+	}
+}

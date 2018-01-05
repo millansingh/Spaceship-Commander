@@ -1,0 +1,18 @@
+{
+	"hardened": {
+		"health": 600,
+		"weight": 0,
+		"skillNeeded": 1000,
+		"weaponSets": [
+			{
+				"id": "basicCannon",
+				"number": 25
+			},
+			{
+				"id": "artemis",
+				"number": 1,
+				"ammunition": 3
+			}
+		]
+	}
+}

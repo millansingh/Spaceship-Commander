@@ -1,0 +1,9 @@
+{
+	"hardened": {
+		"health": 400,
+		"energyMax": 250,
+		"energyNeeded": 100,
+		"weight": 5,
+		"skillNeeded": 800
+	}
+}

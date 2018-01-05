@@ -17,7 +17,7 @@ public class Weapons extends Part
 	public int weapRepairIndex;
 	private ArrayList<Crew> weapRepairCrew;
 	
-	public Weapons(int h, int w, WeaponSet[] we, int s)
+	public Weapons(int h, int w, int s, WeaponSet[] we)
 	{
 		super(h,w,s,0,false);
 		Weapons = we;

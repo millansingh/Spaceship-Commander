@@ -186,8 +186,48 @@ public class Menu extends JPanel
 		
 		Weapons weaponSystem = new Weapons(wHealth, wWeight, wSkillNeeded, weaponSets);
 		
-		Ship s = new Ship(name, fancyName, armor, weight, power, weaponSystem, new Shields(500,800,2,30,1500,2000,false), new Engine(500,300,0.8,2,10,1000,1500),
-				lifeSupport, medbay, sensors, initCrew, maxCrew, initMedics, maxExtinguishers);
+		//Shields
+		String shieldStr = (String) ((JSONObject) ship.get("shields")).get("id");
+		JSONObject shield;
+		try {
+			shield = (JSONObject) shieldsJSON.get(shieldStr);
+		} catch (Exception e) {
+			System.out.println("Shields ID not found");
+			return null;
+		}
+		
+		int shHealth = keyToInt(shield.get("health"));
+		int shEnergyMax = keyToInt(shield.get("energyMax"));
+		int shResetTime = keyToInt(shield.get("resetTime"));
+		int shWeight = keyToInt(shield.get("weight"));
+		int shSkillNeeded = keyToInt(shield.get("skillNeeded"));
+		int shSkillNeededOverload = keyToInt(shield.get("skillNeededOverload"));
+		boolean shCanOverload = (Boolean) shield.get("canOverload");
+		
+		Shields shields = new Shields(shHealth, shEnergyMax, shResetTime, shWeight, shSkillNeeded, shSkillNeededOverload, shCanOverload);
+		
+		//Engines
+		String engineStr = (String) ((JSONObject) ship.get("engines")).get("id");
+		JSONObject engine;
+		try {
+			engine = (JSONObject) enginesJSON.get(engineStr);
+		} catch (Exception e) {
+			System.out.println("Engines ID not found");
+			return null;
+		}
+		
+		int eHealth = keyToInt(engine.get("health"));
+		int eEnergyMax = keyToInt(engine.get("energyMax"));
+		double eEfficiency = (Double) engine.get("efficiency");
+		int eResetTime = keyToInt(engine.get("resetTime"));
+		int eWeight = keyToInt(engine.get("weight"));
+		int eSkillNeeded = keyToInt(engine.get("skillNeeded"));
+		int eSkillNeededOverload = keyToInt(engine.get("skillNeededOverload"));
+		
+		Engine engines = new Engine(eHealth, eEnergyMax, eEfficiency, eResetTime, eWeight, eSkillNeeded, eSkillNeededOverload);
+		
+		//Build ship
+		Ship s = new Ship(name, fancyName, armor, weight, power, weaponSystem, shields, engines, lifeSupport, medbay, sensors, initCrew, maxCrew, initMedics, maxExtinguishers);
 		
 		return s;
 	}
@@ -239,6 +279,8 @@ public class Menu extends JPanel
 			Object medbaysObj = parser.parse(new FileReader("./config/medbays.json"));
 			Object lifeSupportsObj = parser.parse(new FileReader("./config/lifeSupports.json"));
 			Object weaponSystemsObj = parser.parse(new FileReader("./config/weaponSystems.json"));
+			Object shieldsObj = parser.parse(new FileReader("./config/shields.json"));
+			Object enginesObj = parser.parse(new FileReader("./config/engines.json"));
 			
 			JSONArray cruiserJSON = (JSONArray) cruisersObj;
 			JSONObject hardenedJSON = (JSONObject) cruiserJSON.get(0);
@@ -248,6 +290,8 @@ public class Menu extends JPanel
 			medbaysJSON = (JSONObject) medbaysObj;
 			lifeSupportsJSON = (JSONObject) lifeSupportsObj;
 			weaponSystemsJSON = (JSONObject) weaponSystemsObj;
+			shieldsJSON = (JSONObject) shieldsObj;
+			enginesJSON = (JSONObject) enginesObj;
 			
 			cruisers[0] = buildShip(hardenedJSON);
 		} catch (Exception e) {

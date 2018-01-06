@@ -1,0 +1,11 @@
+{
+	"hardened": {
+		"health": 500,
+		"energyMax": 300,
+		"efficiency": 0.8,
+		"resetTime": 2,
+		"weight": 10,
+		"skillNeeded": 1000,
+		"skillNeededOverload": 1500
+	}
+}

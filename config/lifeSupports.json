@@ -5,5 +5,33 @@
 		"energyNeeded": 100,
 		"weight": 5,
 		"skillNeeded": 800
+	},
+	"fleet": {
+		"health": 500,
+		"energyMax": 300,
+		"energyNeeded": 100,
+		"weight": 7,
+		"skillNeeded": 600
+	},
+	"millennium": {
+		"health": 500,
+		"energyMax": 200,
+		"energyNeeded": 150,
+		"weight": 8,
+		"skillNeeded": 500
+	},
+	"frontline": {
+		"health": 400,
+		"energyMax": 300,
+		"energyNeeded": 150,
+		"weight": 6,
+		"skillNeeded": 700
+	},
+	"thunder": {
+		"health": 400,
+		"energyMax": 200,
+		"energyNeeded": 100,
+		"weight": 5,
+		"skillNeeded": 600
 	}
 }

@@ -11,5 +11,47 @@
 		"canOverload": true
 	},
 	"fleet": {
+		"health": 500,
+		"energyStored": 3000,
+		"energyStoredMax": 3500,
+		"energyProduced": 2500,
+		"resetTime": 2,
+		"weight": 12,
+		"skillNeeded": 1000,
+		"skillNeededOverload": 1750,
+		"canOverload": true
+	},
+	"millennium": {
+		"health": 400,
+		"energyStored": 4000,
+		"energyStoredMax": 5000,
+		"energyProduced": 3500,
+		"resetTime": 2,
+		"weight": 15,
+		"skillNeeded": 1250,
+		"skillNeededOverload": 2000,
+		"canOverload": false
+	},
+	"frontline": {
+		"health": 500,
+		"energyStored": 3500,
+		"energyStoredMax": 4000,
+		"energyProduced": 3000,
+		"resetTime": 2,
+		"weight": 15,
+		"skillNeeded": 1000,
+		"skillNeededOverload": 1750,
+		"canOverload": true
+	},
+	"thunder": {
+		"health": 500,
+		"energyStored": 3500,
+		"energyStoredMax": 4000,
+		"energyProduced": 3000,
+		"resetTime": 1,
+		"weight": 25,
+		"skillNeeded": 1000,
+		"skillNeededOverload": 1500,
+		"canOverload": true
 	}
 }

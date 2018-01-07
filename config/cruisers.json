@@ -38,7 +38,28 @@
 		"initCrew": 30,
 		"maxCrew": 38,
 		"initMedics": 3,
-		"maxExtinguishers": 80
+		"maxExtinguishers": 80,
+		"reactor": {
+			"id": "fleet"
+		},
+		"sensors": {
+			"id": "fleet"
+		},
+		"medbay": {
+			"id": "fleet"
+		},
+		"lifeSupport": {
+			"id": "fleet"
+		},
+		"weaponSystem": {
+			"id": "fleet"
+		},
+		"shields": {
+			"id": "fleet"
+		},
+		"engines": {
+			"id": "fleet"
+		}
 	},
 	{
 		"name": "Millennium Crusier",
@@ -48,7 +69,28 @@
 		"initCrew": 35,
 		"maxCrew": 45,
 		"initMedics": 3,
-		"maxExtinguishers": 80
+		"maxExtinguishers": 80,
+		"reactor": {
+			"id": "millennium"
+		},
+		"sensors": {
+			"id": "millennium"
+		},
+		"medbay": {
+			"id": "millennium"
+		},
+		"lifeSupport": {
+			"id": "millennium"
+		},
+		"weaponSystem": {
+			"id": "millennium"
+		},
+		"shields": {
+			"id": "millennium"
+		},
+		"engines": {
+			"id": "millennium"
+		}
 	},
 	{
 		"name": "Frontline Crusier",
@@ -58,7 +100,28 @@
 		"initCrew": 40,
 		"maxCrew": 45,
 		"initMedics": 5,
-		"maxExtinguishers": 100
+		"maxExtinguishers": 100,
+		"reactor": {
+			"id": "frontline"
+		},
+		"sensors": {
+			"id": "frontline"
+		},
+		"medbay": {
+			"id": "frontline"
+		},
+		"lifeSupport": {
+			"id": "frontline"
+		},
+		"weaponSystem": {
+			"id": "frontline"
+		},
+		"shields": {
+			"id": "frontline"
+		},
+		"engines": {
+			"id": "frontline"
+		}
 	},
 	{
 		"name": "Thunder Cruiser",
@@ -68,7 +131,28 @@
 		"initCrew": 30,
 		"maxCrew": 40,
 		"initMedics": 3,
-		"maxExtinguishers": 80
+		"maxExtinguishers": 80,
+		"reactor": {
+			"id": "thunder"
+		},
+		"sensors": {
+			"id": "thunder"
+		},
+		"medbay": {
+			"id": "thunder"
+		},
+		"lifeSupport": {
+			"id": "thunder"
+		},
+		"weaponSystem": {
+			"id": "thunder"
+		},
+		"shields": {
+			"id": "thunder"
+		},
+		"engines": {
+			"id": "thunder"
+		}
 	},
 	{
 		"name": "Manta Crusier",
@@ -78,7 +162,28 @@
 		"initCrew": 30,
 		"maxCrew": 40,
 		"initMedics": 3,
-		"maxExtinguishers": 80
+		"maxExtinguishers": 80,
+		"reactor": {
+			"id": "manta"
+		},
+		"sensors": {
+			"id": "manta"
+		},
+		"medbay": {
+			"id": "manta"
+		},
+		"lifeSupport": {
+			"id": "manta"
+		},
+		"weaponSystem": {
+			"id": "manta"
+		},
+		"shields": {
+			"id": "manta"
+		},
+		"engines": {
+			"id": "manta"
+		}
 	},
 	{
 		"name": "Alamo Crusier",
@@ -88,7 +193,28 @@
 		"initCrew": 30,
 		"maxCrew": 40,
 		"initMedics": 2,
-		"maxExtinguishers": 80
+		"maxExtinguishers": 80,
+		"reactor": {
+			"id": "alamo"
+		},
+		"sensors": {
+			"id": "alamo"
+		},
+		"medbay": {
+			"id": "alamo"
+		},
+		"lifeSupport": {
+			"id": "alamo"
+		},
+		"weaponSystem": {
+			"id": "alamo"
+		},
+		"shields": {
+			"id": "alamo"
+		},
+		"engines": {
+			"id": "alamo"
+		}
 	},
 	{
 		"name": "Inferno Crusier",
@@ -98,6 +224,27 @@
 		"initCrew": 35,
 		"maxCrew": 45,
 		"initMedics": 2,
-		"maxExtinguishers": 100
+		"maxExtinguishers": 100,
+		"reactor": {
+			"id": "inferno"
+		},
+		"sensors": {
+			"id": "inferno"
+		},
+		"medbay": {
+			"id": "inferno"
+		},
+		"lifeSupport": {
+			"id": "inferno"
+		},
+		"weaponSystem": {
+			"id": "inferno"
+		},
+		"shields": {
+			"id": "inferno"
+		},
+		"engines": {
+			"id": "inferno"
+		}
 	}
 ]

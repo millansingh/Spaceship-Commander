@@ -260,8 +260,29 @@ public class Menu extends JPanel
 			if (setStr.equals("basicCannon")) {
 				sets[i] = new BasicCannons(setNum);
 			}
+			else if (setStr.equals("accurateCannon")) {
+				sets[i] = new AccurateCannons(setNum);
+			}
+			else if (setStr.equals("heavyCannon")) {
+				sets[i] = new HeavyCannons(setNum);
+			}
+			else if (setStr.equals("basicArtillery")) {
+				sets[i] = new BasicArtillery(setNum);
+			}
+			else if (setStr.equals("basicLaser")) {
+				sets[i] = new BasicLasers(setNum);
+			}
+			else if (setStr.equals("heavyLaser")) {
+				sets[i] = new HeavyLasers(setNum);
+			}
+			else if (setStr.equals("inferno")) {
+				sets[i] = new InfernoLaunchers(setNum, setAmmo);
+			}
 			else if (setStr.equals("artemis")) {
 				sets[i] = new ArtemisLaunchers(setNum, setAmmo);
+			}
+			else if (setStr.equals("manta")) {
+				sets[i] = new MantaRaySet(setNum);
 			}
 		}
 		
@@ -284,6 +305,10 @@ public class Menu extends JPanel
 			
 			JSONArray cruiserJSON = (JSONArray) cruisersObj;
 			JSONObject hardenedJSON = (JSONObject) cruiserJSON.get(0);
+			JSONObject fleetJSON = (JSONObject) cruiserJSON.get(1);
+			JSONObject millenniumJSON = (JSONObject) cruiserJSON.get(2);
+			JSONObject frontlineJSON = (JSONObject) cruiserJSON.get(3);
+			JSONObject thunderJSON = (JSONObject) cruiserJSON.get(4);
 			
 			reactorsJSON = (JSONObject) reactorsObj;
 			sensorsJSON = (JSONObject) sensorsObj;
@@ -294,6 +319,10 @@ public class Menu extends JPanel
 			enginesJSON = (JSONObject) enginesObj;
 			
 			cruisers[0] = buildShip(hardenedJSON);
+			cruisers[1] = buildShip(fleetJSON);
+			cruisers[2] = buildShip(millenniumJSON);
+			cruisers[3] = buildShip(frontlineJSON);
+			cruisers[4] = buildShip(thunderJSON);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -309,21 +338,21 @@ public class Menu extends JPanel
 //				new Weapons(600,0,new WeaponSet[] {new BasicCannons(25), new ArtemisLaunchers(1,3)},1000), new Shields(500,800,2,30,1500,2000,false), new Engine(500,300,0.8,2,10,1000,1500),
 //				new LifeSupport(400,250,100,5,800),new Medbay(800,12),new Sensors(200,1,300,100,false,200),40,50,5,120); 
 						
-		cruisers[1] = new Ship("Fleet Cruiser", "Terrifying Fleet Cruiser", 3000, 10, new PowerPlant(500,3000,3500,2500,2,12,1000,1750,true), 
-				new Weapons(500,0,1000,new WeaponSet[] {new AccurateCannons(25)}), new Shields(400,600,2,20,500,1000,true), new Engine(400,400,0.8,2,10,500,1000),
-				new LifeSupport(500,300,100,7,600),new Medbay(500,8),new Sensors(200,1,300,100,false,200),30,38,3,80);
+//		cruisers[1] = new Ship("Fleet Cruiser", "Terrifying Fleet Cruiser", 3000, 10, new PowerPlant(500,3000,3500,2500,2,12,1000,1750,true), 
+//				new Weapons(500,0,1000,new WeaponSet[] {new AccurateCannons(25)}), new Shields(400,600,2,20,500,1000,true), new Engine(400,400,0.8,2,10,500,1000),
+//				new LifeSupport(500,300,100,7,600),new Medbay(500,8),new Sensors(200,1,300,100,false,200),30,38,3,80);
 						
-		cruisers[2] = new Ship("Millennium Cruiser", "Millenium 'All-In' Cruiser", 2000, 15, new PowerPlant(400,4000,5000,3500,2,15,1250,2000,false), 
-				new Weapons(600,0,1500,new WeaponSet[] {new HeavyCannons(20), new HeavyLasers(15)}), new Shields(650,500,2,20,1000,1500,true), new Engine(400,300,0.7,2,15,750,1000),
-				new LifeSupport(500,200,150,8,500),new Medbay(400,6),new Sensors(200,1,300,100,false,200),35,45,3,80);
-				
-		cruisers[3] = new Ship("Frontline Cruiser", "Firey Frontline Cruiser", 3000, 12, new PowerPlant(500,3500,4000,3000,2,15,1000,1750,true), 
-				new Weapons(550,0,1250,new WeaponSet[] {new BasicCannons(5), new BasicLasers(40)}), new Shields(600,500,2,15,1000,1500,true), new Engine(450,400,0.75,2,20,750,1000),
-				new LifeSupport(400,300,150,6,700),new Medbay(600,10),new Sensors(200,1,300,100,false,200),40,45,5,100);
-				
-		cruisers[4] = new Ship("Thunder Cruiser", "Rolling Thunder Cruiser", 3500, 30, new PowerPlant(500,3500,4000,3000,1,25,1000,1500,true),
-				new Weapons(650,0,1500,new WeaponSet[] {new BasicArtillery(5)}), new Shields(600,600,2,25,750,1250,true), new Engine(500,300,0.75,2,15,750,1000),
-				new LifeSupport(400,200,100,5,600),new Medbay(500,8),new Sensors(200,1,300,100,false,200),30,40,3,80);
+//		cruisers[2] = new Ship("Millennium Cruiser", "Millenium 'All-In' Cruiser", 2000, 15, new PowerPlant(400,4000,5000,3500,2,15,1250,2000,false), 
+//				new Weapons(600,0,1500,new WeaponSet[] {new HeavyCannons(20), new HeavyLasers(15)}), new Shields(650,500,2,20,1000,1500,true), new Engine(400,300,0.7,2,15,750,1000),
+//				new LifeSupport(500,200,150,8,500),new Medbay(400,6),new Sensors(200,1,300,100,false,200),35,45,3,80);
+//				
+//		cruisers[3] = new Ship("Frontline Cruiser", "Firey Frontline Cruiser", 3000, 12, new PowerPlant(500,3500,4000,3000,2,15,1000,1750,true), 
+//				new Weapons(550,0,1250,new WeaponSet[] {new BasicCannons(5), new BasicLasers(40)}), new Shields(600,500,2,15,1000,1500,true), new Engine(450,400,0.75,2,20,750,1000),
+//				new LifeSupport(400,300,150,6,700),new Medbay(600,10),new Sensors(200,1,300,100,false,200),40,45,5,100);
+//				
+//		cruisers[4] = new Ship("Thunder Cruiser", "Rolling Thunder Cruiser", 3500, 30, new PowerPlant(500,3500,4000,3000,1,25,1000,1500,true),
+//				new Weapons(650,0,1500,new WeaponSet[] {new BasicArtillery(5)}), new Shields(600,600,2,25,750,1250,true), new Engine(500,300,0.75,2,15,750,1000),
+//				new LifeSupport(400,200,100,5,600),new Medbay(500,8),new Sensors(200,1,300,100,false,200),30,40,3,80);
 				
 		cruisers[5] = new Ship("Manta Cruiser", "Manta Ray Cruiser", 3500, 30, new PowerPlant(550,3750,4500,3250,2,15,1250,1750,true),
 				new Weapons(500,0,1000,new WeaponSet[] {new BasicCannons(15), new MantaRaySet(1)}), new Shields(400,750,1,15,750,1250,true), new Engine(400,350,0.75,3,15,1000,1500),

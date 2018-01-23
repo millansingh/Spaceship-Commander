@@ -11,7 +11,7 @@ public class MantaRay extends Artillery_Basic
 		initHealth=1000;
 		health=1000;
 		energyCost=2000;
-		acc=0.8;
+		acc=0.9;
 		myProjectile=new MantaProj();
 		setName("The Manta Ray");
 		weight=10;

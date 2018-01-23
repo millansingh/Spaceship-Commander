@@ -1,0 +1,125 @@
+{
+	"hardened": {
+		"health": 600,
+		"weight": 0,
+		"skillNeeded": 1000,
+		"weaponSets": [
+			{
+				"id": "basicCannon",
+				"number": 25
+			},
+			{
+				"id": "artemis",
+				"number": 1,
+				"ammunition": 3
+			}
+		]
+	},
+	"fleet": {
+		"health": 500,
+		"weight": 0,
+		"skillNeeded": 1000,
+		"weaponSets": [
+			{
+				"id": "accurateCannon",
+				"number": 25
+			}
+		]
+	},
+	"millennium": {
+		"health": 600,
+		"weight": 0,
+		"skillNeeded": 1500,
+		"weaponSets": [
+			{
+				"id": "heavyCannon",
+				"number": 20
+			},
+			{
+				"id": "heavyLaser",
+				"number": 10
+			}
+		]
+	},
+	"frontline": {
+		"health": 550,
+		"weight": 0,
+		"skillNeeded": 1250,
+		"weaponSets": [
+			{
+				"id": "basicCannon",
+				"number": 5
+			},
+			{
+				"id": "basicLaser",
+				"number": 40
+			}
+		]
+	},
+	"thunder": {
+		"health": 650,
+		"weight": 0,
+		"skillNeeded": 1500,
+		"weaponSets": [
+			{
+				"id": "basicArtillery",
+				"number": 5
+			}
+		]
+	},
+	"manta": {
+		"health": 500,
+		"weight": 0,
+		"skillNeeded": 1000,
+		"weaponSets": [
+			{
+				"id": "basicCannon",
+				"number": 15
+			},
+			{
+				"id": "mantaRay",
+				"number": 1
+			}
+		]
+	},
+	"alamo": {
+		"health": 350,
+		"weight": 0,
+		"skillNeeded": 1000,
+		"weaponSets": [
+			{
+				"id": "basicCannon",
+				"number": 10
+			},
+			{
+				"id": "basicArtillery",
+				"number": 2
+			},
+			{
+				"id": "basicLaser",
+				"number": 15
+			},
+			{
+				"id": "artemis",
+				"number": 1,
+				"ammunition": 3
+			}
+		]
+	},
+	"inferno": {
+		"health": 350,
+		"weight": 0,
+		"skillNeeded": 1200,
+		"weaponSets": [
+			{
+				"id": "inferno",
+				"number": 3,
+				"ammunition": 15
+			},
+			{
+				"id": "heavyLaser",
+				"number": 15
+			}
+		]
+	}
+}

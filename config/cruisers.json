@@ -1,0 +1,250 @@
+[
+	{
+		"name": "Hardened Crusier",
+		"fancyName": "Hardened 'Bernardo' Cruiser",
+		"armor": 3500,
+		"baseWeight": 25,
+		"initCrew": 40,
+		"maxCrew": 50,
+		"initMedics": 5,
+		"maxExtinguishers": 120,
+		"reactor": {
+			"id": "hardened"
+		},
+		"sensors": {
+			"id": "hardened"
+		},
+		"medbay": {
+			"id": "hardened"
+		},
+		"lifeSupport": {
+			"id": "hardened"
+		},
+		"weaponSystem": {
+			"id": "hardened"
+		},
+		"shields": {
+			"id": "hardened"
+		},
+		"engines": {
+			"id": "hardened"
+		}
+	},
+	{
+		"name": "Fleet Crusier",
+		"fancyName": "Terrifying Fleet Cruiser",
+		"armor": 3000,
+		"baseWeight": 10,
+		"initCrew": 30,
+		"maxCrew": 38,
+		"initMedics": 3,
+		"maxExtinguishers": 80,
+		"reactor": {
+			"id": "fleet"
+		},
+		"sensors": {
+			"id": "fleet"
+		},
+		"medbay": {
+			"id": "fleet"
+		},
+		"lifeSupport": {
+			"id": "fleet"
+		},
+		"weaponSystem": {
+			"id": "fleet"
+		},
+		"shields": {
+			"id": "fleet"
+		},
+		"engines": {
+			"id": "fleet"
+		}
+	},
+	{
+		"name": "Millennium Crusier",
+		"fancyName": "Millennium 'All-In' Cruiser",
+		"armor": 2000,
+		"baseWeight": 15,
+		"initCrew": 35,
+		"maxCrew": 45,
+		"initMedics": 3,
+		"maxExtinguishers": 80,
+		"reactor": {
+			"id": "millennium"
+		},
+		"sensors": {
+			"id": "millennium"
+		},
+		"medbay": {
+			"id": "millennium"
+		},
+		"lifeSupport": {
+			"id": "millennium"
+		},
+		"weaponSystem": {
+			"id": "millennium"
+		},
+		"shields": {
+			"id": "millennium"
+		},
+		"engines": {
+			"id": "millennium"
+		}
+	},
+	{
+		"name": "Frontline Crusier",
+		"fancyName": "Fiery Frontline Cruiser",
+		"armor": 3000,
+		"baseWeight": 12,
+		"initCrew": 40,
+		"maxCrew": 45,
+		"initMedics": 5,
+		"maxExtinguishers": 100,
+		"reactor": {
+			"id": "frontline"
+		},
+		"sensors": {
+			"id": "frontline"
+		},
+		"medbay": {
+			"id": "frontline"
+		},
+		"lifeSupport": {
+			"id": "frontline"
+		},
+		"weaponSystem": {
+			"id": "frontline"
+		},
+		"shields": {
+			"id": "frontline"
+		},
+		"engines": {
+			"id": "frontline"
+		}
+	},
+	{
+		"name": "Thunder Cruiser",
+		"fancyName": "Rolling Thunder Cruiser",
+		"armor": 3500,
+		"baseWeight": 30,
+		"initCrew": 30,
+		"maxCrew": 40,
+		"initMedics": 3,
+		"maxExtinguishers": 80,
+		"reactor": {
+			"id": "thunder"
+		},
+		"sensors": {
+			"id": "thunder"
+		},
+		"medbay": {
+			"id": "thunder"
+		},
+		"lifeSupport": {
+			"id": "thunder"
+		},
+		"weaponSystem": {
+			"id": "thunder"
+		},
+		"shields": {
+			"id": "thunder"
+		},
+		"engines": {
+			"id": "thunder"
+		}
+	},
+	{
+		"name": "Manta Crusier",
+		"fancyName": "Manta Ray Cruiser",
+		"armor": 3500,
+		"baseWeight": 30,
+		"initCrew": 30,
+		"maxCrew": 40,
+		"initMedics": 3,
+		"maxExtinguishers": 80,
+		"reactor": {
+			"id": "manta"
+		},
+		"sensors": {
+			"id": "manta"
+		},
+		"medbay": {
+			"id": "manta"
+		},
+		"lifeSupport": {
+			"id": "manta"
+		},
+		"weaponSystem": {
+			"id": "manta"
+		},
+		"shields": {
+			"id": "manta"
+		},
+		"engines": {
+			"id": "manta"
+		}
+	},
+	{
+		"name": "Alamo Crusier",
+		"fancyName": "Alamo Battle Cruiser",
+		"armor": 2000,
+		"baseWeight": 10,
+		"initCrew": 30,
+		"maxCrew": 40,
+		"initMedics": 2,
+		"maxExtinguishers": 80,
+		"reactor": {
+			"id": "alamo"
+		},
+		"sensors": {
+			"id": "alamo"
+		},
+		"medbay": {
+			"id": "alamo"
+		},
+		"lifeSupport": {
+			"id": "alamo"
+		},
+		"weaponSystem": {
+			"id": "alamo"
+		},
+		"shields": {
+			"id": "alamo"
+		},
+		"engines": {
+			"id": "alamo"
+		}
+	},
+	{
+		"name": "Inferno Crusier",
+		"fancyName": "Inferno Blazin' Cruiser",
+		"armor": 2500,
+		"baseWeight": 10,
+		"initCrew": 35,
+		"maxCrew": 45,
+		"initMedics": 2,
+		"maxExtinguishers": 100,
+		"reactor": {
+			"id": "inferno"
+		},
+		"sensors": {
+			"id": "inferno"
+		},
+		"medbay": {
+			"id": "inferno"
+		},
+		"lifeSupport": {
+			"id": "inferno"
+		},
+		"weaponSystem": {
+			"id": "inferno"
+		},
+		"shields": {
+			"id": "inferno"
+		},
+		"engines": {
+			"id": "inferno"
+		}
+	}
+]

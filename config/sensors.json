@@ -1,0 +1,66 @@
+{
+	"hardened": {
+		"health": 200,
+		"weight": 1,
+		"skillNeeded": 300,
+		"AISkill": 100,
+		"canOverload": false,
+		"energyMax": 200
+	},
+	"fleet": {
+		"health": 200,
+		"weight": 1,
+		"skillNeeded": 300,
+		"AISkill": 100,
+		"canOverload": false,
+		"energyMax": 200
+	},
+	"millennium": {
+		"health": 200,
+		"weight": 1,
+		"skillNeeded": 300,
+		"AISkill": 100,
+		"canOverload": false,
+		"energyMax": 200
+	},
+	"frontline": {
+		"health": 200,
+		"weight": 1,
+		"skillNeeded": 300,
+		"AISkill": 100,
+		"canOverload": false,
+		"energyMax": 200
+	},
+	"thunder": {
+		"health": 200,
+		"weight": 1,
+		"skillNeeded": 300,
+		"AISkill": 100,
+		"canOverload": false,
+		"energyMax": 200
+	},
+	"manta": {
+		"health": 200,
+		"weight": 1,
+		"skillNeeded": 300,
+		"AISkill": 100,
+		"canOverload": false,
+		"energyMax": 200
+	},
+	"alamo": {
+		"health": 200,
+		"weight": 1,
+		"skillNeeded": 300,
+		"AISkill": 100,
+		"canOverload": false,
+		"energyMax": 200
+	},
+	"inferno": {
+		"health": 200,
+		"weight": 1,
+		"skillNeeded": 300,
+		"AISkill": 100,
+		"canOverload": false,
+		"energyMax": 200
+	}
+}

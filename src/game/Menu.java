@@ -281,7 +281,7 @@ public class Menu extends JPanel
 			else if (setStr.equals("artemis")) {
 				sets[i] = new ArtemisLaunchers(setNum, setAmmo);
 			}
-			else if (setStr.equals("manta")) {
+			else if (setStr.equals("mantaRay")) {
 				sets[i] = new MantaRaySet(setNum);
 			}
 		}
@@ -304,11 +304,6 @@ public class Menu extends JPanel
 			Object enginesObj = parser.parse(new FileReader("./config/engines.json"));
 			
 			JSONArray cruiserJSON = (JSONArray) cruisersObj;
-			JSONObject hardenedJSON = (JSONObject) cruiserJSON.get(0);
-			JSONObject fleetJSON = (JSONObject) cruiserJSON.get(1);
-			JSONObject millenniumJSON = (JSONObject) cruiserJSON.get(2);
-			JSONObject frontlineJSON = (JSONObject) cruiserJSON.get(3);
-			JSONObject thunderJSON = (JSONObject) cruiserJSON.get(4);
 			
 			reactorsJSON = (JSONObject) reactorsObj;
 			sensorsJSON = (JSONObject) sensorsObj;
@@ -318,11 +313,11 @@ public class Menu extends JPanel
 			shieldsJSON = (JSONObject) shieldsObj;
 			enginesJSON = (JSONObject) enginesObj;
 			
-			cruisers[0] = buildShip(hardenedJSON);
-			cruisers[1] = buildShip(fleetJSON);
-			cruisers[2] = buildShip(millenniumJSON);
-			cruisers[3] = buildShip(frontlineJSON);
-			cruisers[4] = buildShip(thunderJSON);
+			for (int i = 0; i < cruiserJSON.size(); i++) {
+				JSONObject shipJSON = (JSONObject) cruiserJSON.get(i);
+				cruisers[i] = buildShip(shipJSON);
+				cruisers2[i] = buildShip(shipJSON);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -331,40 +326,6 @@ public class Menu extends JPanel
 		fighters[0] = new Ship("Fighter", "Nerf Fighter", 700, 1, new PowerPlant(250,700,700,500,0,5,200,250,true), 
 				new Weapons(100,0,200,new WeaponSet[] {new AccurateCannons(5)}), new Shields(100,100,1,3,100,200,true), new Engine(150,100,0.9,1,2,100,200),
 				new LifeSupport(100,50,20,1,200),new Medbay(50,1),new Sensors(50,1,200,50,false,50),5,7,1,20);
-		
-		/************************************************************************************************************************************************************************************/
-		
-//		cruisers[0] = new Ship("Hardened Cruiser", "Hardened 'Bernardo' Cruiser", 3500, 25, new PowerPlant(700,3000,3700,2600,1,35,1500,2000,true), 
-//				new Weapons(600,0,new WeaponSet[] {new BasicCannons(25), new ArtemisLaunchers(1,3)},1000), new Shields(500,800,2,30,1500,2000,false), new Engine(500,300,0.8,2,10,1000,1500),
-//				new LifeSupport(400,250,100,5,800),new Medbay(800,12),new Sensors(200,1,300,100,false,200),40,50,5,120); 
-						
-//		cruisers[1] = new Ship("Fleet Cruiser", "Terrifying Fleet Cruiser", 3000, 10, new PowerPlant(500,3000,3500,2500,2,12,1000,1750,true), 
-//				new Weapons(500,0,1000,new WeaponSet[] {new AccurateCannons(25)}), new Shields(400,600,2,20,500,1000,true), new Engine(400,400,0.8,2,10,500,1000),
-//				new LifeSupport(500,300,100,7,600),new Medbay(500,8),new Sensors(200,1,300,100,false,200),30,38,3,80);
-						
-//		cruisers[2] = new Ship("Millennium Cruiser", "Millenium 'All-In' Cruiser", 2000, 15, new PowerPlant(400,4000,5000,3500,2,15,1250,2000,false), 
-//				new Weapons(600,0,1500,new WeaponSet[] {new HeavyCannons(20), new HeavyLasers(15)}), new Shields(650,500,2,20,1000,1500,true), new Engine(400,300,0.7,2,15,750,1000),
-//				new LifeSupport(500,200,150,8,500),new Medbay(400,6),new Sensors(200,1,300,100,false,200),35,45,3,80);
-//				
-//		cruisers[3] = new Ship("Frontline Cruiser", "Firey Frontline Cruiser", 3000, 12, new PowerPlant(500,3500,4000,3000,2,15,1000,1750,true), 
-//				new Weapons(550,0,1250,new WeaponSet[] {new BasicCannons(5), new BasicLasers(40)}), new Shields(600,500,2,15,1000,1500,true), new Engine(450,400,0.75,2,20,750,1000),
-//				new LifeSupport(400,300,150,6,700),new Medbay(600,10),new Sensors(200,1,300,100,false,200),40,45,5,100);
-//				
-//		cruisers[4] = new Ship("Thunder Cruiser", "Rolling Thunder Cruiser", 3500, 30, new PowerPlant(500,3500,4000,3000,1,25,1000,1500,true),
-//				new Weapons(650,0,1500,new WeaponSet[] {new BasicArtillery(5)}), new Shields(600,600,2,25,750,1250,true), new Engine(500,300,0.75,2,15,750,1000),
-//				new LifeSupport(400,200,100,5,600),new Medbay(500,8),new Sensors(200,1,300,100,false,200),30,40,3,80);
-				
-		cruisers[5] = new Ship("Manta Cruiser", "Manta Ray Cruiser", 3500, 30, new PowerPlant(550,3750,4500,3250,2,15,1250,1750,true),
-				new Weapons(500,0,1000,new WeaponSet[] {new BasicCannons(15), new MantaRaySet(1)}), new Shields(400,750,1,15,750,1250,true), new Engine(400,350,0.75,3,15,1000,1500),
-				new LifeSupport(500,300,150,7,500),new Medbay(400,4),new Sensors(200,1,300,100,false,200),30,40,4,100);
-				
-		cruisers[6] = new Ship("Alamo Cruiser", "Alamo Battle Cruiser", 2000, 10, new PowerPlant(500,3200,4000,3000,2,10,800,1200,true),
-				new Weapons(350,0,1000,new WeaponSet[] {new BasicCannons(10), new BasicArtillery(2), new BasicLasers(15), new ArtemisLaunchers(1,3)}), new Shields(400,250,1,5,500,750,true),
-				new Engine(400,250,0.95,1,10,1300,1600), new LifeSupport(300,200,100,2,400),new Medbay(300,2),new Sensors(200,1,300,100,false,200),30,40,2,80);
-		
-		cruisers[7] = new Ship("Inferno Cruiser", "Inferno 'Crew-Killer' Cruiser", 2500, 10, new PowerPlant(450,2500,3500,2000,2,10,700,1000,true),
-				new Weapons(350,0,1200,new WeaponSet[] {new InfernoLaunchers(3,15), new HeavyLasers(15)}), new Shields(300,350,1,5,600,850,true),
-				new Engine(400,300,0.9,1,8,1200,1600), new LifeSupport(350,200,100,3,300),new Medbay(300,2),new Sensors(200,1,300,100,false,200),35,45,2,100);
 		
 		/************************************************************************************************************************************************************************************/
 		
@@ -380,41 +341,7 @@ public class Menu extends JPanel
 		//PLAYER 2.
 		fighters2[0] = new Ship("Fighter", "Nerf Fighter", 700, 1, new PowerPlant(250,700,700,500,0,5,200,250,true), 
 				new Weapons(100,0,200,new WeaponSet[] {new AccurateCannons(5)}), new Shields(100,100,1,3,100,200,true), new Engine(150,100,0.9,1,2,100,200),
-				new LifeSupport(100,50,20,1,200),new Medbay(50,1),new Sensors(200,1,300,100,false,200),5,7,1,20);
-		
-		/************************************************************************************************************************************************************************************/
-		
-		cruisers2[0] = new Ship("Hardened Cruiser", "Hardened 'Bernardo' Cruiser", 3500, 25, new PowerPlant(700,3000,3700,2600,1,35,1500,2000,true), 
-				new Weapons(600,0,1000,new WeaponSet[] {new BasicCannons(25), new ArtemisLaunchers(1,3)}), new Shields(500,800,2,30,1500,2000,false), new Engine(500,300,0.8,2,10,1000,1500),
-				new LifeSupport(400,250,100,5,800),new Medbay(800,12),new Sensors(200,1,300,100,false,200),40,50,5,120); 
-						
-		cruisers2[1] = new Ship("Fleet Cruiser", "Terrifying Fleet Cruiser", 3000, 10, new PowerPlant(500,3000,3500,2500,2,12,1000,1750,true), 
-				new Weapons(500,0,1000,new WeaponSet[] {new AccurateCannons(25)}), new Shields(400,600,2,20,500,1000,true), new Engine(400,400,0.8,2,10,500,1000),
-				new LifeSupport(500,300,100,7,600),new Medbay(500,8),new Sensors(200,1,300,100,false,200),30,38,3,80);
-						
-		cruisers2[2] = new Ship("Millennium Cruiser", "Millenium 'All-In' Cruiser", 2000, 15, new PowerPlant(400,4000,5000,3500,2,15,1250,2000,false), 
-				new Weapons(600,0,1500,new WeaponSet[] {new HeavyCannons(20), new HeavyLasers(15)}), new Shields(650,500,2,20,1000,1500,true), new Engine(400,300,0.7,2,15,750,1000),
-				new LifeSupport(500,200,150,8,500),new Medbay(400,6),new Sensors(200,1,300,100,false,200),35,45,3,80);
-				
-		cruisers2[3] = new Ship("Frontline Cruiser", "Firey Frontline Cruiser", 3000, 12, new PowerPlant(500,3500,4000,3000,2,15,1000,1750,true), 
-				new Weapons(550,0,1250,new WeaponSet[] {new BasicCannons(5), new BasicLasers(40)}), new Shields(600,500,2,15,1000,1500,true), new Engine(450,400,0.75,2,20,750,1000),
-				new LifeSupport(400,300,150,6,700),new Medbay(600,10),new Sensors(200,1,300,100,false,200),40,45,5,100);
-				
-		cruisers2[4] = new Ship("Thunder Cruiser", "Rolling Thunder Cruiser", 3500, 30, new PowerPlant(500,3500,4000,3000,1,25,1000,1500,true),
-				new Weapons(650,0,1500,new WeaponSet[] {new BasicArtillery(5)}), new Shields(600,600,2,25,750,1250,true), new Engine(500,300,0.75,2,15,750,1000),
-				new LifeSupport(400,200,100,5,600),new Medbay(500,8),new Sensors(200,1,300,100,false,200),30,40,3,80);
-				
-		cruisers2[5] = new Ship("Manta Cruiser", "Manta Ray Cruiser", 3500, 30, new PowerPlant(550,3750,4500,3250,2,15,1250,1750,true),
-				new Weapons(500,0,1000,new WeaponSet[] {new BasicCannons(15), new MantaRaySet(1)}), new Shields(400,750,1,15,750,1250,true), new Engine(400,350,0.75,3,15,1000,1500),
-				new LifeSupport(500,300,150,7,500),new Medbay(400,4),new Sensors(200,1,300,100,false,200),30,40,4,100);
-				
-		cruisers2[6] = new Ship("Alamo Cruiser", "Alamo Battle Cruiser", 2000, 10, new PowerPlant(500,3200,4000,3000,2,10,800,1200,true),
-				new Weapons(350,0,1000,new WeaponSet[] {new BasicCannons(10), new BasicArtillery(2), new BasicLasers(15), new ArtemisLaunchers(1,3)}), new Shields(400,250,1,5,500,750,true),
-				new Engine(400,250,0.95,1,10,1300,1600), new LifeSupport(300,200,100,2,400),new Medbay(300,2),new Sensors(200,1,300,100,false,200),30,40,2,80);
-		
-		cruisers2[7] = new Ship("Inferno Cruiser", "Inferno 'Crew-Killer' Cruiser", 2500, 10, new PowerPlant(450,2500,3500,2000,2,10,700,1000,true),
-				new Weapons(350,0,1200,new WeaponSet[] {new InfernoLaunchers(3,15), new HeavyLasers(15)}), new Shields(300,350,1,5,600,850,true),
-				new Engine(400,300,0.9,1,8,1200,1600), new LifeSupport(350,200,100,3,300),new Medbay(300,2),new Sensors(200,1,300,100,false,200),35,45,2,100);			
+				new LifeSupport(100,50,20,1,200),new Medbay(50,1),new Sensors(200,1,300,100,false,200),5,7,1,20);			
 		
 		/************************************************************************************************************************************************************************************/
 		

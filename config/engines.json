@@ -43,5 +43,32 @@
 		"weight": 15,
 		"skillNeeded": 750,
 		"skillNeededOverload": 1000
+	},
+	"manta": {
+		"health": 400,
+		"energyMax": 350,
+		"efficiency": 0.75,
+		"resetTime": 3,
+		"weight": 15,
+		"skillNeeded": 1000,
+		"skillNeededOverload": 1500
+	},
+	"alamo": {
+		"health": 400,
+		"energyMax": 250,
+		"efficiency": 0.95,
+		"resetTime": 1,
+		"weight": 10,
+		"skillNeeded": 1300,
+		"skillNeededOverload": 1600
+	},
+	"inferno": {
+		"health": 400,
+		"energyMax": 300,
+		"efficiency": 0.9,
+		"resetTime": 1,
+		"weight": 8,
+		"skillNeeded": 1200,
+		"skillNeededOverload": 1600
 	}
 }

@@ -66,5 +66,60 @@
 				"number": 5
 			}
 		]
+	},
+	"manta": {
+		"health": 500,
+		"weight": 0,
+		"skillNeeded": 1000,
+		"weaponSets": [
+			{
+				"id": "basicCannon",
+				"number": 15
+			},
+			{
+				"id": "mantaRay",
+				"number": 1
+			}
+		]
+	},
+	"alamo": {
+		"health": 350,
+		"weight": 0,
+		"skillNeeded": 1000,
+		"weaponSets": [
+			{
+				"id": "basicCannon",
+				"number": 10
+			},
+			{
+				"id": "basicArtillery",
+				"number": 2
+			},
+			{
+				"id": "basicLaser",
+				"number": 15
+			},
+			{
+				"id": "artemis",
+				"number": 1,
+				"ammunition": 3
+			}
+		]
+	},
+	"inferno": {
+		"health": 350,
+		"weight": 0,
+		"skillNeeded": 1200,
+		"weaponSets": [
+			{
+				"id": "inferno",
+				"number": 3,
+				"ammunition": 15
+			},
+			{
+				"id": "heavyLaser",
+				"number": 15
+			}
+		]
 	}
 }

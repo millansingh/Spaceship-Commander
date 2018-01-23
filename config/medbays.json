@@ -18,5 +18,17 @@
 	"thunder": {
 		"health": 500,
 		"weight": 8
+	},
+	"manta": {
+		"health": 400,
+		"weight": 4
+	},
+	"alamo": {
+		"health": 300,
+		"weight": 2
+	},
+	"inferno": {
+		"health": 300,
+		"weight": 2
 	}
 }

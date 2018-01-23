@@ -53,5 +53,38 @@
 		"skillNeeded": 1000,
 		"skillNeededOverload": 1500,
 		"canOverload": true
+	},
+	"manta": {
+		"health": 550,
+		"energyStored": 3750,
+		"energyStoredMax": 4500,
+		"energyProduced": 3250,
+		"resetTime": 2,
+		"weight": 15,
+		"skillNeeded": 750,
+		"skillNeededOverload": 1250,
+		"canOverload": true
+	},
+	"alamo": {
+		"health": 500,
+		"energyStored": 3200,
+		"energyStoredMax": 4000,
+		"energyProduced": 3000,
+		"resetTime": 2,
+		"weight": 10,
+		"skillNeeded": 800,
+		"skillNeededOverload": 1200,
+		"canOverload": true
+	},
+	"inferno": {
+		"health": 450,
+		"energyStored": 2500,
+		"energyStoredMax": 3500,
+		"energyProduced": 2000,
+		"resetTime": 2,
+		"weight": 10,
+		"skillNeeded": 700,
+		"skillNeededOverload": 1000,
+		"canOverload": true
 	}
 }

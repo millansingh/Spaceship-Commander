@@ -33,5 +33,26 @@
 		"energyNeeded": 100,
 		"weight": 5,
 		"skillNeeded": 600
+	},
+	"manta": {
+		"health": 500,
+		"energyMax": 300,
+		"energyNeeded": 150,
+		"weight": 7,
+		"skillNeeded": 500
+	},
+	"alamo": {
+		"health": 300,
+		"energyMax": 200,
+		"energyNeeded": 100,
+		"weight": 2,
+		"skillNeeded": 400
+	},
+	"inferno": {
+		"health": 350,
+		"energyMax": 200,
+		"energyNeeded": 100,
+		"weight": 3,
+		"skillNeeded": 300
 	}
 }
